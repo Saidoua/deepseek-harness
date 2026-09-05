@@ -64,15 +64,15 @@ export function Modal({
             <>
               <div className={clsx(css.content, contentClassName)}>
                 <div className={css.header}>
-                  <h2 className={css.title}>{title}</h2>
+                  <h2 className={css.title} data-dsh-text-zone>{title}</h2>
                   <button type="button" className={css.close} aria-label={closeLabel} onClick={onClose}>
                     <IconCloseOutline16 size={14} />
                   </button>
                 </div>
                 {description !== undefined && description !== '' && (
-                  <p className={css.description}>{description}</p>
+                  <p className={css.description} data-dsh-text-zone>{description}</p>
                 )}
-                {children !== undefined && <div className={css.body}>{children}</div>}
+                {children !== undefined && <div className={css.body} data-dsh-text-zone>{children}</div>}
               </div>
               {footer !== undefined && <div className={css.footer}>{footer}</div>}
             </>

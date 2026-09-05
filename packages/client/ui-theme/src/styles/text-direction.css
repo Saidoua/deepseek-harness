@@ -1,0 +1,15 @@
+/* Zone-scoped text direction. The locale plugin publishes the active
+ * language's reading order as `data-dsh-text-direction` on the root and never
+ * writes `html[dir]`, so the application frame, sidebar, and chrome keep their
+ * left-to-right placement in every language. Only elements a zone owner marks
+ * with `data-dsh-text-zone` (the transcript, the composer, settings content,
+ * and modal, toast, and tooltip bodies) follow the language: their inline axis
+ * flips, their text starts at the reading edge, and bidi isolation keeps
+ * surrounding chrome text unaffected. Components inside a zone use logical
+ * inline-axis properties so their spacing follows the flip. Code, terminal,
+ * diff, and path chrome pin `dir="ltr"` on their own elements. */
+:root[data-dsh-text-direction='rtl'] [data-dsh-text-zone] {
+  direction: rtl;
+  unicode-bidi: isolate;
+  text-align: start;
+}

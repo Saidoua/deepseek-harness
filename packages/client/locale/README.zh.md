@@ -44,20 +44,24 @@ export const inject = ['locale']
 
 export function apply(ctx) {
   ctx.effect(
-    () => ctx.locale.addLanguage({ id: 'ja', label: '日本語', fallback: 'en' }),
+    () => ctx.locale.addLanguage({ id: 'ar', label: 'العربية', fallback: 'en', direction: 'rtl' }),
     'my-locale: language',
   )
   ctx.effect(
-    () => ctx.locale.register('common', 'ja', {
-      cancel: 'キャンセル',
-      close: '閉じる',
+    () => ctx.locale.register('common', 'ar', {
+      cancel: 'إلغاء',
+      close: 'إغلاق',
     }),
     'my-locale: common dictionary',
   )
 }
 ```
 
-外部 id 必须是非空的 ASCII BCP 47 风格标签。它的 fallback 必须已经注册，且整条链必须终止于 `en`；未知目标、重复 id 与循环会在注册时失败。查找时先在请求命名空间内遍历生效语言的 fallback 链，再在 `common` 中遍历该链，最后显示键本身。卸载语言定义会将其从选择器移除，并让生效中的选择回落到可用的浏览器语言或默认语言。
+外部 id 必须是非空的 ASCII BCP 47 风格标签。`direction` 声明该语言的阅读顺序，默认为 `ltr`。它的 fallback 必须已经注册，且整条链必须终止于 `en`；未知目标、重复 id 与循环会在注册时失败。查找时先在请求命名空间内遍历生效语言的 fallback 链，再在 `common` 中遍历该链，最后显示键本身。卸载语言定义会将其从选择器移除，并让生效中的选择回落到可用的浏览器语言或默认语言。
+
+### 文本方向
+
+生效语言的 `direction` 以 `data-dsh-text-direction` 写到根元素上。`html[dir]` 绝不写入，因此应用框架、侧边栏与外框在任何语言下都保持从左到右的位置。只有组件用 `data-dsh-text-zone` 标记的元素会跟随语言，途径是 ui-theme 在 `text-direction.css` 中持有的唯一一条规则：它们的行内轴翻转，文本从阅读起始边开始，bidi 隔离使相邻的外框文本不受影响。必须无视语言保持从左到右的组件——代码、终端输出、diff、路径——在自身元素上固定 `dir="ltr"`。卸载 locale 插件会撤回根属性，因此不会留下无人纠正的镜像区域。
 
 ### Host 半侧做什么
 
@@ -127,7 +131,7 @@ Host 通过 settings 服务为 loopback 页面持久化偏好。Client 会刻意
 这些限制说明本地化在哪些地方不完整，或在注册时被冻结。它们是当前包约束，不是任务积压。
 
 - **注册表持有的文本只读取一次翻译**——在 slot 渲染路径之外于注册时捕获的文案（例如 command 注册表中的 `/model` 命令描述）在重新注册前保持注册时的语言；slot 渲染的文案随切换实时更新。
-- **语言包负责语言特有行为**——注册表提供选择、持久化、浏览器匹配、逐 key 回退和 `<html lang>`；它不增加复数规则或双向布局。
+- **语言包负责语言特有行为**——注册表提供选择、持久化、浏览器匹配、逐 key 回退、`<html lang>` 与根元素文本方向属性；它不增加复数规则，且只有在组件标记出区域的地方，该区域才跟随阅读顺序。
 
 <a id="dev-note"></a>
 ### 开发备注

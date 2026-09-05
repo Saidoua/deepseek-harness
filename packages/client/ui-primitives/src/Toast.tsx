@@ -66,7 +66,7 @@ export function Toast({ text, icon, anchor, holdMs = HOLD_MS, onDone }: {
       } as CSSProperties}
     >
       {icon !== undefined && <span className={css.icon} aria-hidden>{icon}</span>}
-      <span className={css.text}>{text}</span>
+      <span className={css.text} data-dsh-text-zone>{text}</span>
     </div>,
     document.body,
   )

@@ -74,7 +74,7 @@
   background-color: transparent;
   cursor: pointer;
   font: inherit;
-  text-align: start;
+  text-align: inherit;
 }
 
 .filePath {
@@ -98,7 +98,7 @@
   color: var(--dsw-alias-label-tertiary);
   cursor: pointer;
   font: inherit;
-  text-align: start;
+  text-align: inherit;
 }
 
 .expand:hover {

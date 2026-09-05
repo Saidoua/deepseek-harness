@@ -185,6 +185,11 @@
     - id: locale
       name: '@deepseek-ai/dsh-client-locale'
 
+    # Arabic ships as an ordinary language pack: it adds the language and its
+    # dictionaries through the locale service and contributes nothing else.
+    - id: locale-ar
+      name: '@deepseek-ai/dsh-client-locale-ar'
+
     - id: ui-layout
       name: '@deepseek-ai/dsh-client-ui-layout'
 

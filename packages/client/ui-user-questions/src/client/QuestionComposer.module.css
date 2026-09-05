@@ -183,7 +183,7 @@
   border-radius: 12px;
   background: transparent;
   color: inherit;
-  text-align: start;
+  text-align: inherit;
   cursor: pointer;
   transition: background-color 120ms ease, border-color 120ms ease;
 }

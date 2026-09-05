@@ -68,7 +68,7 @@
   background: none;
   color: inherit;
   font: inherit;
-  text-align: start;
+  text-align: inherit;
 }
 
 .compactionButton:not(:disabled) {
@@ -183,7 +183,7 @@
   border-bottom: 1.5px solid currentcolor;
   content: '';
   opacity: 0.8;
-  transform: scaleX(var(--dsh-text-dir, 1)) rotate(-45deg);
+  transform: rotate(-45deg);
   transition: transform 120ms ease;
 }
 
@@ -218,7 +218,7 @@
 }
 
 .retryRow[open] .retrySummary::after {
-  transform: scaleX(var(--dsh-text-dir, 1)) rotate(45deg);
+  transform: rotate(45deg);
 }
 
 .retryDetails {

@@ -14,7 +14,7 @@ Web GUI 内置 `zh` 与 `en`，[`dsh-client-locale`](../../../../packages/client
 
 ### 方向是语言的属性，按区域应用
 
-`LanguageRegistration` 与 `LocaleDefinition` 新增 `direction?: 'ltr' | 'rtl'`，默认 `ltr`；内置定义保持隐式。locale 插件既有的文档同步在每次快照时写入 `html[lang]` 与根元素上的 `data-dsh-text-direction` 属性；它绝不写入 `html[dir]`，因此文档、网格与所有外框元素保持从左到右布局。`ui-theme` 拥有唯一的方向选择器：一条全局规则为 `:root[data-dsh-text-direction=rtl]` 之下标记了 `data-dsh-text-zone` 的元素设置 `direction: rtl`、`unicode-bidi: isolate` 与 `text-align: start`，符合 [Web 样式](../../../../docs/web-styling.zh.md)中主题选择器不进入功能 CSS 的规则。区域所有者在其根元素上添加静态标记：会话记录、输入框、设置面板内容，以及模态框、toast 与 tooltip 的正文。标记区域之外的一切（应用框架、侧边栏列、页眉、工具栏、图标按钮、菜单与浮层定位）不受影响，因此图标镜像、方向键重映射与锚定定位改动不在范围内。locale README 中关于双向布局的限制在同一变更中修订。
+`LanguageRegistration` 与 `LocaleDefinition` 新增 `direction?: 'ltr' | 'rtl'`，默认 `ltr`；内置定义保持隐式。locale 插件既有的文档同步在每次快照时写入 `html[lang]` 与根元素上的 `data-dsh-text-direction` 属性；它绝不写入 `html[dir]`，因此文档、网格与所有外框元素保持从左到右布局。`ui-theme` 拥有唯一的对齐规则：`:root[data-dsh-text-direction=rtl]` 之下标记了 `data-dsh-text-zone` 的元素取 `text-align: right`，符合 [Web 样式](../../../../docs/web-styling.zh.md)中主题选择器不进入功能 CSS 的规则。该样式表从不设置 `direction` 属性，因为 `direction` 会反转 flex 与 grid 子元素的次序，从而移动设置导航、行内控件以及标签旁的每一个图标。双语读者在任何语言下都应见到同一套布局，认出他们已经熟悉的设计；只有文本移向阅读起始边。区域所有者在其根元素上添加静态标记：会话记录、输入框、设置面板、侧边栏列表、工具与等待面板，以及模态框、toast、tooltip 与菜单的正文。由于只有对齐发生变化，图标镜像、方向键重映射与锚定定位改动都不在范围内，也没有任何元素发生移动。locale README 中关于双向布局的限制在同一变更中修订。
 
 ### 区域内的逻辑布局，并设门禁
 

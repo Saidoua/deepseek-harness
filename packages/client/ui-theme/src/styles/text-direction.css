@@ -1,34 +1,32 @@
-/* Zone-scoped text direction and the mirror factor glyph transforms read. The locale plugin publishes the active
- * language's reading order as `data-dsh-text-direction` on the root and never
- * writes `html[dir]`, so the application frame, sidebar, and chrome keep their
- * left-to-right placement in every language. Only elements a zone owner marks
- * with `data-dsh-text-zone` (the transcript, the composer, settings content,
- * and modal, toast, and tooltip bodies) follow the language: their inline axis
- * flips, their text starts at the reading edge, and bidi isolation keeps
- * surrounding chrome text unaffected. Components inside a zone use logical
- * inline-axis properties so their spacing follows the flip. Code, terminal,
- * diff, and path chrome pin `dir="ltr"` on their own elements. */
-/* Authored text decides its own direction from its own words. `dir="auto"`
-   resolves one element from its first strong character; plaintext extends that
-   to every paragraph inside it, so an English reply inside an Arabic transcript
-   stays left-to-right and a mixed thread reads correctly line by line. This is
-   the reason a zone marker never reaches message content: the zone carries
-   product copy, which follows the language, while authored text follows itself. */
+/* Arabic changes wording and alignment, never layout.
+ *
+ * The locale plugin publishes the active language's reading order as
+ * `data-dsh-text-direction` on the root and never writes `html[dir]`. This
+ * sheet deliberately does not set the `direction` property either: `direction`
+ * reorders flex and grid children, which would move the settings navigation,
+ * the row controls, and every icon that sits beside a label. A bilingual
+ * reader should meet the same layout in every language and recognize the
+ * design they already know, so only the text moves to the reading edge.
+ *
+ * Elements a zone owner marks with `data-dsh-text-zone` carry product copy and
+ * align to the right while Arabic is active. Two things opt back out: content
+ * pinned `dir="ltr"` (code, terminal output, diffs, file content, structured
+ * data), whose column order is part of its meaning, and text marked
+ * `data-dsh-text-auto`, which follows its own words. */
+:root[data-dsh-text-direction='rtl'] [data-dsh-text-zone] {
+  text-align: right;
+}
+
+/* Source text and command output keep their own alignment inside a zone. */
+:root[data-dsh-text-direction='rtl'] [data-dsh-text-zone] [dir='ltr'] {
+  text-align: left;
+}
+
+/* Authored text decides for itself. `dir="auto"` resolves an element from its
+   first strong character and `plaintext` extends that to every paragraph
+   inside it, so `start` lands an Arabic reply on the right and an English one
+   on the left, inside the same interface. */
 [data-dsh-text-auto] {
   unicode-bidi: plaintext;
-}
-
-/* Inline-axis sign. A glyph a component draws with a transform — a caret
-   built from borders, a slide offset — cannot mirror through logical
-   properties, so it multiplies its horizontal component by this factor
-   instead of matching a direction selector of its own. */
-:root {
-  --dsh-text-dir: 1;
-}
-
-:root[data-dsh-text-direction='rtl'] [data-dsh-text-zone] {
-  direction: rtl;
-  unicode-bidi: isolate;
   text-align: start;
-  --dsh-text-dir: -1;
 }

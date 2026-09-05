@@ -11,7 +11,7 @@
   background: none;
   color: var(--dsw-alias-label-secondary);
   cursor: pointer;
-  text-align: start;
+  text-align: inherit;
 }
 
 .root:not([data-open]) {

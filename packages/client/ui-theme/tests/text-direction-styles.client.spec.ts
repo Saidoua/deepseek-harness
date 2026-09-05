@@ -47,6 +47,7 @@ const ZONE_STYLESHEETS = [
   'ui-plan/src/client/PlanModeControl.module.css',
   'ui-approval/src/client/ApprovalPanel.module.css',
   'ui-user-questions/src/client/QuestionComposer.module.css',
+  'ui-settings-general/src/client/SettingsRoot.module.css',
 ]
 
 /** Physical inline-axis properties a zone stylesheet may not declare. */
@@ -71,9 +72,9 @@ const PHYSICAL_ALLOWLIST = new Map([
   ['ui-conversation/src/client/skeleton/InputBar.module.css|margin-right', 'composer scrollport gutter is card chrome'],
   // Both re-anchor controls in the composer's row, outside the text surface.
   ['ui-conversation/src/client/skeleton/InputBar.module.css|margin-left', 'composer row controls sit outside the marked zone'],
-  // Drawn as a transform-mirrored glyph: it reads --dsh-text-dir, and logical
-  // borders would cancel that mirror instead of composing with it.
-  ['ui-chat/src/client/chat/MessageItem.module.css|border-right', 'retry caret mirrors through --dsh-text-dir'],
+  // A caret drawn from borders and a rotation. Alignment changes with the
+  // language; the design's glyph does not.
+  ['ui-chat/src/client/chat/MessageItem.module.css|border-right', 'disclosure caret keeps one drawn orientation'],
   // Decorative sweeps: the highlight crosses the row the same way in every
   // language, so its offsets are physical screen positions, not reading order.
   ['ui-tool/src/client/tool/components/ToolRow.module.css|left', 'running-row shimmer sweep'],
@@ -91,19 +92,26 @@ function relative(file: string): string {
 describe('text-direction.css', () => {
   const rules = parseRules(sheetCss)
 
-  it('scopes the direction flip to marked zones under the root attribute', () => {
+  it('moves alignment only, and only under the root attribute', () => {
     const rule = rules.find(entry =>
       entry.selectors.some(selector => selector.includes(ZONE_ATTRIBUTE)))
     expect(rule, `a rule selecting [${ZONE_ATTRIBUTE}]`).toBeDefined()
     // Both halves are load-bearing: without the root attribute the zone would
-    // flip in every language, and without the zone marker the flip would
-    // escape into the frame the locale plugin deliberately leaves alone.
+    // align right in every language, and without the zone marker the change
+    // would escape into chrome the locale plugin deliberately leaves alone.
     expect(rule!.selectors[0]).toContain(`[${DIRECTION_ATTRIBUTE}='rtl']`)
-    expect(rule!.declarations).toContainEqual(['direction', 'rtl'])
-    // Isolation keeps a zone's bidi resolution from reordering neighbouring
-    // chrome text, which shares the document's own left-to-right paragraph.
-    expect(rule!.declarations).toContainEqual(['unicode-bidi', 'isolate'])
-    expect(rule!.declarations).toContainEqual(['text-align', 'start'])
+    expect(rule!.declarations).toEqual([['text-align', 'right']])
+  })
+
+  it('never sets the direction property, which would reorder the design', () => {
+    // `direction` reverses flex and grid children, moving the settings
+    // navigation, row controls, and every icon beside a label. A bilingual
+    // reader meets one layout in every language.
+    for (const rule of rules) {
+      for (const [property] of rule.declarations) {
+        expect(property, rule.selectors.join(', ')).not.toBe('direction')
+      }
+    }
   })
 
   it('is the only package stylesheet that decides direction', () => {

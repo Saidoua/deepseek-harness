@@ -1,0 +1,47 @@
+/** `common` namespace: the shared vocabulary every feature falls back to. */
+import type { CommonKey } from '@deepseek-ai/dsh-client-locale/src/locales/index.ts'
+
+export const ar = {
+  'ok': 'حسنًا',
+  'cancel': 'إلغاء',
+  'close': 'إغلاق',
+  'copy': 'نسخ',
+  'copied': 'تم النسخ',
+  'copy.failed': 'تعذّر النسخ',
+  'copy.value': 'نسخ القيمة',
+  'copy.json': 'نسخ JSON',
+  'copy.path': 'نسخ مسار الخاصية',
+  'copy.prettyJson': 'نسخ JSON منسّق',
+  'copy.compactJson': 'نسخ JSON مضغوط',
+  'copy.optionsHint': '{action}؛ انقر بالزر الأيمن لخيارات النسخ',
+  'retry': 'إعادة المحاولة',
+  'loading': 'جارٍ التحميل…',
+  'load.failed': 'تعذّر التحميل',
+  'submit': 'إرسال',
+  'submitting': 'جارٍ الإرسال…',
+  'next': 'التالي',
+  'previous': 'السابق',
+  'skip': 'تخطٍّ',
+  'delete': 'حذف',
+  'edit': 'تحرير',
+  'save': 'حفظ',
+  'search': 'بحث',
+  'more': 'المزيد',
+  'collapse': 'طي',
+  'expand': 'توسيع',
+  'back': 'رجوع',
+  // A build label, not a sentence: the product name stays Latin so it matches
+  // the binary, the docs, and what a user types to launch it.
+  'brand.localBuild': 'DSH Local Build',
+  'unknown': 'غير معروف',
+  'none': 'لا شيء',
+  'truncated': 'مقتطع',
+  'json.collapseNode': 'طي عقدة JSON',
+  'json.expandNode': 'توسيع عقدة JSON',
+  'json.label': 'JSON',
+  'markdown.footnotes': 'الحواشي',
+  'markdown.truncatedCharacters': '… اقتُطع عند {total} حرف',
+  // The unit letters follow the Western digits the runtime interpolates.
+  'number.thousand': '{value} ألف',
+  'number.million': '{value} مليون',
+} satisfies Record<CommonKey, string>

@@ -2,5 +2,5 @@
 # side as of the last confirmed-consistent state. Both languages carry equal authority;
 # after editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/proposed/feature/2026-09-05-arabic-rtl-language-pack.md
-2026-09-05-arabic-rtl-language-pack.md: df3be7a1c42726b95161e86a167123778f4ab227
-2026-09-05-arabic-rtl-language-pack.zh.md: 76323ba795b7ba75f59f16e8d2e365943b846ce8
+2026-09-05-arabic-rtl-language-pack.md: c3cc45893041d479d723777a0f64e2fcd5c2e108
+2026-09-05-arabic-rtl-language-pack.zh.md: 390af77da039494677a5cae22626731300a98282

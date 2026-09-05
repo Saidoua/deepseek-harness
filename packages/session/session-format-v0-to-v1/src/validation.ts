@@ -211,6 +211,12 @@ export function assertReleasedSurfaceMetadata(
 }
 
 /**
+ * Descriptor generations a released format v0 log can hold: 2 shipped with the
+ * format, 3 replaced it inside the format's life.
+ */
+const RELEASED_V0_DESCRIPTOR_VERSIONS = new Set([2, 3])
+
+/**
  * Validate one exact known payload after legacy normalization.
  * @param event - known event to validate.
  * @param version - payload generation controlling versioned members.
@@ -226,7 +232,16 @@ export function assertReleasedEventPayload(event: SessionFormatEvent, version: 0
   const data = releasedV0Record(event.data, `${event.type} ${event.seq} data`)
   if (event.type === 'subagent/descriptor' && data['version'] !== 3) {
     const descriptorVersion = sessionFormatCount(data['version'], `${event.type} ${event.seq} version`)
-    if (version === 0) {
+    // Descriptor 3 postdates format v0, so a released v0 log legitimately carries
+    // descriptor 2 and refusing it made every session written before that bump
+    // unopenable as soon as it held one subagent child. Admit the generations this
+    // format actually shipped and keep refusing the rest: a descriptor from a build
+    // newer than this migration must not be silently carried into v1, which is what
+    // the source side of this check exists to prevent. A tolerated old descriptor is
+    // passed through unread — `parseSubagentDescriptor` answers `undefined` for a
+    // version the runtime does not support, so the child loses cold resume while its
+    // session still migrates.
+    if (version === 0 && !RELEASED_V0_DESCRIPTOR_VERSIONS.has(descriptorVersion)) {
       throw new SessionFormatUnsupportedMigrationError(
         `${event.type} ${event.seq} uses unsupported descriptor version ${descriptorVersion}`,
       )

@@ -378,6 +378,16 @@ describe('released v1 whole-artifact relationships', () => {
     const v0Header = { ...header, version: 0 }
     expect(() => sessionFormatV0ToV1.migrate(releasedV0SessionFormatCodec.decodeArtifact(v0Header, [future])))
       .toThrow(SessionFormatUnsupportedMigrationError)
+
+    // Descriptor 2 shipped with format v0 and 3 replaced it inside the format's
+    // life, so a released v0 log holds either. Refusing 2 made every session
+    // written before that bump unopenable once it held one subagent child.
+    const shipped = {
+      type: 'subagent/descriptor', seq: 0, time: 1,
+      data: { version: 2, mode: 'one-shot', provider: 'spawn' },
+    }
+    expect(() => sessionFormatV0ToV1.migrate(releasedV0SessionFormatCodec.decodeArtifact(v0Header, [shipped])))
+      .not.toThrow()
   })
 
   it('enforces compaction ownership, summaries, turn boundaries, and surface spans', () => {

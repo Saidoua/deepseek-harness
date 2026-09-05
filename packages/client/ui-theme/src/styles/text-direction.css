@@ -8,6 +8,16 @@
  * surrounding chrome text unaffected. Components inside a zone use logical
  * inline-axis properties so their spacing follows the flip. Code, terminal,
  * diff, and path chrome pin `dir="ltr"` on their own elements. */
+/* Authored text decides its own direction from its own words. `dir="auto"`
+   resolves one element from its first strong character; plaintext extends that
+   to every paragraph inside it, so an English reply inside an Arabic transcript
+   stays left-to-right and a mixed thread reads correctly line by line. This is
+   the reason a zone marker never reaches message content: the zone carries
+   product copy, which follows the language, while authored text follows itself. */
+[data-dsh-text-auto] {
+  unicode-bidi: plaintext;
+}
+
 /* Inline-axis sign. A glyph a component draws with a transform — a caret
    built from borders, a slide offset — cannot mirror through logical
    properties, so it multiplies its horizontal component by this factor

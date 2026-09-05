@@ -1,4 +1,4 @@
-<div class="_markdown_404681">
+<div class="_markdown_404681" data-dsh-text-auto="true" dir="auto">
   <h1>
     #text "H1 with "
     <code>

@@ -61,7 +61,7 @@ export function apply(ctx) {
 
 ### 文本方向
 
-生效语言的 `direction` 以 `data-dsh-text-direction` 写到根元素上。`html[dir]` 绝不写入，因此应用框架、侧边栏与外框在任何语言下都保持从左到右的位置。只有组件用 `data-dsh-text-zone` 标记的元素会跟随语言，途径是 ui-theme 在 `text-direction.css` 中持有的唯一一条规则：它们的行内轴翻转，文本从阅读起始边开始，bidi 隔离使相邻的外框文本不受影响。必须无视语言保持从左到右的组件——代码、终端输出、diff、路径——在自身元素上固定 `dir="ltr"`。卸载 locale 插件会撤回根属性，因此不会留下无人纠正的镜像区域。
+生效语言的 `direction` 以 `data-dsh-text-direction` 写到根元素上。`html[dir]` 绝不写入，因此应用框架、侧边栏与外框在任何语言下都保持从左到右的位置。只有组件用 `data-dsh-text-zone` 标记的元素会跟随语言，途径是 ui-theme 在 `text-direction.css` 中持有的唯一一条规则：它们的行内轴翻转，文本从阅读起始边开始，bidi 隔离使相邻的外框文本不受影响。用户与模型撰写的文本不跟随界面语言：它带有 `dir="auto"`，其每个段落从自身首个强方向字符解析，因此阿拉伯语界面中的英文回复仍从左到右。必须无视语言保持从左到右的组件——代码、终端输出、diff、路径——在自身元素上固定 `dir="ltr"`。卸载 locale 插件会撤回根属性，因此不会留下无人纠正的镜像区域。
 
 ### Host 半侧做什么
 

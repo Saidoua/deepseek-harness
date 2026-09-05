@@ -40,7 +40,7 @@ export const ar = {
   'json.expandNode': 'توسيع عقدة JSON',
   'json.label': 'JSON',
   'markdown.footnotes': 'الحواشي',
-  'markdown.truncatedCharacters': '… اقتُطع عند {total} حرف',
+  'markdown.truncatedCharacters': '… اقتُطع بعد {total} حرف',
   // The unit letters follow the Western digits the runtime interpolates.
   'number.thousand': '{value} ألف',
   'number.million': '{value} مليون',

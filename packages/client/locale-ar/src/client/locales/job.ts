@@ -11,7 +11,7 @@ export const ar = {
   'list.aria': 'المهام الخلفية',
   'status.running': 'قيد التشغيل',
   'status.stopping': 'جارٍ الإيقاف',
-  'status.completed': 'اكتملت',
+  'status.completed': 'مكتملة',
   'status.killed': 'أُلغيت',
   'status.failed': 'أخفقت',
   'duration.seconds': '{seconds} ث',

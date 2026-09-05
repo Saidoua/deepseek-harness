@@ -104,7 +104,7 @@ export const ar = {
   welcomeError: 'تعذّر حفظ الإقرار. يرجى المحاولة مجددًا.',
   onboardingTitle: 'أضف مفتاح واجهة برمجية للبدء',
   onboardingDescription: 'اضبط مزوّد DeepSeek الرسمي لتبدأ البناء.',
-  onboardingLater: 'الضبط لاحقًا',
+  onboardingLater: 'الإعداد لاحقًا',
   onboardingSave: 'حفظ ومتابعة',
   onboardingSaving: 'جارٍ الحفظ…',
   keyRequired: 'أدخل مفتاح الواجهة البرمجية للمتابعة.',

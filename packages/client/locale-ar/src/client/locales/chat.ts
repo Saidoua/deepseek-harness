@@ -110,7 +110,7 @@ export const ar = {
   'duration.minutes': '{minutes} د {seconds} ث',
   'command.running': 'قيد التشغيل…',
   'command.failed': 'أخفق الأمر',
-  'command.done': 'اكتمل',
+  'command.done': 'مكتمل',
   'command.title': 'أمر',
   'row.running': 'قيد التشغيل',
   'row.failed': 'أخفق',

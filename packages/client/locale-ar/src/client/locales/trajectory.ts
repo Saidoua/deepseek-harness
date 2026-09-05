@@ -39,7 +39,7 @@ export const ar = {
   'group.compaction': 'الضغط {seq}',
   'status.failed': 'أخفق',
   'status.pending': 'معلّق',
-  'status.completed': 'اكتمل',
+  'status.completed': 'مكتمل',
   'timing.notAvailable': 'غير متاح',
   'timing.notRecorded': 'غير مسجّل',
   'timing.stepStartUnavailable': 'بداية الخطوة غير متاحة',

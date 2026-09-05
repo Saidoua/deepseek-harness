@@ -18,7 +18,7 @@ export const ar = {
   'member.empty': 'اسم عضو فارغ',
   'member.open': 'فتح {name}',
   'status.running': 'قيد التشغيل',
-  'status.completed': 'اكتمل',
+  'status.completed': 'مكتمل',
   'status.failed': 'أخفق',
   'status.cancelled': 'أُلغي',
   'status.interrupted': 'قوطع',

@@ -120,6 +120,14 @@ interface SkillSummary {
   readonly provider: string
   /** Provider-specific base for relative resources. */
   readonly resourceBase?: SkillResourceBase
+  /**
+   * Whether the discovery source is first-party. `false` marks a skill from a
+   * source outside the deployment's trust set (shared agent homes, custom
+   * directories): its instructions are rendered behind an untrusted-content
+   * caution, because a skill's task surface is itself an exfiltration and
+   * injection channel. `undefined` means the provider expresses no judgment.
+   */
+  readonly trusted?: boolean
 }
 ```
 

@@ -330,10 +330,16 @@ function requestId(headers: Headers): ReturnType<typeof ProviderRequestId> | und
  * @returns the normalized harness error code.
  */
 export function httpErrorCode(status: number, error?: WireError['error']): string {
-  if (status === 401 || status === 403) return 'AUTH'
-  if (status === 413) return 'INVALID_REQUEST'
   const detail = [error?.code, error?.type, error?.message].filter(Boolean).join(' ')
+  // RFC 9110: 401 is unauthenticated, 403 is authenticated-but-refused — which is exactly
+  // what a provider returns for an exhausted balance. Test quota before 403 so a valid key
+  // with no credit is not reported as a bad key; 429 already resolves to QUOTA this way.
+  // An AUTH code is doubly lossy downstream: Chat/Trajectory projections blank the message
+  // to avoid echoing a credential, and the UI then renders a fixed "API key is invalid".
+  if (status === 401) return 'AUTH'
   if (isQuotaExceededError(detail)) return QUOTA_EXCEEDED_CODE
+  if (status === 403) return 'AUTH'
+  if (status === 413) return 'INVALID_REQUEST'
   if (status === 429) return 'RATE_LIMIT'
   if (status === 400) {
     if (isContextWindowExceededError(detail)) return CONTEXT_WINDOW_EXCEEDED_CODE

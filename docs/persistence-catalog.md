@@ -592,6 +592,39 @@ Source: [`packages/core/session/src/types.ts:352`](../packages/core/session/src/
 
 Source: [`packages/core/session/src/types.ts:342`](../packages/core/session/src/types.ts)
 
+### `rule/*`
+
+<a id="rulepin--log-only"></a>
+
+#### `rule/pin` — log-only
+
+```ts persistence-catalog
+/**
+ * One standing rule entered the pinned list. Replay-stable by text: a
+ * pin whose trimmed text is already present is a fold no-op, so replay
+ * never duplicates. Log-only; model visibility rides the published
+ * `session-rules` message, which is re-injected verbatim.
+ */
+'rule/pin': { text: string; origin: 'user' | 'model' }
+```
+
+Source: [`packages/context/session-rules/src/types.ts:44`](../packages/context/session-rules/src/types.ts)
+
+<a id="ruleunpin--log-only"></a>
+
+#### `rule/unpin` — log-only
+
+```ts persistence-catalog
+/**
+ * One standing rule left the pinned list, identified by its exact text
+ * (resolved from the position at command time), so replay needs no
+ * positional state. Unpinning an absent text is a fold no-op.
+ */
+'rule/unpin': { text: string }
+```
+
+Source: [`packages/context/session-rules/src/types.ts:50`](../packages/context/session-rules/src/types.ts)
+
 ### `sandbox/*`
 
 <a id="sandboxmode--log-only"></a>
@@ -715,6 +748,23 @@ Source: [`packages/session/session-title-llm/src/index.ts:45`](../packages/sessi
 ```
 
 Source: [`packages/session/session-log-deepseek/src/types.ts:59`](../packages/session/session-log-deepseek/src/types.ts)
+
+### `state/*`
+
+<a id="statewrite--log-only"></a>
+
+#### `state/write` — log-only
+
+```ts persistence-catalog
+/**
+ * Whole-state snapshot; latest write wins on replay. Log-only; model
+ * visibility rides the published `task-state` message, which is
+ * re-injected as one replacing snapshot.
+ */
+'state/write': { state: TaskState | null }
+```
+
+Source: [`packages/todo/tool-state/src/types.ts:56`](../packages/todo/tool-state/src/types.ts)
 
 ### `step/*`
 

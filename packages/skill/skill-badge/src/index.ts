@@ -31,6 +31,9 @@ const CANDIDATE: SkillCandidate = {
   resourceBase: RESOURCE_BASE,
   rank: BUNDLED_SKILL_RANK,
   locator: SKILL_BODY_URL,
+  // Bundled with the harness itself: trust is asserted here because
+  // renderSkillContent cautions on anything that does not assert it.
+  trusted: true,
 }
 
 const provider: SkillProvider = {
@@ -44,6 +47,7 @@ const provider: SkillProvider = {
       provider: CANDIDATE.provider,
       source: CANDIDATE.source,
       resourceBase: RESOURCE_BASE,
+      trusted: true,
       content: await readFile(SKILL_BODY_URL, 'utf8'),
     }
   },

@@ -286,6 +286,12 @@ export class BasicCompactionEngine extends CompactionEngine {
         prune.pruneSession(agent.session)
         measurement = meter.measure(agent.session)
       }
+      // Overflow is the last resort: the request already failed to fit, and
+      // pressure compaction — which spares the seed user turn — did not keep
+      // it within the window. Reclaim the whole compactable span, seed
+      // included; sparing here can leave a span too small to shrink (one
+      // runtime-context message), and the shrink guard then preserves the
+      // provider error with no way back.
       const range = selectCompactableRange(agent.session, measurement, 0)
       if (range === null) return null
       return this.compactRegion(range.start, range.end, agent, signal)
@@ -314,7 +320,7 @@ export class BasicCompactionEngine extends CompactionEngine {
 
     let result: CompactionResult | null = null
     for (let attempt = 0; attempt <= spec.compactionRetries; attempt += 1) {
-      const range = selectCompactableRange(agent.session, measurement, spec.retainTokens)
+      const range = selectCompactableRange(agent.session, measurement, spec.retainTokens, { spareSeedUserTurn: true })
       if (range === null) {
         /* v8 ignore else -- concrete replacement preserves a compactable checkpoint; subclass hooks cannot mutate it. */
         if (result === null) return null
@@ -377,6 +383,10 @@ export class BasicCompactionEngine extends CompactionEngine {
         const operationSignal = AbortSignal.any([agentSignal, signal])
         try {
           operationSignal.throwIfAborted()
+          // An orphaned compaction/start is a busy condition and must win
+          // over "nothing compactable": selection can legitimately decline a
+          // span that holds only the previous checkpoint.
+          assertNoActiveCompaction(agent.session, 'manual compaction')
           const range = selectCompactableRange(
             agent.session,
             this.ctx.tokenMeter.measure(agent.session),

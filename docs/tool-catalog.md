@@ -37,6 +37,7 @@ This table connects model-visible tool names to the plugin package and service s
 | `@deepseek-ai/dsh-tool-subagent-control` | `interrupt_agent`, `list_agents`, `send_message` | `ctx.tools`, `ctx.subagents`, `ctx.agents and ctx.sessionProjections (list_agents only)` | `tool/call`, `tool/result`, `child session events through ctx.subagents` | - | The globally named control tools over continuable background subagents: provider-bound `tool-subagent` instances register distinct delegation tools, while this package registers `send_message` and `interrupt_agent` once, plus `list_agents` from its separately loaded `/list-agents` plugin (whose catalog rows use the sessionProjections and live Agent registries). |
 | `@deepseek-ai/dsh-tool-jobs` | `job_kill`, `job_list`, `job_output` | `ctx.tools`, `ctx.jobs`, `ctx.systemPrompt` | `tool/call`, `tool/result`, `user/message via agent.inject() for background completion notices` | - | The kind-agnostic background-job controller: background bash commands, PTY sends, and subagents are read, listed, and killed through the same three tools. Loading the plugin attaches the controller that arms producers' `ctx.jobs.start()`. |
 | `@deepseek-ai/dsh-experimental-tool-agent-team` | `interrupt_agent`, `list_agents`, `send_message`, `spawn_teammate`, `team_task_create`, `team_task_get`, `team_task_list`, `team_task_update`, `wait_agent` | `ctx.tools`, `ctx.systemPrompt`, `ctx.agentTeams`, `an exact live Team member Agent` | `tool/call`, `team/member`, `team/message/queued`, `team/message/delivered`, `team/task`, `tool/result` | - | All nine tools are scoped to implicit Team Leads and durable teammates. The shipped dsh-base bundle keeps the package disabled; the documented Agent Teams profile patch enables it while disabling the legacy continuable-child control names. |
+| `@deepseek-ai/dsh-tool-state` | `state_write` | `ctx.tools`, `ctx.sessionProjections`, `owning Agent session` | `tool/call`, `state/write`, `tool/result` | - | state_write maintains the session's typed working state (free keys; a string sets a key, null deletes it) as ONE replacing <task_state> snapshot that survives compaction — todo_write is the step checklist, the goal tools own a long-running objective's lifecycle. |
 | `@deepseek-ai/dsh-tool-todo` | `todo_write` | `ctx.tools`, `owning Agent session` | `tool/call`, `todo/write`, `tool/result` | - | todo_write is session-owned state; UIs render the latest todo/write event as a checklist. `allowParallelInProgress` is required with no default, so the catalog states its choice: `true`, whose description invites several `in_progress` items. A deployment choosing `false` receives the same tool with a description asking for exactly one active task. |
 | `@deepseek-ai/dsh-tool-workflow` | `workflow` | `ctx.tools`, `ctx.workflowEngine`, `ctx.systemPrompt`, `a calling Agent (exec.agent parents the script children)` | `tool/call`, `tool/result` | - | - |
 | `@deepseek-ai/dsh-tool-web` | `web_fetch`, `web_search` | `ctx.tools`, `ctx.web`, `ctx.systemPrompt` | `tool/call`, `tool/result` | - | web_search and web_fetch keep provider selection behind ctx.web so model-visible schemas stay stable across backend swaps. |
@@ -2027,6 +2028,34 @@ Wait for the next teammate status, mailbox, or shared-task change after this cal
 Source: [`packages/experimental/tool-agent-team/src/index.ts`](../packages/experimental/tool-agent-team/src/index.ts)
 
 All nine tools are scoped to implicit Team Leads and durable teammates. The shipped dsh-base bundle keeps the package disabled; the documented Agent Teams profile patch enables it while disabling the legacy continuable-child control names.
+
+<a id="deepseek-aidsh-tool-state"></a>
+
+## `@deepseek-ai/dsh-tool-state`
+
+### `state_write`
+
+Maintain the working state for the current task: a small typed key/value record that survives context compaction as ONE replacing snapshot — it does not grow the conversation. Typical keys: goal, decisions, files_touched, blockers, next_steps (free keys allowed). Patch semantics: a string or array of strings sets the key, null DELETES the key. Use it for durable facts and decisions of the ongoing work; todo_write is the step checklist and the goal tools own a long-running objective's lifecycle. Update it whenever the state materially changes; the visible snapshot is replaced, not appended to.
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "patch": {
+      "type": "object",
+      "description": "Keys to set or delete. A string or array of strings sets the key; null deletes it. Example: {\"goal\": \"migrate auth\", \"files_touched\": [\"src/auth.ts\"], \"blockers\": null}",
+      "additionalProperties": true
+    }
+  },
+  "required": [
+    "patch"
+  ]
+}
+```
+
+Source: [`packages/todo/tool-state/src/index.ts`](../packages/todo/tool-state/src/index.ts)
+
+state_write maintains the session's typed working state (free keys; a string sets a key, null deletes it) as ONE replacing <task_state> snapshot that survives compaction — todo_write is the step checklist, the goal tools own a long-running objective's lifecycle.
 
 <a id="deepseek-aidsh-tool-todo"></a>
 

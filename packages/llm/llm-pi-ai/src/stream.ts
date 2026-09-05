@@ -40,8 +40,14 @@ export function mapUsage(usage: PiUsage): TokenUsage {
 // If pi-ai ever forwards the original Error (or a fetch/dispatcher hook that lets
 // us capture the cause ourselves), classify on `code`/`cause` instead of text.
 function classifyPiAiError(message: string): string {
-  if (/\b(?:401|403)\b/.test(message)) return 'AUTH'
+  // RFC 9110: 401 is unauthenticated, 403 is authenticated-but-refused — which is exactly
+  // what a provider returns for an exhausted balance. Test quota before 403 so a valid key
+  // with no credit is not reported as a bad key; 429 already resolves to QUOTA this way.
+  // An AUTH code is doubly lossy downstream: Chat/Trajectory projections blank the message
+  // to avoid echoing a credential, and the UI then renders a fixed "API key is invalid".
+  if (/\b401\b/.test(message)) return 'AUTH'
   if (isQuotaExceededError(message)) return QUOTA_EXCEEDED_CODE
+  if (/\b403\b/.test(message)) return 'AUTH'
   if (/\b429\b|rate.?limit/i.test(message)) return 'RATE_LIMIT'
   // A rejected request body (gateway or provider size cap): resending the
   // same request cannot succeed, so it is invalid, not transient.

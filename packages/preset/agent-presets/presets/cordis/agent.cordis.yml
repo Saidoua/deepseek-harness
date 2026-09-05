@@ -230,6 +230,22 @@
   config:
     allowParallelInProgress: true
 
+# Session-pinned standing rules: `/rule` and the rule_pin tool, whose verbatim
+# <pinned_rules> message is republished after every compaction.
+- id: session-rules
+  name: '@deepseek-ai/dsh-session-rules'
+  config:
+    maxRules: 20
+    maxRuleChars: 500
+
+# Typed working state: state_write maintains one replacing <task_state>
+# snapshot that survives compaction.
+- id: tool-state
+  name: '@deepseek-ai/dsh-tool-state'
+  config:
+    maxStateChars: 4000
+    maxKeys: 50
+
 # The `web` service and its search provider stay in the host composition; only
 # the model-facing tool is per-session.
 - id: tool-web

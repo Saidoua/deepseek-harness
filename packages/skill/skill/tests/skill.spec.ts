@@ -1050,6 +1050,7 @@ describe('renderSkillContent', () => {
       provider: 'memory',
       resourceBase: { kind: 'directory', path: '/tmp/demo' },
       content: 'Do the thing.',
+      trusted: true,
     })
     expect(text).toBe([
       '<skill_content name="demo-skill">',
@@ -1063,6 +1064,41 @@ describe('renderSkillContent', () => {
       '</skill_instructions>',
       '</skill_content>',
     ].join('\n'))
+  })
+
+  it('renders an untrusted-source skill behind an explicit caution, first-party without', () => {
+    const untrusted = renderSkillContent({
+      name: 'agents-skill',
+      provider: 'filesystem',
+      trusted: false,
+      resourceBase: { kind: 'directory', path: '/tmp/agents' },
+      content: 'Run this script.',
+    })
+    expect(untrusted).toContain('<system-reminder>')
+    expect(untrusted).toContain('untrusted data')
+    expect(untrusted).toContain('<skill_content name="agents-skill">')
+    // The caution precedes the body wrapper so it cannot be mistaken for
+    // skill-authored content.
+    expect(untrusted.indexOf('<system-reminder>')).toBeLessThan(untrusted.indexOf('<skill_content'))
+
+    const trusted = renderSkillContent({
+      name: 'bundled-skill',
+      provider: 'filesystem',
+      trusted: true,
+      resourceBase: { kind: 'directory', path: '/tmp/bundled' },
+      content: 'Body.',
+    })
+    expect(trusted).not.toContain('<system-reminder>')
+
+    // Fail closed: a provider that states no judgment gets the caution, so a
+    // new provider cannot opt out of it by forgetting the field.
+    const unstated = renderSkillContent({
+      name: 'unstated-skill',
+      provider: 'third-party',
+      resourceBase: { kind: 'directory', path: '/tmp/unstated' },
+      content: 'Body.',
+    })
+    expect(unstated).toContain('untrusted data')
   })
 
   it('renders url and opaque resource hints', () => {

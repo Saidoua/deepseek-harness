@@ -802,6 +802,18 @@ describe('mapStopReason / mapUsage', () => {
       .toMatchObject({ kind: 'error', failure: { code: 'RATE_LIMIT' } })
     expect(mapStopReason(assistant({ stopReason: 'error', errorMessage: 'HTTP 429: insufficient_quota' })))
       .toMatchObject({ kind: 'error', failure: { code: 'QUOTA' } })
+    // discussions/5715: the same exhausted-balance body behind a 403 used to resolve to
+    // AUTH, which blanks the message in UI projection and renders "API key is invalid".
+    expect(mapStopReason(assistant({
+      stopReason: 'error',
+      errorMessage: '403: {"message":"Free quota exhausted. Please add funds.","type":"insufficient_quota","code":"insufficient_quota"}',
+    }))).toMatchObject({ kind: 'error', failure: { code: 'QUOTA' } })
+    // A 403 without quota wording is still an auth failure.
+    expect(mapStopReason(assistant({ stopReason: 'error', errorMessage: 'HTTP 403: forbidden' })))
+      .toMatchObject({ kind: 'error', failure: { code: 'AUTH' } })
+    // RFC 9110: 401 is unauthenticated, so it stays AUTH regardless of body wording.
+    expect(mapStopReason(assistant({ stopReason: 'error', errorMessage: 'HTTP 401: insufficient_quota' })))
+      .toMatchObject({ kind: 'error', failure: { code: 'AUTH' } })
     expect(mapStopReason(assistant({
       stopReason: 'error',
       errorMessage: 'OpenAI API error (429): You exceeded your current quota, please check your plan and billing details.',

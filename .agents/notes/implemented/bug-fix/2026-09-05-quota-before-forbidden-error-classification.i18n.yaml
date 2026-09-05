@@ -1,0 +1,6 @@
+# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
+# side as of the last confirmed-consistent state. Both languages carry equal authority;
+# after editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write .agents/notes/implemented/bug-fix/2026-09-05-quota-before-forbidden-error-classification.md
+2026-09-05-quota-before-forbidden-error-classification.md: 15c359fbdd82ca0b01d1be8c3cec4ed86509da56
+2026-09-05-quota-before-forbidden-error-classification.zh.md: fba4b3756a407843cafd7baea7fab383954c2d95

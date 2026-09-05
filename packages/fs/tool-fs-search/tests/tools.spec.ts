@@ -8,9 +8,14 @@
  * signal forwarding, `SEARCH_*` error classification, retention,
  * formatted-result spill handoff, and the no-background-job invariant.
  * Real-`rg` behavior is pinned separately in integration.spec.ts.
+ *
+ * Every case here is about the ripgrep SPAWN transport, so the suite pins the
+ * spawn execution path: with the optional in-process backend
+ * (`@saidoua/dsh-native`) selected there is no spawn to script, and
+ * integration.spec.ts covers both paths against the real filesystem.
  */
 
-import { describe, expect, it } from 'vitest'
+import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import { Context } from '@deepseek-ai/cordis'
 import { join, sep } from 'node:path'
 import { createUserMessage, ToolCallId } from '@deepseek-ai/dsh-llm'
@@ -230,6 +235,13 @@ function text(result: { content: { type: string; text?: string }[] }): string {
 function matchLine(path: string, lineNumber: number, lineText: string): string {
   return JSON.stringify({ type: 'match', data: { path: { text: path }, lines: { text: lineText }, line_number: lineNumber, absolute_offset: 0, submatches: [] } })
 }
+
+const nativeBefore = process.env.DSH_NATIVE
+beforeAll(() => { process.env.DSH_NATIVE = '0' })
+afterAll(() => {
+  if (nativeBefore === undefined) delete process.env.DSH_NATIVE
+  else process.env.DSH_NATIVE = nativeBefore
+})
 
 describe('registration', () => {
   it('registers glob and grep unconditionally with their prompt sections', async () => {

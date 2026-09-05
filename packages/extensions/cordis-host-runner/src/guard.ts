@@ -47,7 +47,10 @@ function hasIntrinsicConstructor(prototype: object, name: 'Array' | 'Object'): b
   try {
     return constructor.name === name
       && constructor.prototype === prototype
-      && Function.prototype.toString.call(constructor) === `function ${name}() { [native code] }`
+      // NativeFunction rendering is implementation-defined: V8 emits one line, SpiderMonkey
+      // several. Collapse whitespace — `[native code]` is unparseable, so this cannot widen.
+      && Function.prototype.toString.call(constructor).replace(/\s+/gu, ' ').trim()
+        === `function ${name}() { [native code] }`
   } catch {
     return false
   }

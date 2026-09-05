@@ -195,8 +195,11 @@ function overflowHistorySeed(): readonly SessionEvent[] {
     session.append('turn/start', {
       turn,
     })
+    // The seed user message of turn 1 is spared by automatic compaction, so
+    // the sentinel rides the turn-1 assistant reply: the assertions need old
+    // history that compaction actually reclaims.
     session.append('user/message', createUserMessage({
-      content: [{ type: 'text', text: `${sentinel} ${'old context '.repeat(200)}` }],
+      content: [{ type: 'text', text: `${sentinel} ${'old context '.repeat(200)}`.replace('OLD HISTORY SENTINEL ', '') }],
       source: { kind: 'user' },
     }), { surfaceOp: 'append' })
     session.append('step/start', { turn, step: 1 })
@@ -206,7 +209,7 @@ function overflowHistorySeed(): readonly SessionEvent[] {
       step: 1,
       message: createMessage({
         role: 'assistant',
-        content: [{ type: 'text', text: `historical response ${turn} ${'detail '.repeat(200)}` }],
+        content: [{ type: 'text', text: `historical response ${turn} ${'detail '.repeat(200)}${turn === 1 ? ' OLD HISTORY SENTINEL' : ''}` }],
         source: {
           kind: 'model',
           ...{ provider: 'mock', model: 'mock' },

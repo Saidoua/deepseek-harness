@@ -61,6 +61,7 @@ import * as ToolTasks from '@deepseek-ai/dsh-tool-jobs'
 import type TeamService from '@deepseek-ai/dsh-experimental-agent-team'
 import * as ToolTeam from '@deepseek-ai/dsh-experimental-tool-agent-team'
 import * as ToolTodo from '@deepseek-ai/dsh-tool-todo'
+import * as ToolState from '@deepseek-ai/dsh-tool-state'
 import * as ToolSubagent from '@deepseek-ai/dsh-tool-subagent'
 import { registerListSubagentModels } from '../packages/subagent/tool-subagent/src/list-models.ts'
 import * as ToolWeb from '@deepseek-ai/dsh-tool-web'
@@ -544,6 +545,19 @@ const TOOL_PACKAGES: ToolPackage[] = [
     scope: ctx => catalogChildScopes.get(ctx) as Agent,
     note:
       'All nine tools are scoped to implicit Team Leads and durable teammates. The shipped dsh-base bundle keeps the package disabled; the documented Agent Teams profile patch enables it while disabling the legacy continuable-child control names.',
+  },
+  {
+    pkg: '@deepseek-ai/dsh-tool-state',
+    dir: 'tool-state',
+    source: 'packages/todo/tool-state/src/index.ts',
+    requires: ['ctx.tools', 'ctx.sessionProjections', 'owning Agent session'],
+    writes: ['tool/call', 'state/write', 'tool/result'],
+    async mount(ctx) {
+      await ctx.plugin(AgentRegistry)
+      await ctx.plugin(ToolState)
+    },
+    note:
+      'state_write maintains the session\'s typed working state (free keys; a string sets a key, null deletes it) as ONE replacing <task_state> snapshot that survives compaction — todo_write is the step checklist, the goal tools own a long-running objective\'s lifecycle.',
   },
   {
     pkg: '@deepseek-ai/dsh-tool-todo',

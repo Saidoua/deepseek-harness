@@ -71,7 +71,18 @@ export interface Config {
   watchFollowSymlinks?: boolean
   /** Bundled skill root; defaults to `$DSH_BUNDLED_SKILL_DIR` when default roots are included, otherwise mounts none. */
   bundledSkillDir?: string
+  /**
+   * Discovery sources whose skills render behind an untrusted-content caution
+   * when loaded. Replaces the default set (`user-agents`, `custom`): skills
+   * from shared agent homes and user-declared directories may originate
+   * anywhere, while project, harness-home, runtime, and bundled sources are
+   * first-party.
+   */
+  untrustedSources?: string[]
 }
+
+/** Sources whose skills load behind an untrusted-content caution unless reconfigured. */
+const DEFAULT_UNTRUSTED_SOURCES: readonly string[] = ['user-agents', 'custom']
 
 export const Config: Schema<Config> = z.object({
   providerName: z.string().min(1).default('filesystem'),
@@ -86,6 +97,7 @@ export const Config: Schema<Config> = z.object({
   watchMaxProjects: z.number().default(DEFAULT_WATCH_MAX_PROJECTS),
   watchFollowSymlinks: z.boolean().default(true),
   bundledSkillDir: z.string(),
+  untrustedSources: z.array(z.string()).default([...DEFAULT_UNTRUSTED_SOURCES]),
 })
 
 interface SkillRoot {
@@ -149,6 +161,7 @@ export class FileSystemSkillProvider implements SkillProvider {
   private readonly dshHome: string
   private readonly agentsHome: string
   private readonly customSkillDirs: string[]
+  private readonly untrustedSources: Set<string>
   private readonly watchManager: SkillWatchManager
   private readonly bundledSkillDir: string | undefined
   private disposal: Promise<void> | undefined
@@ -163,6 +176,7 @@ export class FileSystemSkillProvider implements SkillProvider {
     this.dshHome = resolveDshHome(config.dshHome)
     this.agentsHome = resolve(config.agentsHome ?? process.env.DSH_AGENTS_HOME ?? join(homedir(), '.agents'))
     this.customSkillDirs = (config.customSkillDirs ?? []).map(root => resolve(root))
+    this.untrustedSources = new Set(config.untrustedSources ?? DEFAULT_UNTRUSTED_SOURCES)
     this.watchManager = new SkillWatchManager(ctx, control.invalidate, resolveWatchConfig(config))
     control.signal.addEventListener('abort', () => { void this.dispose() }, { once: true })
     // The environment bundled root is a default root: an isolated provider
@@ -190,7 +204,7 @@ export class FileSystemSkillProvider implements SkillProvider {
     }
     const candidates: SkillCandidate[] = []
     for (const root of roots) {
-      for (const skill of await discoverRoot(root, this.ctx, this.name)) {
+      for (const skill of await discoverRoot(root, this.ctx, this.name, this.untrustedSources)) {
         candidates.push(skill)
       }
     }
@@ -213,6 +227,7 @@ export class FileSystemSkillProvider implements SkillProvider {
       ...parsed.whenToUse !== undefined ? { whenToUse: parsed.whenToUse } : {},
       invocation: parsed.invocation,
       source: candidate.source,
+      trusted: !this.untrustedSources.has(candidate.source),
       provider: this.name,
       resourceBase: { kind: 'directory', path: locator.directory },
       path: locator.path,
@@ -716,7 +731,7 @@ function hasErrorCode(error: unknown, code: string): boolean {
   return typeof error === 'object' && error !== null && 'code' in error && error.code === code
 }
 
-async function discoverRoot(root: SkillRoot, ctx: Context, provider: string): Promise<SkillCandidate[]> {
+async function discoverRoot(root: SkillRoot, ctx: Context, provider: string, untrusted: ReadonlySet<string>): Promise<SkillCandidate[]> {
   const skills: SkillCandidate[] = []
   const entries = await listSkillRootEntries(root, ctx)
   for (const entry of entries.sort((a, b) => a.name.localeCompare(b.name))) {
@@ -730,6 +745,7 @@ async function discoverRoot(root: SkillRoot, ctx: Context, provider: string): Pr
     const parsed = await parseSkillFile(locator.path, ctx, undefined, root.trustedHost === true)
     if (parsed === undefined) continue
     skills.push({
+      trusted: !untrusted.has(root.source),
       name: parsed.name,
       description: parsed.description,
       ...parsed.whenToUse !== undefined ? { whenToUse: parsed.whenToUse } : {},

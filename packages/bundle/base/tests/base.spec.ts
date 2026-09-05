@@ -44,9 +44,15 @@ describe('dsh-base bundle', () => {
     expect(rows.find(row => row.id === 'web')?.config).toMatchObject({ fetchProvider: 'http' })
     expect(rows.find(row => row.id === 'web-fetch-http')).toBeDefined()
     expect(rows.find(row => row.id === 'tool-web')?.config).toMatchObject({ fetch: true })
+    // Pinned standing rules + typed working state, mounted beside the
+    // baseline instructions they protect; bounds explicit.
+    expect(rows.find(row => row.id === 'session-rules')?.config).toMatchObject({ maxRules: 20, maxRuleChars: 500 })
+    expect(rows.find(row => row.id === 'tool-state')?.config).toMatchObject({ maxStateChars: 4000, maxKeys: 50 })
     expect(manifest.dependencies).not.toHaveProperty('@deepseek-ai/dsh-subagent-codex')
     expect(manifest.dependencies).not.toHaveProperty('@deepseek-ai/dsh-subagent-claude-code')
     expect(manifest.dependencies).toHaveProperty('@deepseek-ai/dsh-web-fetch-http')
+    expect(manifest.dependencies).toHaveProperty('@deepseek-ai/dsh-session-rules')
+    expect(manifest.dependencies).toHaveProperty('@deepseek-ai/dsh-tool-state')
   })
 
   it('gates each shell stack by platform with a symmetric disabled expression', () => {

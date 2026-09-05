@@ -1,0 +1,8 @@
+[
+  {
+    "kind": "throw",
+    "chunks": [],
+    "message": "simulated provider error (HTTP 403 insufficient_quota: free quota exhausted, add funds to continue)",
+    "code": "QUOTA"
+  }
+]

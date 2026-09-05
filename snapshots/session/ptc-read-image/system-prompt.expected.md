@@ -163,6 +163,11 @@ interface ToolArgsMap {
     /** Path to the image file, resolved by the filesystem backend. */
     file_path: string;
   } & Record<string, JsonValue>;
+  /** Pin one standing rule the user stated in this conversation (a constraint, standard, or preference that must hold for the rest of the session), so it survives context compaction verbatim. Pin the rule exactly as the user worded it — do not paraphrase. Only the user can remove a pinned rule (/rule remove); this tool cannot unpin. */
+  rule_pin: {
+    /** The rule text, exactly as the user stated it (trimmed, non-empty). */
+    text: string;
+  } & Record<string, JsonValue>;
   /** Send a message to a direct continuable child by its agent id. If you are a resident continuable child, you may also target your direct parent. If the target is still working, the message steers its nearest step; if it is idle, the message starts a turn. This call returns no answer from the agent — only confirmation that the message was delivered. A failure means the message was NOT delivered. */
   send_message: {
     /** The agent id of your direct continuable child, or your direct parent when you are a resident continuable child. */
@@ -174,6 +179,11 @@ interface ToolArgsMap {
   skill: {
     /** The exact skill name from the available skills list. */
     name: string;
+  } & Record<string, JsonValue>;
+  /** Maintain the working state for the current task: a small typed key/value record that survives context compaction as ONE replacing snapshot — it does not grow the conversation. Typical keys: goal, decisions, files_touched, blockers, next_steps (free keys allowed). Patch semantics: a string or array of strings sets the key, null DELETES the key. Use it for durable facts and decisions of the ongoing work; todo_write is the step checklist and the goal tools own a long-running objective's lifecycle. Update it whenever the state materially changes; the visible snapshot is replaced, not appended to. */
+  state_write: {
+    /** Keys to set or delete. A string or array of strings sets the key; null deletes it. Example: {"goal": "migrate auth", "files_touched": ["src/auth.ts"], "blockers": null} */
+    patch: Record<string, JsonValue>;
   } & Record<string, JsonValue>;
   /** Custom editing tool for viewing, creating and editing files * State is persistent across command calls and discussions with the user * If `path` is a file, `view` displays the result of applying `cat -n`. If `path` is a directory, `view` lists non-hidden files and directories up to 2 levels deep * The `create` command cannot be used if the specified `path` already exists as a file * If a `command` generates a long output, it will be truncated and marked with `<response clipped>` * A null placeholder for a parameter unused by the selected command is treated as omitted. Required parameters still need values; omit `str_replace.new_str` rather than setting it to null when deleting a match Notes for using the `str_replace` command: * The `old_str` parameter should match EXACTLY one or more consecutive lines from the original file. Be mindful of whitespaces! * If the `old_str` parameter is not unique in the file, the replacement will not be performed. Make sure to include enough context in `old_str` to make it unique * The `new_str` parameter should contain the edited lines that should replace the `old_str` */
   str_replace_editor: {
@@ -443,12 +453,18 @@ interface ToolOutputMap {
       };
     };
   };
+  rule_pin: {
+    pinned: string;
+    rules: string[];
+    count: number;
+  };
   send_message: {
     messageId: string;
   };
   skill: {
     name: string;
     provider: string;
+    trusted?: boolean;
     resourceBase?: {
       kind: "directory";
       path: string;
@@ -460,6 +476,11 @@ interface ToolOutputMap {
       description: string;
     };
     content: string;
+  };
+  state_write: {
+    state?: null | Record<string, JsonValue>;
+    keys: number;
+    stateChars: number;
   };
   str_replace_editor: string;
   subagent: {

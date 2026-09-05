@@ -20,6 +20,8 @@ describe('dsh-skill-badge', () => {
       provider: 'dsh-badge',
       source: 'bundled',
       resourceBase: { kind: 'directory', path: resourcePath },
+      // Bundled with the harness: trust is asserted, never assumed.
+      trusted: true,
     }])
     const loaded = await ctx.skills.get('dsh-badge')
     expect(loaded?.content).toContain('Preserve the badge\'s 121×20 dimensions')

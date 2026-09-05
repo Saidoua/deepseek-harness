@@ -68,6 +68,10 @@ kind: "package-reference"
 
 生成的[配置目录](../../../docs/config-catalog.zh.md#deepseek-aidsh-tool-fs-search)是每个受支持字段及其 JSDoc 的穷尽式真源。
 
+### 执行后端
+
+两个工具都通过 `ctx.subprocess` 拉起随包附带的 ripgrep 二进制。当可选的 `@saidoua/dsh-native` 插件已安装时，它们改为在进程内运行 ripgrep 的库 crate——在 libuv 线程池上执行，因此遍历整棵目录树期间事件循环仍然空闲——而拉起子进程仍是回退路径：`DSH_NATIVE=0`、没有预构建二进制的平台、或无法加载的插件，都会原样保留子进程路径。进程内路径没有 `--json` 传输，因此不存在可被撑满的原始 stdout 上限（例如在大型目录树上 `grep "const"` 这样一次普通的宽泛搜索会产生超过 20 MB 上限的输出，并在子进程路径上失败）；它唯一的契约差异是取消——正在运行的进程内搜索没有可终止的进程，因此 `exec.signal` 在搜索开始前被检查、在返回时被观察。对模型而言两者结果无法区分：集成测试对每种后端各运行一遍。
+
 ### 部署要求
 
 Node 部署在受支持的 macOS、Linux 与 Windows 目标上获得 `@vscode/ripgrep` 平台包；Python SDK wheel 把目标原生二进制复制到单文件运行时旁，作为 `-rg` 伴随文件。两种载体均不要求宿主安装 `rg`。返回路径相对于解析后的工作目录显示（有会话 cwd 时使用会话 cwd），只有该工作目录与文件系统根目录是同一工作区时，才能用 `read` 继续读取。
@@ -98,6 +102,7 @@ Node 部署在受支持的 macOS、Linux 与 Windows 目标上获得 `@vscode/ri
 | [`src/glob.ts`](src/glob.ts) | `glob` schema、argv、解析、内联采样、格式化 |
 | [`src/grep.ts`](src/grep.ts) | `grep` schema、argv、`--json` 解析、预览保留、格式化 |
 | [`src/search-core.ts`](src/search-core.ts) | 共享 spawn 助手、`SEARCH_*` 错误、spill 交接、工作目录相对展示 |
+| [`src/native.ts`](src/native.ts) | 可选的进程内后端：插件解析、`DSH_NATIVE` 开关、`SEARCH_*` 错误映射 |
 | [`src/presentation.ts`](src/presentation.ts) | 搜索卡片元数据投影 |
 | [`src/direct-call.ts`](src/direct-call.ts) | spill 后处理的直接调用结果接受 |
 

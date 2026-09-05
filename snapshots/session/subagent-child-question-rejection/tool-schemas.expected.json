@@ -384,6 +384,22 @@
       }
     },
     {
+      "name": "rule_pin",
+      "description": "Pin one standing rule the user stated in this conversation (a constraint, standard, or preference that must hold for the rest of the session), so it survives context compaction verbatim. Pin the rule exactly as the user worded it — do not paraphrase. Only the user can remove a pinned rule (/rule remove); this tool cannot unpin.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "description": "The rule text, exactly as the user stated it (trimmed, non-empty)."
+          }
+        },
+        "required": [
+          "text"
+        ]
+      }
+    },
+    {
       "name": "send_message",
       "description": "Send a message to a direct continuable child by its agent id. If you are a resident continuable child, you may also target your direct parent. If the target is still working, the message steers its nearest step; if it is idle, the message starts a turn. This call returns no answer from the agent — only confirmation that the message was delivered. A failure means the message was NOT delivered.",
       "parameters": {
@@ -417,6 +433,23 @@
         },
         "required": [
           "name"
+        ]
+      }
+    },
+    {
+      "name": "state_write",
+      "description": "Maintain the working state for the current task: a small typed key/value record that survives context compaction as ONE replacing snapshot — it does not grow the conversation. Typical keys: goal, decisions, files_touched, blockers, next_steps (free keys allowed). Patch semantics: a string or array of strings sets the key, null DELETES the key. Use it for durable facts and decisions of the ongoing work; todo_write is the step checklist and the goal tools own a long-running objective's lifecycle. Update it whenever the state materially changes; the visible snapshot is replaced, not appended to.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "patch": {
+            "type": "object",
+            "description": "Keys to set or delete. A string or array of strings sets the key; null deletes it. Example: {\"goal\": \"migrate auth\", \"files_touched\": [\"src/auth.ts\"], \"blockers\": null}",
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "patch"
         ]
       }
     },

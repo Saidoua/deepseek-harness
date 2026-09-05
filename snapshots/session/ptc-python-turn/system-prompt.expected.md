@@ -333,6 +333,16 @@ class ReadImageOutput(TypedDict):
     path: str
     image: ReadImageOutputImage
 
+class RulePinArgs(TypedDict):
+    # The rule text, exactly as the user stated it (trimmed, non-empty).
+    text: str
+    # Additional keys beyond those declared are allowed.
+
+class RulePinOutput(TypedDict):
+    pinned: str
+    rules: list[str]
+    count: int
+
 class SendMessageArgs(TypedDict):
     # The agent id of your direct continuable child, or your direct parent when you are a resident continuable child.
     agent_id: str
@@ -363,8 +373,19 @@ class SkillOutputResourceBase3(TypedDict):
 class SkillOutput(TypedDict):
     name: str
     provider: str
+    trusted: NotRequired[bool]
     resourceBase: NotRequired[SkillOutputResourceBase1 | SkillOutputResourceBase2 | SkillOutputResourceBase3]
     content: str
+
+class StateWriteArgs(TypedDict):
+    # Keys to set or delete. A string or array of strings sets the key; null deletes it. Example: {"goal": "migrate auth", "files_touched": ["src/auth.ts"], "blockers": null}
+    patch: dict[str, Any]
+    # Additional keys beyond those declared are allowed.
+
+class StateWriteOutput(TypedDict):
+    state: NotRequired[None | dict[str, Any]]
+    keys: int
+    stateChars: int
 
 class StrReplaceEditorArgs(TypedDict):
     # The commands to run. Allowed options are: `view`, `create`, `str_replace`, `insert`.
@@ -603,10 +624,14 @@ class Tools(Protocol):
         """Read a UTF-8 text file and return line-numbered content."""
     async def read_image(self, args: ReadImageArgs) -> ReadImageOutput:
         """Read a PNG/JPEG/WebP/GIF file and return the image itself. A path without a file extension is accepted; the format is detected from the file content, so normalized attachment paths can be passed directly without copying or renaming. Harness validates and downscales large supported images before the next model request, so use this tool directly instead of installing image libraries or creating thumbnails merely to inspect an image. Independent files may be read concurrently in small batches. Requires the current model to accept image input."""
+    async def rule_pin(self, args: RulePinArgs) -> RulePinOutput:
+        """Pin one standing rule the user stated in this conversation (a constraint, standard, or preference that must hold for the rest of the session), so it survives context compaction verbatim. Pin the rule exactly as the user worded it — do not paraphrase. Only the user can remove a pinned rule (/rule remove); this tool cannot unpin."""
     async def send_message(self, args: SendMessageArgs) -> SendMessageOutput:
         """Send a message to a direct continuable child by its agent id. If you are a resident continuable child, you may also target your direct parent. If the target is still working, the message steers its nearest step; if it is idle, the message starts a turn. This call returns no answer from the agent — only confirmation that the message was delivered. A failure means the message was NOT delivered."""
     async def skill(self, args: SkillArgs) -> SkillOutput:
         """Load the full instructions for an available skill. Call this with the exact skill name from the session skill catalog before acting on a task that names or clearly matches that skill."""
+    async def state_write(self, args: StateWriteArgs) -> StateWriteOutput:
+        """Maintain the working state for the current task: a small typed key/value record that survives context compaction as ONE replacing snapshot — it does not grow the conversation. Typical keys: goal, decisions, files_touched, blockers, next_steps (free keys allowed). Patch semantics: a string or array of strings sets the key, null DELETES the key. Use it for durable facts and decisions of the ongoing work; todo_write is the step checklist and the goal tools own a long-running objective's lifecycle. Update it whenever the state materially changes; the visible snapshot is replaced, not appended to."""
     async def str_replace_editor(self, args: StrReplaceEditorArgs) -> str:
         """Custom editing tool for viewing, creating and editing files * State is persistent across command calls and discussions with the user * If `path` is a file, `view` displays the result of applying `cat -n`. If `path` is a directory, `view` lists non-hidden files and directories up to 2 levels deep * The `create` command cannot be used if the specified `path` already exists as a file * If a `command` generates a long output, it will be truncated and marked with `<response clipped>` * A null placeholder for a parameter unused by the selected command is treated as omitted. Required parameters still need values; omit `str_replace.new_str` rather than setting it to null when deleting a match Notes for using the `str_replace` command: * The `old_str` parameter should match EXACTLY one or more consecutive lines from the original file. Be mindful of whitespaces! * If the `old_str` parameter is not unique in the file, the replacement will not be performed. Make sure to include enough context in `old_str` to make it unique * The `new_str` parameter should contain the edited lines that should replace the `old_str`"""
     async def subagent(self, args: SubagentArgs) -> SubagentOutput1 | SubagentOutput2 | SubagentOutput3:

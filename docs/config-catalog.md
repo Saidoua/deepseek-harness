@@ -1936,6 +1936,24 @@ export interface Config {
 
 Source: [`packages/context/session-reference/src/config.ts:11`](../packages/context/session-reference/src/config.ts)
 
+<a id="deepseek-aidsh-session-rules"></a>
+
+## `@deepseek-ai/dsh-session-rules`
+
+Requires: `agents` · `commands` · `tools` · `sessionProjections`
+
+```ts config-catalog
+/** Session-pinned standing rules configuration. */
+export interface Config {
+  /** Maximum simultaneous pinned rules; a further pin is rejected. Minimum 1. */
+  maxRules?: number
+  /** Maximum trimmed text length of one rule; a longer pin is rejected. Minimum 16. */
+  maxRuleChars?: number
+}
+```
+
+Source: [`packages/context/session-rules/src/index.ts:38`](../packages/context/session-rules/src/index.ts)
+
 <a id="deepseek-aidsh-session-telemetry-otel"></a>
 
 ## `@deepseek-ai/dsh-session-telemetry-otel`
@@ -2078,7 +2096,7 @@ export interface Config {
 }
 ```
 
-Source: [`packages/skill/skill/src/index.ts:280`](../packages/skill/skill/src/index.ts)
+Source: [`packages/skill/skill/src/index.ts:309`](../packages/skill/skill/src/index.ts)
 
 <a id="deepseek-aidsh-skill-filesystem"></a>
 
@@ -2113,6 +2131,14 @@ export interface Config {
   watchFollowSymlinks?: boolean
   /** Bundled skill root; defaults to `$DSH_BUNDLED_SKILL_DIR` when default roots are included, otherwise mounts none. */
   bundledSkillDir?: string
+  /**
+   * Discovery sources whose skills render behind an untrusted-content caution
+   * when loaded. Replaces the default set (`user-agents`, `custom`): skills
+   * from shared agent homes and user-declared directories may originate
+   * anywhere, while project, harness-home, runtime, and bundled sources are
+   * first-party.
+   */
+  untrustedSources?: string[]
 }
 ```
 
@@ -2859,6 +2885,24 @@ export interface Config {
 
 Source: [`packages/skill/tool-skill/src/index.ts:61`](../packages/skill/tool-skill/src/index.ts)
 
+<a id="deepseek-aidsh-tool-state"></a>
+
+## `@deepseek-ai/dsh-tool-state`
+
+Requires: `agents` · `tools` · `sessionProjections`
+
+```ts config-catalog
+/** Model-facing state tool configuration. */
+export interface Config {
+  /** Maximum rendered characters of the published state snapshot. Minimum 500. */
+  maxStateChars?: number
+  /** Maximum simultaneous state keys. Minimum 1. */
+  maxKeys?: number
+}
+```
+
+Source: [`packages/todo/tool-state/src/index.ts:41`](../packages/todo/tool-state/src/index.ts)
+
 <a id="deepseek-aidsh-tool-str-replace-editor"></a>
 
 ## `@deepseek-ai/dsh-tool-str-replace-editor`
@@ -3369,6 +3413,7 @@ These load from a `cordis.yml` entry with no `config:` block; they declare no co
 - `@deepseek-ai/dsh-command-feedback` — requires `commands` ([`packages/feedback/command-feedback/src/index.ts`](../packages/feedback/command-feedback/src/index.ts))
 - `@deepseek-ai/dsh-command-goal` — requires `commands` · `goals` ([`packages/goal/command-goal/src/index.ts`](../packages/goal/command-goal/src/index.ts))
 - `@deepseek-ai/dsh-commands` ([`packages/interaction/commands/src/index.ts`](../packages/interaction/commands/src/index.ts))
+- `@deepseek-ai/dsh-compaction-prefix-slide` — requires `llm` · `tokenMeter` · `sessions` ([`packages/compaction/compaction-prefix-slide/src/index.ts`](../packages/compaction/compaction-prefix-slide/src/index.ts))
 - `@deepseek-ai/dsh-cordis-client-runner` ([`packages/extensions/cordis-client-runner/src/index.ts`](../packages/extensions/cordis-client-runner/src/index.ts))
 - `@deepseek-ai/dsh-deepseek-llm-api-extensions` ([`packages/llm/deepseek-llm-api-extensions/src/index.ts`](../packages/llm/deepseek-llm-api-extensions/src/index.ts))
 - `@deepseek-ai/dsh-experimental-client-ui-agent-team` ([`packages/experimental/client-ui-agent-team/src/index.ts`](../packages/experimental/client-ui-agent-team/src/index.ts))
@@ -3387,6 +3432,7 @@ These load from a `cordis.yml` entry with no `config:` block; they declare no co
 - `@deepseek-ai/dsh-session-stats` — requires `sessionProjections` ([`packages/session/session-stats/src/index.ts`](../packages/session/session-stats/src/index.ts))
 - `@deepseek-ai/dsh-session-turn-outline` — requires `sessionProjections` ([`packages/session/session-turn-outline/src/index.ts`](../packages/session/session-turn-outline/src/index.ts))
 - `@deepseek-ai/dsh-skill-badge` — requires `skills` ([`packages/skill/skill-badge/src/index.ts`](../packages/skill/skill-badge/src/index.ts))
+- `@deepseek-ai/dsh-skill-stats` — requires `sessionProjections` ([`packages/skill/skill-stats/src/index.ts`](../packages/skill/skill-stats/src/index.ts))
 - `@deepseek-ai/dsh-storage` ([`packages/storage/storage/src/index.ts`](../packages/storage/storage/src/index.ts))
 - `@deepseek-ai/dsh-subagent` ([`packages/subagent/subagent/src/index.ts`](../packages/subagent/subagent/src/index.ts))
 - `@deepseek-ai/dsh-subprocess-local` ([`packages/subprocess/subprocess-local/src/index.ts`](../packages/subprocess/subprocess-local/src/index.ts))

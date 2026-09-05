@@ -801,6 +801,7 @@ describe('dsh-tool-skill', () => {
     expect(result.value).toEqual({
       name: 'project-skill',
       provider: 'filesystem',
+      trusted: true,
       resourceBase: { kind: 'directory', path: join(project, '.dsh/skills/project-skill') },
       content: 'Project instructions.',
     })

@@ -7,6 +7,11 @@
  * `SEARCH_*` vocabulary. The binary ships inside the npm dependency, so the
  * suite runs on every platform without a system `rg` install; the
  * fake-service suite (tools.spec.ts) carries the coverage gate.
+ *
+ * Every case runs twice: once over the ripgrep spawn, and once over the
+ * optional in-process backend (`@saidoua/dsh-native`), because the two
+ * execution paths must be indistinguishable to a model. Without the addon
+ * installed both rounds exercise the spawn.
  */
 
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
@@ -44,8 +49,15 @@ function text(result: { content: { type: string; text?: string }[] }): string {
 /** The fixture workspace as a session cwd, so relative paths resolve inside `dir`. */
 const agent = () => ({ session: { header: { id: 'session-int', cwd: dir } } })
 
-describe('search tools over the real subprocess service + the packaged rg', () => {
+describe.each([
+  ['the packaged ripgrep spawn', '0'],
+  ['the in-process native backend', undefined],
+] as const)('search tools over the real filesystem, through %s', (_label, nativeSetting) => {
+  const nativeBefore = process.env.DSH_NATIVE
+
   beforeEach(async () => {
+    if (nativeSetting === undefined) delete process.env.DSH_NATIVE
+    else process.env.DSH_NATIVE = nativeSetting
     dir = await mkdtemp(join(tmpdir(), 'dsh-search-int-'))
     await mkdir(join(dir, 'src'), { recursive: true })
     await mkdir(join(dir, '.git'), { recursive: true })
@@ -68,6 +80,8 @@ describe('search tools over the real subprocess service + the packaged rg', () =
   })
 
   afterEach(async () => {
+    if (nativeBefore === undefined) delete process.env.DSH_NATIVE
+    else process.env.DSH_NATIVE = nativeBefore
     await rm(dir, { recursive: true, force: true })
   })
 
@@ -189,12 +203,14 @@ describe('search tools over the real subprocess service + the packaged rg', () =
       expect(result.error).toMatchObject({ info: { name: 'AbortError', code: TOOL_ABORTED_BEFORE_DISPATCH } })
     })
 
-    it('an unusable session cwd (spawn failure) is SEARCH_FAILED', async () => {
+    it('an unusable session cwd is SEARCH_FAILED', async () => {
       const gone = join(dir, 'deleted-session-dir')
       const result = await call('glob', { pattern: '*' }, { session: { header: { id: 'session-int', cwd: gone } } })
       expect(result.isError).toBe(true)
       expect(result.error).toMatchObject({ info: { name: 'SearchError', code: 'SEARCH_FAILED' } })
-      expect(text(result)).toContain('could not start')
+      // The code is the contract; the wording names what actually failed —
+      // launching ripgrep, or walking the missing directory in-process.
+      expect(text(result)).toMatch(/could not start|could not read a directory entry/)
     })
   })
 })

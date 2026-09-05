@@ -154,6 +154,7 @@ describe('dsh badge assembled snapshot', () => {
               "kind": "directory",
               "path": "{{badgeAssetsPath}}",
             },
+            "trusted": true,
           },
         },
         "summary": {
@@ -169,6 +170,7 @@ describe('dsh badge assembled snapshot', () => {
             "path": "{{badgeAssetsPath}}",
           },
           "source": "bundled",
+          "trusted": true,
         },
       }
     `)

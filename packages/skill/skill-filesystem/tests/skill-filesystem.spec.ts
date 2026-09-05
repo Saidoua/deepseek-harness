@@ -888,3 +888,42 @@ describe('FileSystemSkillProvider', () => {
     }
   })
 })
+
+describe('untrusted source marking', () => {
+  it('marks custom and user-agents skills untrusted while first-party sources stay trusted', async () => {
+    const home = await tempDir('skill-trust')
+    const project = join(home, 'project')
+    const custom = join(home, 'custom')
+    await writeSkill(join(project, '.dsh/skills'), 'proj-skill', 'project skill')
+    await writeSkill(join(home, '.dsh/skills'), 'home-skill', 'user dsh skill')
+    await writeSkill(join(home, '.agents/skills'), 'agents-skill', 'user agents skill')
+    await writeSkill(custom, 'custom-skill', 'custom skill')
+    const ctx = await setupLocal(home, { customSkillDirs: [custom] })
+
+    const scope = { cwd: project } as never
+    const skills = await ctx.skills.list({ cwd: project, scope })
+    const byName = new Map(skills.map(skill => [skill.name, skill]))
+    expect(byName.get('proj-skill')?.trusted).toBe(true)
+    expect(byName.get('home-skill')?.trusted).toBe(true)
+    expect(byName.get('agents-skill')?.trusted).toBe(false)
+    expect(byName.get('custom-skill')?.trusted).toBe(false)
+
+    const loaded = await ctx.skills.get('custom-skill', { cwd: project, scope })
+    expect(loaded?.trusted).toBe(false)
+  })
+
+  it('untrustedSources replaces the default set', async () => {
+    const home = await tempDir('skill-trust-override')
+    const project = join(home, 'project')
+    const custom = join(home, 'custom')
+    await writeSkill(join(home, '.agents/skills'), 'agents-skill', 'user agents skill')
+    await writeSkill(custom, 'custom-skill', 'custom skill')
+    const ctx = await setupLocal(home, { customSkillDirs: [custom], untrustedSources: ['custom'] })
+
+    const scope = { cwd: project } as never
+    const skills = await ctx.skills.list({ cwd: project, scope })
+    const byName = new Map(skills.map(skill => [skill.name, skill]))
+    expect(byName.get('agents-skill')?.trusted).toBe(true)
+    expect(byName.get('custom-skill')?.trusted).toBe(false)
+  })
+})

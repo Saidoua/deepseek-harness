@@ -276,6 +276,16 @@
       config:
         maxBytes: 65536
 
+    # Session-pinned standing rules: durable user/model pins (`/rule`, the
+    # rule_pin tool) whose verbatim <pinned_rules> message is republished
+    # after every compaction — summarizing compaction paraphrases rules into
+    # unenforceability, so they never enter the summary stream.
+    - id: session-rules
+      name: '@deepseek-ai/dsh-session-rules'
+      config:
+        maxRules: 20
+        maxRuleChars: 500
+
     - id: skill
       name: '@deepseek-ai/dsh-skill'
 
@@ -288,6 +298,12 @@
 
     - id: tool-skill
       name: '@deepseek-ai/dsh-tool-skill'
+
+    # Skill usage projection (tool loads + /name gestures, with errors) —
+    # runtime outcomes, the only trustworthy skill-quality signal; static
+    # scans do not predict value.
+    - id: skill-stats
+      name: '@deepseek-ai/dsh-skill-stats'
 
     - id: commands
       name: '@deepseek-ai/dsh-commands'
@@ -325,6 +341,12 @@
 
     - id: compaction-basic
       name: '@deepseek-ai/dsh-compaction-basic'
+
+    # The prefix-slide compaction engine
+    # (@deepseek-ai/dsh-compaction-prefix-slide) is deliberately NOT mounted:
+    # swap the compaction-basic row's name in an overlay to evict without a
+    # summarizer call (measured: one summarizer call costs 5.3 s and ~13k
+    # tokens; the marker costs nothing).
 
     # Human `/compact`: one useful reduction below the automatic threshold. Backend
     # independent, so it follows whichever compaction service this leaf mounts.
@@ -408,6 +430,16 @@
       name: '@deepseek-ai/dsh-tool-todo'
       config:
         allowParallelInProgress: true
+
+    # Typed working state: the state_write tool maintains one replacing
+    # <task_state> snapshot (string sets a key, null deletes) that survives
+    # compaction — at matched budgets an explicit state beats every lossy
+    # history compressor for long-horizon work.
+    - id: tool-state
+      name: '@deepseek-ai/dsh-tool-state'
+      config:
+        maxStateChars: 4000
+        maxKeys: 50
 
     # Persisted same-session goals reach the model and the slash menu here; the
     # domain, driver, and `/goal` command are above.

@@ -79,15 +79,43 @@ function setDelete<T>(target: Set<T>, value: T): void {
   intrinsicReflectApply(intrinsicSetDelete, target, [value])
 }
 
+/**
+ * Collapse whitespace runs without consulting a model-mutated `String.prototype`
+ * or `RegExp.prototype`. Indexing a primitive string and reading its `length` touch
+ * own properties of the string exotic object, so no prototype participates — which
+ * a regex or `String.prototype.replace` in this file would not preserve.
+ */
+function collapseIntrinsicWhitespace(text: string): string {
+  let collapsed = ''
+  let separated = false
+  for (let index = 0; index < text.length; index += 1) {
+    // Bounded by `length` above; the widened index signature is the only reason to narrow.
+    const character = text[index] as string
+    // Every control character and the space sort at or below U+0020; engines separate
+    // native-source tokens with nothing else.
+    if (character <= ' ') {
+      separated = collapsed.length > 0
+      continue
+    }
+    if (separated) collapsed += ' '
+    separated = false
+    collapsed += character
+  }
+  return collapsed
+}
+
 /** Whether a realm-owned intrinsic prototype is backed by its native constructor. */
 function hasIntrinsicConstructor(prototype: object, name: 'Array' | 'Object'): boolean {
   const descriptor = intrinsicObjectGetOwnPropertyDescriptor(prototype, 'constructor')
   const constructor: unknown = descriptor?.value
   if (typeof constructor !== 'function') return false
   try {
+    // NativeFunction rendering is implementation-defined: V8 emits one line, SpiderMonkey
+    // several. Collapse whitespace — `[native code]` is unparseable, so this cannot widen.
+    const rendered = intrinsicReflectApply(intrinsicFunctionToString, constructor, []) as string
     return constructor.name === name
       && constructor.prototype === prototype
-      && intrinsicReflectApply(intrinsicFunctionToString, constructor, []) === `function ${name}() { [native code] }`
+      && collapseIntrinsicWhitespace(rendered) === `function ${name}() { [native code] }`
   } catch {
     return false
   }

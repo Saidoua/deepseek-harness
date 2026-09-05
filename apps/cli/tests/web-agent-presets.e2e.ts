@@ -51,6 +51,7 @@ async function bootWeb(
   profileBundles?: readonly string[],
 ): Promise<Context> {
   const storageRoot = join(dirname(settingsFile), 'storages')
+  const sessionRoot = join(dirname(settingsFile), 'sessions')
   const overrides: PatchOptions[] = [
     // The settings row defaults to `$DSH_HOME/settings.yaml`. Left alone it
     // reads the developer's own document — and since the default preset is a
@@ -63,6 +64,13 @@ async function bootWeb(
     // back on the next run, so a stored document from any other build decides
     // this test's boot. Same reason the settings row above is pinned.
     { id: 'storage-json', config: { root: storageRoot } },
+    // Session persistence is anchored to the real $DSH_HOME the same way. Left
+    // alone, every session this file creates by fixed id — `preset-standard`,
+    // `preset-minimal`, and the rest — is written into the developer's own
+    // `~/.dsh/sessions/`, and the next run fails on SessionAlreadyExistsError
+    // rather than on anything this file asserts. CI never observes it because
+    // each runner starts from an empty home.
+    { id: 'session-persistence-jsonl', config: { root: sessionRoot } },
     // Host rows with side effects outside this process: a bound port, a served
     // asset tree, a telemetry exporter. `api-gateway` and `directory-picker`
     // stay ENABLED on purpose — the api-proxy is the host row that injects
@@ -240,8 +248,8 @@ describe('the shipped Web composition', () => {
       // depend on ripgrep being present on the machine.
       expect(toolNames(ctx, handle.agent).filter(name => name !== 'glob' && name !== 'grep')).toEqual([
         'ask_user_question', 'bash', 'create_goal', 'edit', 'exit_plan_mode',
-        'get_goal', 'interrupt_agent', 'job_kill', 'job_list', 'job_output', 'list_agents', 'ralph', 'read', 'read_image', 'send_message', 'skill',
-        'subagent', 'subagent_fork', 'todo_write', 'update_goal', 'web_fetch', 'web_search',
+        'get_goal', 'interrupt_agent', 'job_kill', 'job_list', 'job_output', 'list_agents', 'ralph', 'read', 'read_image', 'rule_pin', 'send_message', 'skill',
+        'state_write', 'subagent', 'subagent_fork', 'todo_write', 'update_goal', 'web_fetch', 'web_search',
         'workflow', 'write',
       ])
       expect(ctx.commands.find(handle.agent, 'goal')).toBeDefined()

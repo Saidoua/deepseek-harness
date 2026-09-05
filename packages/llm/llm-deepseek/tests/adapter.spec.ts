@@ -1428,6 +1428,20 @@ describe('DeepSeekAdapter against a mock server', () => {
     expect(httpErrorCode(429, { message: 'request rate limit exceeded' })).toBe('RATE_LIMIT')
   })
 
+  // discussions/5715: a valid key whose free tier was exhausted surfaced as
+  // "API key is invalid" because 403 resolved to AUTH before the quota test ran —
+  // the same body already resolved to QUOTA at 429.
+  it('reports an exhausted balance behind HTTP 403 as quota, not a bad key', () => {
+    expect(httpErrorCode(403, { code: 'insufficient_quota', message: 'Free quota exhausted.' }))
+      .toBe(QUOTA_EXCEEDED_CODE)
+    expect(httpErrorCode(403, { type: 'insufficient_quota' })).toBe(QUOTA_EXCEEDED_CODE)
+    // A 403 without quota wording is still an auth failure.
+    expect(httpErrorCode(403, { message: 'forbidden' })).toBe('AUTH')
+    expect(httpErrorCode(403)).toBe('AUTH')
+    // RFC 9110: 401 is unauthenticated, so it stays AUTH regardless of body wording.
+    expect(httpErrorCode(401, { code: 'insufficient_quota' })).toBe('AUTH')
+  })
+
   it('keeps the status-line message for JSON error bodies without a message', async () => {
     const server = await mockServer([{ kind: 'http-error', status: 500, body: '{"error":{"type":"x"}}' }])
     const ctx = await harness(server.url)

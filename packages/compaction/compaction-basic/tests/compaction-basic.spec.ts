@@ -6,7 +6,7 @@ import type { BasicCompactionConfig } from '@deepseek-ai/dsh-compaction-basic'
 import { selectCompactableRange } from '@deepseek-ai/dsh-compaction-basic/src/region.ts'
 import { frameSummary } from '@deepseek-ai/dsh-compaction-basic/src/summarizer.ts'
 import type { SummarizationInput, SummaryResult } from '@deepseek-ai/dsh-compaction-basic/src/summarizer.ts'
-import { CompactionId, toolPairingBalancedAfter, toolPairingBalancedBefore } from '@deepseek-ai/dsh-compaction'
+import { CompactionId, compactCheckpointSource, toolPairingBalancedAfter, toolPairingBalancedBefore } from '@deepseek-ai/dsh-compaction'
 import {
   resolveCompactSpec,
   resolveConfig,
@@ -201,7 +201,7 @@ function oversizedToolResult(chars = 3_000, withCompactablePrompt = false): Sess
   session.append('turn/start', { turn: 1 })
   if (withCompactablePrompt) {
     session.append('user/message', createUserMessage({
-      content: [{ type: 'text', text: 'older history '.repeat(200) }],
+      content: [{ type: 'text', text: 'older history '.repeat(50) }],
       source: { kind: 'user' },
     }), { surfaceOp: 'append' })
   }
@@ -237,6 +237,29 @@ function oversizedToolResult(chars = 3_000, withCompactablePrompt = false): Sess
   session.append('step/end', { turn: 1, step: 1 })
   session.append('turn/end', { turn: 1, reason: { kind: 'completed' } })
   session.append('turn/start', { turn: 2 })
+  if (withCompactablePrompt) {
+    // Compactable history beyond the seed user message, which automatic
+    // compaction spares verbatim: without this the only reclaimable span is
+    // the seed itself and selection declines.
+    session.append('user/message', createUserMessage({
+      content: [{ type: 'text', text: 'follow-up '.repeat(200) }],
+      source: { kind: 'user' },
+    }), { surfaceOp: 'append' })
+    session.append('step/start', { turn: 2, step: 1 })
+    session.append('assistant/message', {
+      turn: 2,
+      step: 1,
+      stream: [],
+      message: createMessage({
+        role: 'assistant',
+        content: [{ type: 'text', text: 'analysis '.repeat(200) }],
+        source: {
+          kind: 'model',
+          ...{ provider: MODEL, model: MODEL },
+        },
+      }),
+    }, { surfaceOp: 'append' })
+  }
   return session
 }
 
@@ -633,7 +656,7 @@ describe('pressure measurement and retention', () => {
       thresholdRatio: 0.9,
       retainTokens: 50,
     })
-    const session = conversation(2, 'x'.repeat(600))
+    const session = conversation(2, 'x'.repeat(800))
     expect(await compactIfNeeded(compact, session)).toBeNull()
 
     session.append('request/header', {
@@ -643,8 +666,14 @@ describe('pressure measurement and retention', () => {
       },
       reason: 'resume',
     })
-    const result = await compactIfNeeded(compact, session)
-    expect(result).not.toBeNull()
+    // The envelope alone pushes the routed total over the threshold and
+    // triggers a real compaction of surface content even though the envelope
+    // is never a surface node. The spared seed, the retained tail, and the
+    // envelope then hold the floor above the threshold: one honest
+    // compaction lands, and the bounded loop reports the remainder.
+    await expect(compactIfNeeded(compact, session)).rejects.toThrow(/still above threshold/)
+    expect(compact.calls).toHaveLength(1)
+    expect(session.snapshotEvents().some(event => event.type === 'compaction/summary')).toBe(true)
   })
 
   it('uses the latest logged request envelope without an AgentOptions override', async () => {
@@ -816,7 +845,7 @@ describe('optional model-free tool-result pruning', () => {
   })
 
   it('summarizes the pruned surface when pruning is insufficient', async () => {
-    const ctx = createContext(2_000)
+    const ctx = createContext(3_500)
     void new ToolResultPruner(ctx, pruneConfig)
     const compact = new TestCompactionEngine(ctx, {
       auto: false,
@@ -2013,13 +2042,13 @@ describe('route-priced image pressure', () => {
   })
 
   it('triggers pressure compaction from routed visual tokens and logs heuristic shadow prices', async () => {
-    const ctx = pricedContext(1_000)
+    const ctx = pricedContext(1_200)
     const session = imageConversation()
     const before = ctx.tokenMeter.measure(session)
     const compact = new TestCompactionEngine(ctx, {
       auto: false,
       thresholdRatio: 0.8,
-      retainTokens: 350,
+      retainTokens: 200,
     })
 
     // The same history stays below the 800-token threshold without pricing.
@@ -2038,5 +2067,160 @@ describe('route-priced image pressure', () => {
       .filter(node => result?.shadowedSeqs.includes(node.seq))
       .reduce((total, node) => total + node.heuristicTokens, 0)
     expect(summaryEvent?.data.shadowedTokenCount).toBe(shadowedHeuristic)
+  })
+})
+
+describe('seed user turn sparing (automatic compaction)', () => {
+  it('keeps the seed user message verbatim on the surface after pressure compaction', async () => {
+    const ctx = createContext(4_000)
+    const compact = new TestCompactionEngine(ctx, {
+      auto: false,
+      thresholdRatio: 0.5,
+      retainTokens: 50,
+    })
+    const session = conversation(3, 'x'.repeat(1_500))
+
+    const result = await compactIfNeeded(compact, session)
+    expect(result).not.toBeNull()
+
+    const firstSurface = session.surface.nodes[0]
+    const firstEvent = firstSurface === undefined ? undefined : session.eventAt(firstSurface)
+    expect(firstEvent?.type).toBe('user/message')
+    if (firstEvent?.type !== 'user/message') throw new Error('expected a user message head')
+    expect(firstEvent.data.source.kind).toBe('user')
+    expect(JSON.stringify(firstEvent.data.content)).toContain('user 1')
+    // The compacted span starts AFTER the seed: the summary replaced turn 2+.
+    const summary = session.snapshotEvents().findLast(event => event.type === 'compaction/summary')
+    expect(summary).toBeDefined()
+    expect(JSON.stringify(session.deriveMessages())).not.toContain('user 2')
+  })
+
+  it('context-overflow recovery reclaims the seed rather than a span that cannot shrink', async () => {
+    const ctx = createContext(4_000)
+    const compact = new TestCompactionEngine(ctx, { auto: false, thresholdRatio: 0.5, retainTokens: 50 })
+    // The compaction-recovery recorded session: a large seed, one short
+    // runtime-context message, and one tool pair. Sparing the seed leaves the
+    // runtime-context message alone, and its checkpoint replacement is not
+    // smaller than the message — the shrink guard would preserve the provider
+    // error with nothing left to try.
+    const session = Session.create(SessionId('overflow-seed'))
+    const callId = ToolCallId('overflow-call')
+    session.append('turn/start', { turn: 1 })
+    session.append('user/message', createUserMessage({
+      content: [{ type: 'text', text: `seed ${'x'.repeat(1_500)} user 1` }],
+      source: { kind: 'user' },
+    }), { surfaceOp: 'append' })
+    session.append('user/message', createUserMessage({
+      content: [{ type: 'text', text: 'runtime context' }],
+      source: { kind: 'plugin', plugin: 'test' },
+    }), { surfaceOp: 'append' })
+    session.append('step/start', { turn: 1, step: 1 })
+    session.append('request/header', {
+      header: { config: { provider: MODEL, model: MODEL } },
+      reason: 'initial',
+    })
+    session.append('assistant/message', {
+      stream: [],
+      turn: 1,
+      step: 1,
+      message: createMessage({
+        role: 'assistant',
+        content: [{ type: 'tool-call', id: callId, name: 'read', arguments: '{}' }],
+        source: { kind: 'model', ...{ provider: MODEL, model: MODEL } },
+      }),
+    }, { surfaceOp: 'append' })
+    session.append('tool/call', { turn: 1, step: 1, callId, name: 'read', arguments: '{}' })
+    session.append('tool/result', {
+      turn: 1,
+      step: 1,
+      message: createToolResultMessage({
+        callId,
+        content: [{ type: 'text', text: 'result' }],
+        isError: false,
+      }),
+    }, { surfaceOp: 'append' })
+    session.append('step/end', { turn: 1, step: 1 })
+
+    const [seedSeq, contextSeq] = session.surface.nodes
+    const priced = ctx.tokenMeter.measure(session)
+    const contextNode = priced.nodes[1]
+    if (seedSeq === undefined || contextSeq === undefined || contextNode === undefined) throw new Error('expected a seed and a context node')
+    expect(selectCompactableRange(session, priced, 0, { spareSeedUserTurn: true })).toEqual({ start: contextSeq, end: contextSeq })
+    const framedFloor = ctx.tokenMeter.estimateMessage(createUserMessage({
+      content: frameSummary(compact.summary),
+      source: compactCheckpointSource(CompactionId('probe')),
+    }))
+    expect(framedFloor).toBeGreaterThanOrEqual(contextNode.tokens)
+
+    const result = await compactIfNeeded(compact, session, 'context-overflow')
+    expect(result).not.toBeNull()
+    expect(result?.shadowedSeqs).toContain(seedSeq)
+    expect(JSON.stringify(session.deriveMessages())).not.toContain('user 1')
+  })
+
+  it('declines an automatic span when only the seed precedes the retained tail', () => {
+    const ctx = createContext(1_000)
+    // One turn: the seed and its reply. With nothing retained the tail walk
+    // keeps the reply, sparing removes the seed, and no span remains; manual
+    // compaction still reclaims the seed itself.
+    const session = conversation(1)
+    const priced = ctx.tokenMeter.measure(session)
+
+    expect(selectCompactableRange(session, priced, 0, { spareSeedUserTurn: true })).toBeNull()
+    expect(selectCompactableRange(session, priced, 0)?.start).toBe(session.surface.nodes[0])
+  })
+
+  it('manual compaction may still reclaim the seed (no sparing)', () => {
+    const ctx = createContext(1_000)
+    const session = conversation(2)
+    const priced = ctx.tokenMeter.measure(session)
+
+    // An explicit manual compaction compacts from the very first node.
+    const manual = selectCompactableRange(session, priced, 0)
+    expect(manual?.start).toBe(session.surface.nodes[0])
+
+    // The same surface under the automatic policy spares the seed.
+    const automatic = selectCompactableRange(session, priced, 0, { spareSeedUserTurn: true })
+    expect(automatic?.start).toBe(session.surface.nodes[1])
+  })
+
+  it('declines an automatic span that holds only the previous checkpoint', () => {
+    const ctx = createContext(1_000)
+    // Steady state after a compaction: seed, checkpoint, small tail. The only
+    // span between the spared seed and the retained tail is checkpoint-only,
+    // and re-summarizing it can never shrink — selection declines instead of
+    // spending a doomed summarizer call.
+    const session = Session.create(SessionId('steady-state'))
+    session.append('turn/start', { turn: 1 })
+    session.append('user/message', createUserMessage({
+      content: [{ type: 'text', text: `seed ${'x'.repeat(400)}` }],
+      source: { kind: 'user' },
+    }), { surfaceOp: 'append' })
+    session.append('step/start', { turn: 1, step: 1 })
+    session.append('assistant/message', {
+      turn: 1, step: 1,
+      stream: [],
+      message: createMessage({
+        role: 'assistant',
+        content: [{ type: 'text', text: `tail ${'y'.repeat(40)}` }],
+        source: { kind: 'model', ...{ provider: MODEL, model: MODEL } },
+      }),
+    }, { surfaceOp: 'append' })
+    session.append('step/end', { turn: 1, step: 1 })
+    const compacted = session.snapshotEvents().findLast(event => event.type === 'assistant/message')
+    if (compacted === undefined) throw new Error('expected an assistant node to compact')
+    const compactId = CompactionId('steady-1')
+    session.append('user/message', createUserMessage({
+      content: [{ type: 'text', text: 'checkpoint' }],
+      source: compactCheckpointSource(compactId),
+    }), {
+      surfaceOp: { op: 'replace', start: compacted.seq, end: compacted.seq },
+      sourceEventSeqs: [compacted.seq],
+    })
+
+    const priced = ctx.tokenMeter.measure(session)
+    expect(selectCompactableRange(session, priced, 0, { spareSeedUserTurn: true })).toBeNull()
+    // Manual still sees the checkpoint span as compactable content.
+    expect(selectCompactableRange(session, priced, 0)).not.toBeNull()
   })
 })

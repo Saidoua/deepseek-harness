@@ -11,6 +11,7 @@ import {
   CompactionId,
   ManualCompactionError,
   compactCheckpointSource,
+  isCompactCheckpointSource,
   toolPairingBalancedAfter,
   toolPairingBalancedBefore,
 } from '@deepseek-ai/dsh-compaction'
@@ -95,12 +96,17 @@ interface TransactionFailure {
  * @param session - session supplying authoritative current surface positions.
  * @param measurement - unified pressure and surface measurement from the conversation meter.
  * @param retainTokens - minimum recent tail budget retained verbatim.
+ * @param options - `spareSeedUserTurn` keeps the seed user message verbatim
+ *   instead of paraphrasing it into the summary; automatic policies pass true
+ *   (the seed anchors the task and head-retention is the only passively safe
+ *   truncation), while an explicit manual compaction may still reclaim it.
  * @returns the inclusive positional seq range to compact, or `null`.
  */
 export function selectCompactableRange(
   session: Session,
   measurement: TokenMeasurement,
   retainTokens: number,
+  options: { spareSeedUserTurn?: boolean } = {},
 ): { start: SessionSeq; end: SessionSeq } | null {
   const pricedNodes = measurement.nodes
   if (pricedNodes.length === 0) return null
@@ -128,11 +134,45 @@ export function selectCompactableRange(
   }
   if (keepFromIdx === 0) return null
 
+  // Head retention: the seed user message anchors the task and survives
+  // verbatim, not paraphrased into the summary (E-Commerce Bench spares the
+  // system message — already outside the log — and the first user turn;
+  // Governance Decay finds head-retaining the only passively safe
+  // truncation). After a prior compaction the first surface node is the
+  // checkpoint summary, so nothing first-party remains to spare. The cut
+  // after the seed is pairing-balanced by construction — a user message
+  // opens no tool call — so the span starts at the next node without a walk.
+  let startIdx = 0
+  const firstNodeSeq = surfaceNodes[0]
+  const firstEvent = options.spareSeedUserTurn === true && firstNodeSeq !== undefined
+    ? session.eventAt(firstNodeSeq)
+    : undefined
+  if (firstEvent?.type === 'user/message' && firstEvent.data.source.kind === 'user') {
+    startIdx = 1
+    if (startIdx >= keepFromIdx) return null
+  }
+
+  // A span of only checkpoint summaries can never shrink — the replacement
+  // is framed from the same content and the shrink guard would reject it
+  // after a wasted summarizer call. This is the steady state once the spared
+  // seed and the retained tail hold everything else.
+  let spanHasCompactableContent = false
+  for (let index = startIdx; index < keepFromIdx; index += 1) {
+    // oxlint-disable-next-line typescript/no-non-null-assertion
+    const event = session.eventAt(surfaceNodes[index]!)
+    if (event === undefined || event.type !== 'user/message'
+      || !isCompactCheckpointSource(event.data.source)) {
+      spanHasCompactableContent = true
+      break
+    }
+  }
+  if (!spanHasCompactableContent) return null
+
   // oxlint-disable-next-line typescript/no-non-null-assertion
-  const first = surfaceNodes[0]!
+  const start = surfaceNodes[startIdx]!
   // oxlint-disable-next-line typescript/no-non-null-assertion
   const cutoff = surfaceNodes[keepFromIdx - 1]!
-  return { start: first, end: cutoff }
+  return { start, end: cutoff }
 }
 
 /**

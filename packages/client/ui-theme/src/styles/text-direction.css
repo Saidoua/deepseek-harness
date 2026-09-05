@@ -1,4 +1,4 @@
-/* Zone-scoped text direction. The locale plugin publishes the active
+/* Zone-scoped text direction and the mirror factor glyph transforms read. The locale plugin publishes the active
  * language's reading order as `data-dsh-text-direction` on the root and never
  * writes `html[dir]`, so the application frame, sidebar, and chrome keep their
  * left-to-right placement in every language. Only elements a zone owner marks
@@ -8,8 +8,17 @@
  * surrounding chrome text unaffected. Components inside a zone use logical
  * inline-axis properties so their spacing follows the flip. Code, terminal,
  * diff, and path chrome pin `dir="ltr"` on their own elements. */
+/* Inline-axis sign. A glyph a component draws with a transform — a caret
+   built from borders, a slide offset — cannot mirror through logical
+   properties, so it multiplies its horizontal component by this factor
+   instead of matching a direction selector of its own. */
+:root {
+  --dsh-text-dir: 1;
+}
+
 :root[data-dsh-text-direction='rtl'] [data-dsh-text-zone] {
   direction: rtl;
   unicode-bidi: isolate;
   text-align: start;
+  --dsh-text-dir: -1;
 }

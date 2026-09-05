@@ -55,7 +55,7 @@ kind: "package-reference"
 
 `corner-shape.css` 平滑所有圆角：在 `@supports (corner-shape: superellipse(1.5))` 内定义 `--dsw-corner-shape`，并通过通配选择器应用到所有元素及其 `::before`/`::after`，因此不支持 `corner-shape` 的引擎保持普通圆弧。正圆形状——`border-radius: 50%` 的圆与胶囊半径——因超级椭圆会使其变形，须在所属组件样式表中把 `corner-shape: round` 与半径声明配对；corner-shape 样式表 spec 跨全部包样式表强制这一配对（[圆角平滑笔记](../../../.agents/notes/implemented/feature/2026-09-01-web-superellipse-corner-smoothing.zh.md)）。
 
-`text-direction.css` 持有客户端中唯一的方向选择器。locale 插件把生效语言的阅读顺序以 `data-dsh-text-direction` 写到根元素上，且绝不写入 `html[dir]`，因此应用框架在任何语言下都保持从左到右的位置；这张样式表为组件用 `data-dsh-text-zone` 标记的元素赋予该语言的方向、bidi 隔离与从阅读起始边开始的文本对齐。其规范拒绝任何其他包样式表选择 `[dir=…]` 或声明 `direction`/`unicode-bidi`。
+`text-direction.css` 持有客户端中唯一的方向选择器。locale 插件把生效语言的阅读顺序以 `data-dsh-text-direction` 写到根元素上，且绝不写入 `html[dir]`，因此应用框架在任何语言下都保持从左到右的位置；这张样式表为组件用 `data-dsh-text-zone` 标记的元素赋予该语言的方向、bidi 隔离与从阅读起始边开始的文本对齐。它还发布 `--dsh-text-dir`，即用 transform 绘制的字形需要将其水平分量乘上的行内轴符号，因为这类字形无法通过逻辑属性镜像。其规范拒绝任何其他包样式表选择 `[dir=…]` 或声明 `direction`/`unicode-bidi`，并要求为区域内容设置样式的样式表使用逻辑行内轴属性。
 
 `gradient-shadow-text.css` 从 `--dsh-content-font-size` 派生 `--dsh-content-font-delta`，并以该增量移动 Markdown 标题与基础文本阶梯。它同时派生低一档变量 `--dsh-content-font-size-secondary`（设置 ≤14 时为设置值 −1，>14 时为设置值 −2；默认设置下为 13px）及配套的 `--dsh-content-font-delta-secondary`，供表格变体与比正文低一档的流内行使用。紧凑的小号文本与代码变体保持固定字号。阶梯之外，用户气泡与 composer 草稿直接读取正文档变量对，流内行的标题及摘要读取低一档变量对。该表还持有阴影阶（`--dsw-shadow-lv*`）与 elevation token：`--dsw-elevation-stroke` 经可重绑的 `--dsw-elevation-stroke-color` 画 0.5px 发丝描边，`--dsw-elevation-panel`/`--dsw-elevation-prominent`/`--dsw-elevation-soft`（输入框专用的更大模糊、更低透明度档）在描边之上叠两层极淡柔光，因此高层级表面设 `border: 0`，不再有占布局的轮廓；派生 token 逐元素重声明，使表面对描边色的重绑真实生效（[elevation 笔记](../../../.agents/notes/implemented/feature/2026-09-01-web-elevation-stroke-shadows.zh.md)）。
 

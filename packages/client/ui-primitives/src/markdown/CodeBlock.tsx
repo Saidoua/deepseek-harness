@@ -167,7 +167,7 @@ export function CodeBlock({ code, lang, streaming, className, copyLabel, copiedL
       )
 
   return (
-    <div ref={rootRef} className={clsx(css.block, 'md-code-block', className)}>
+    <div ref={rootRef} className={clsx(css.block, 'md-code-block', className)} dir="ltr">
       <div className={css.bannerWrap}>
         <div className={css.banner}>
           <div className={css.infostring}>{lang ?? ''}</div>

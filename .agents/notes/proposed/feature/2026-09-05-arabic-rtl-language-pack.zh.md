@@ -30,8 +30,8 @@ Web GUI 内置 `zh` 与 `en`，[`dsh-client-locale`](../../../../packages/client
 
 ### 交付顺序
 
-1. 核心就绪：定义上的 `direction`、根元素文本方向属性、ui-theme 区域规则、区域标记、修订后的 locale README。
-2. 区域包的逻辑属性迁移及其样式表门禁，单个 PR 过大时按包拆分；每部分在从左到右下像素一致。
+1. 核心就绪：定义上的 `direction`、根元素文本方向属性、ui-theme 区域规则及其规范、模态框与 toast、tooltip 的区域标记，以及修订后的 locale README。先标记这三个基础组件即可端到端验证该机制，因为它们的样式表本就不含物理行内轴声明。
+2. 其余区域按包逐个推进：该包样式表的逻辑属性迁移、其区域标记，以及将其加入样式表门禁的区域清单。每部分在从左到右下像素一致。
 3. 文本基础组件：强制 `ltr` 的块与 `auto` 的撰写文本。
 4. 语言包、其术语表与规范、紧邻既有[设置语言切换](../../../../apps/web/tests/settings-chrome.e2e.ts)的阿拉伯语 Playwright 场景、`web-app` 名册行，以及[录制技能](../../../../.agents/skills/record-browser-gif/SKILL.md)要求的 GIF。
 

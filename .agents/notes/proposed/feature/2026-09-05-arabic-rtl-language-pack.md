@@ -30,8 +30,8 @@ The package holds one dictionary file per namespace under `src/locales/`, each d
 
 ### Delivery order
 
-1. Core readiness: `direction` on the definitions, the root text-direction attribute, the ui-theme zone rule, the zone markers, the revised locale README.
-2. Logical-property migration of the zone packages and its stylesheet gate, split by package when a single PR grows too large; each part is pixel-identical left-to-right.
+1. Core readiness: `direction` on the definitions, the root text-direction attribute, the ui-theme zone rule and its spec, the modal, toast, and tooltip zone markers, and the revised locale README. Marking those three primitives first proves the mechanism end to end, because their sheets already carry no physical inline-axis declarations.
+2. The remaining zones, one package at a time: the logical-property migration of that package's sheets, its zone markers, and its addition to the stylesheet gate's zone list. Each part is pixel-identical left-to-right.
 3. Text primitives: forced `ltr` blocks and `auto` authored text.
 4. The pack, its glossary and specs, an Arabic Playwright scenario beside the existing [settings language switch](../../../../apps/web/tests/settings-chrome.e2e.ts), the `web-app` roster row, and the GIF the [recording skill](../../../../.agents/skills/record-browser-gif/SKILL.md) requires.
 

@@ -26,6 +26,7 @@ import {
   captureDelegatedPolicyOverrides,
   childSessionMeta,
   finalAssistantOutput,
+  limitSubagentDiagnostic,
   resolveChildAgentOptions,
   resolveChildDepth,
 } from '@deepseek-ai/dsh-subagent'
@@ -222,15 +223,24 @@ function readResult(
   const lastEnd = foldConsumedWork(own).end
   // The seam's canonical selection rule; a partial answer survives cancel and truncation.
   const output: ContentBlock[] = finalAssistantOutput(own) ?? []
-  const recorded = toStopReason(lastEnd?.data.reason)
+  const reason = lastEnd?.data.reason
+  const recorded = toStopReason(reason)
+  // `toStopReason` keeps only the terminal vocabulary, so the child's own account of
+  // the failure ends here unless it is carried out: the delegating tool would render
+  // a bare "subagent run failed" while the real cause — a quota ceiling, an auth
+  // rejection, an invalid request — stayed in the child's session log. Out-of-process
+  // providers already feed this field through `collectDiagnostic`.
+  const failure = reason?.kind === 'error'
+    ? { diagnostic: limitSubagentDiagnostic(reason.error.message) }
+    : {}
   // Disposal can tear the owner down before the loop records its ordinary
   // `aborted` end, yielding `disposed` instead.
   const stopReason: SubagentStopReason = cancelled && recorded !== 'completed' ? 'aborted' : recorded
   if (structured !== undefined) {
     if (structured.captured !== undefined) {
-      return { output, structured: structured.captured.value, stopReason }
+      return { output, ...failure, structured: structured.captured.value, stopReason }
     }
-    if (stopReason === 'completed') return { output, stopReason: cancelled ? 'aborted' : 'error' }
+    if (stopReason === 'completed') return { output, ...failure, stopReason: cancelled ? 'aborted' : 'error' }
   }
-  return { output, stopReason }
+  return { output, ...failure, stopReason }
 }

@@ -315,6 +315,26 @@ describe('startInProcessRun', () => {
     await run.dispose()
   })
 
+  it('carries the child turn failure into the result diagnostic', async () => {
+    // `toStopReason` keeps only the terminal vocabulary, so without this the
+    // delegating tool renders a bare "subagent run failed" while the real cause
+    // stays in the child's own session log. Assert against the recorded failure
+    // rather than a literal, so the text belongs to the loop, not to this test.
+    const { ctx } = await setup([])
+    const parent = await ctx.agentLoop.create(SessionId('diagnostic-parent'), {})
+    const run = await startInProcessRun(request(parent), {})
+    const child = ctx.agents.get(run.id)!
+    const result = await run.result
+
+    expect(result.stopReason).toBe('error')
+    const end = child.session.snapshotEvents().findLast(event => event.type === 'turn/end')
+    const reason = end?.type === 'turn/end' ? end.data.reason : undefined
+    const recorded = reason?.kind === 'error' ? reason.error.message : undefined
+    expect(recorded).toBeDefined()
+    expect(result.diagnostic).toBe(recorded)
+    await run.dispose()
+  })
+
   it('uses the request signal after publication and dispose as cancellation paths', async () => {
     const { parent, adapter } = await setup(['hang', 'hang'])
     const controller = new AbortController()

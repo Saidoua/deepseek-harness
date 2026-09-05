@@ -228,7 +228,7 @@ export function Menu({ open, anchor, items, selectedId, selectedIds, onSelect, o
           {selected && <IconCheckOutline16 className={css.check} />}
         </button>
         {subOpen && entry.submenu !== undefined && (
-          <div className={clsx(css.submenu, compact && css.compactList)} role="menu">
+          <div className={clsx(css.submenu, compact && css.compactList)} role="menu" data-dsh-text-zone>
             {entry.submenu.map(sub => (
               <button
                 key={sub.id}
@@ -258,6 +258,7 @@ export function Menu({ open, anchor, items, selectedId, selectedIds, onSelect, o
       className={clsx(css.list, dense && css.denseList, compact && css.compactList, scrollable && css.scrollable, portal && css.portal, side === 'top' && !portal && css.sideTop, align === 'end' && !portal && css.alignEnd)}
       style={portal ? fixedPos ?? MEASURE_STYLE : undefined}
       role="menu"
+      data-dsh-text-zone
       // React portals bubble synthetic events through the REACT tree: without
       // this stop, an item click re-fires the anchor row's own onClick
       // (open/toggle) after onSelect.

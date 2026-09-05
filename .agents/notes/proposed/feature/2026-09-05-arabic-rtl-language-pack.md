@@ -31,7 +31,7 @@ The package holds one dictionary file per namespace under `src/locales/`, each d
 ### Delivery order
 
 1. Core readiness: `direction` on the definitions, the root text-direction attribute, the ui-theme zone rule and its spec, the modal, toast, and tooltip zone markers, and the revised locale README. Marking those three primitives first proves the mechanism end to end, because their sheets already carry no physical inline-axis declarations.
-2. The remaining zones, one package at a time: the logical-property migration of that package's sheets, its zone markers, and its addition to the stylesheet gate's zone list. Each part is pixel-identical left-to-right.
+2. The remaining zones, one package at a time: the logical-property migration of that package's sheets, its zone markers, and its addition to the stylesheet gate's zone list. Each part is pixel-identical left-to-right. Tool cards and the other content that renders inside an already-marked zone inherit the direction, so their work is the migration alone.
 3. Text primitives: forced `ltr` blocks and `auto` authored text.
 4. The pack, its glossary and specs, an Arabic Playwright scenario beside the existing [settings language switch](../../../../apps/web/tests/settings-chrome.e2e.ts), the `web-app` roster row, and the GIF the [recording skill](../../../../.agents/skills/record-browser-gif/SKILL.md) requires.
 
@@ -60,6 +60,7 @@ The package holds one dictionary file per namespace under `src/locales/`, each d
 ## Risks
 
 - A component that renders inside a zone but lives in a package outside the gate's list keeps physical properties and misaligns in Arabic; the list is extended when the review pass finds one.
+- Popovers, menus, and the panels that take over the composer are marked but were not observed in a browser under Arabic, because the keyless fixture opens no session; the Arabic review pass covers them.
 - Copy captured at registration time outside the slot render path keeps the language it was registered under; the pack inherits that locale limitation.
 - The dictionary-parity gate discovers `zh`/`en` exports; it must tolerate an `ar` export and is extended to include the pack rather than skipped.
 - The pack adds roughly 20 to 25 KB of dictionaries and 21 revision bumps at boot; if profiling shows subscriber churn, the runtime gains a batched registration, otherwise nothing changes.

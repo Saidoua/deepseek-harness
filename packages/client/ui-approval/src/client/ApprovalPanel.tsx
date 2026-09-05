@@ -29,7 +29,7 @@ function ApprovalFlow({ pending, detail, t }: {
   }
   return (
     <div className={css.root} data-approval-key={pending.key}>
-      <div className={css.card}>
+      <div className={css.card} data-dsh-text-zone>
         <div className={css.strip}><span className={css.dot} />{t('waiting')}</div>
         <div
           className={css.body}

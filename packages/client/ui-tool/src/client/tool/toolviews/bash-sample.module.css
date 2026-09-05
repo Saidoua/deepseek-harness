@@ -124,7 +124,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-right: 6px;
+  margin-inline-end: 6px;
   color: var(--dsw-alias-label-tertiary);
 }
 

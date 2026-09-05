@@ -36,6 +36,17 @@ const ZONE_STYLESHEETS = [
   'ui-conversation/src/client/skeleton/InputBar.module.css',
   'ui-primitives/src/markdown/MarkdownText.module.css',
   'ui-primitives/src/user-text.module.css',
+  'ui-primitives/src/DisclosureRow.module.css',
+  'ui-primitives/src/SearchBlock.module.css',
+  'ui-primitives/src/WebBlock.module.css',
+  'ui-tool/src/client/tool/components/ToolRow.module.css',
+  'ui-tool/src/client/tool/components/AskQuestionCard.module.css',
+  'ui-tool/src/client/tool/ToolCallTree.module.css',
+  'ui-tool/src/client/tool/toolviews/bash-sample.module.css',
+  'ui-goal/src/client/GoalBar.module.css',
+  'ui-plan/src/client/PlanModeControl.module.css',
+  'ui-approval/src/client/ApprovalPanel.module.css',
+  'ui-user-questions/src/client/QuestionComposer.module.css',
 ]
 
 /** Physical inline-axis properties a zone stylesheet may not declare. */
@@ -63,6 +74,10 @@ const PHYSICAL_ALLOWLIST = new Map([
   // Drawn as a transform-mirrored glyph: it reads --dsh-text-dir, and logical
   // borders would cancel that mirror instead of composing with it.
   ['ui-chat/src/client/chat/MessageItem.module.css|border-right', 'retry caret mirrors through --dsh-text-dir'],
+  // Decorative sweeps: the highlight crosses the row the same way in every
+  // language, so its offsets are physical screen positions, not reading order.
+  ['ui-tool/src/client/tool/components/ToolRow.module.css|left', 'running-row shimmer sweep'],
+  ['ui-tool/src/client/tool/toolviews/bash-sample.module.css|left', 'running-row shimmer sweep'],
 ])
 
 const sheetPath = fileURLToPath(new URL('../src/styles/text-direction.css', import.meta.url))

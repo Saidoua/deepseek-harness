@@ -15,8 +15,8 @@
   gap: 12px;
   padding: 9px 14px;
   background: var(--dsw-alias-markdown-code-block-banner);
-  border-top-left-radius: var(--dsl-search-radius);
-  border-top-right-radius: var(--dsl-search-radius);
+  border-start-start-radius: var(--dsl-search-radius);
+  border-start-end-radius: var(--dsl-search-radius);
 }
 
 .summary {
@@ -51,7 +51,7 @@
    sideways instead of folding. */
 .line {
   min-height: var(--dsl-search-line-height);
-  padding-left: 14px;
+  padding-inline-start: 14px;
   white-space: pre;
 }
 
@@ -74,7 +74,7 @@
   background-color: transparent;
   cursor: pointer;
   font: inherit;
-  text-align: left;
+  text-align: start;
 }
 
 .filePath {
@@ -98,7 +98,7 @@
   color: var(--dsw-alias-label-tertiary);
   cursor: pointer;
   font: inherit;
-  text-align: left;
+  text-align: start;
 }
 
 .expand:hover {

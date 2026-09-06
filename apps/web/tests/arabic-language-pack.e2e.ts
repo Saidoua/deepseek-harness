@@ -63,16 +63,12 @@ describe('web e2e: Arabic language pack', () => {
         .find(node => (node.textContent ?? '').includes('English'))
       trigger?.click()
     })
-    // English first: the same dialog before any language change is the
-    // baseline every Arabic assertion below is a delta from.
-    await page.screenshot({ path: '/private/tmp/claude-501/-Users-saidouahdachi-dsh-upstream/d37fb16d-e4c9-4e23-ad03-109031101bae/scratchpad/settings-en.png' })
     const arabic = page.getByText(ARABIC_LABEL, { exact: true }).first()
     await arabic.waitFor({ timeout: 15_000 })
     await arabic.click({ force: true })
 
     expect(await page.getAttribute('html', 'lang')).toBe('ar')
     expect(await page.getAttribute('html', DIRECTION_ATTRIBUTE)).toBe('rtl')
-    await page.screenshot({ path: '/private/tmp/claude-501/-Users-saidouahdachi-dsh-upstream/d37fb16d-e4c9-4e23-ad03-109031101bae/scratchpad/arabic.png' })
     // The frame is the whole point of the zone design: the language changed,
     // the column did not.
     const sidebarAfter = await page.locator('[class*="sidebarCol"]').first().boundingBox()

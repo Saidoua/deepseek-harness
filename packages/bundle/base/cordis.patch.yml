@@ -266,10 +266,17 @@
     - id: tool-fs
       name: '@deepseek-ai/dsh-tool-fs'
 
+    # The published plugin registers `glob` and `grep` against the dsh-rs addon,
+    # reusing the in-box package's parsers, formatters, and presenters, so the
+    # model-facing tools are unchanged. `whenAddonMissing: spawn` registers the
+    # in-box spawn-backed tools on a platform with no prebuilt binary or under
+    # `DSH_NATIVE=0`. The entry id stays `tool-fs-search`: the web bundle
+    # disables the search tools in the client plane by that id.
     - id: tool-fs-search
-      name: '@deepseek-ai/dsh-tool-fs-search'
+      name: '@saidouahdachi/dsh-tool-fs-search-native'
       config:
         sampleOverCapGlobResults: false
+        whenAddonMissing: spawn
 
     - id: agent-instructions
       name: '@deepseek-ai/dsh-agent-instructions'

@@ -20,7 +20,6 @@ import type { GrepMatch } from './search-core.ts'
 import { SearchError, previewLine, retainGrepMatches, runRipgrep, toWorkdirRelative, trySaveFormattedResult } from './search-core.ts'
 import { grepSearchMeta, searchViewFromMeta } from './presentation.ts'
 import { acceptedDirectCallValue } from './direct-call.ts'
-import { nativeSearch, runNativeGrep } from './native.ts'
 
 /**
  * Default cap on flat matches retained inline by one `grep` call (the
@@ -319,10 +318,6 @@ export function applyGrepTool(ctx: Context, caps: GrepToolCaps): void {
     },
     async execute(args, exec) {
       const input = parseGrepArgs(args)
-      const native = nativeSearch()
-      // The addon already reports workdir-relative paths and the complete
-      // match list, so its result IS the canonical value.
-      if (native !== undefined) return { matches: await runNativeGrep(native, exec, input) }
       const run = await runRipgrep(ctx, exec, 'grep', buildGrepCommand(input), caps.rawOutputMaxBytes, caps.graceMs, caps.stderrMaxBytes)
       if (run.noMatches) return { matches: [] }
 

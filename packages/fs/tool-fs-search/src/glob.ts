@@ -17,7 +17,6 @@ import type { SpillRef } from '@deepseek-ai/dsh-spill'
 import { runRipgrep, toWorkdirRelative, trySaveFormattedResult } from './search-core.ts'
 import { globSearchMeta, searchViewFromMeta } from './presentation.ts'
 import { acceptedDirectCallValue } from './direct-call.ts'
-import { nativeSearch, runNativeGlob, searchWorkdir } from './native.ts'
 
 /**
  * Default cap on paths retained inline by one `glob` call (the `globMaxResults`
@@ -341,14 +340,6 @@ export function applyGlobTool(ctx: Context, caps: GlobToolCaps): void {
     },
     async execute(args, exec) {
       const input = parseGlobArgs(args)
-      const native = nativeSearch()
-      if (native !== undefined) {
-        const workdir = searchWorkdir(exec)
-        return {
-          root: input.path === undefined ? '.' : toWorkdirRelative(input.path, workdir),
-          paths: await runNativeGlob(native, exec, input),
-        }
-      }
       const run = await runRipgrep(ctx, exec, 'glob', buildGlobCommand(input), caps.rawOutputMaxBytes, caps.graceMs, caps.stderrMaxBytes)
       const root = input.path === undefined ? '.' : toWorkdirRelative(input.path, run.workdir)
       if (run.noMatches) return { root, paths: [] }

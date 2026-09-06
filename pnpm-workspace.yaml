@@ -19,9 +19,6 @@ linkWorkspacePackages: true
 overrides:
   '@deepseek-ai/cosmokit': 'link:vendor/cosmokit'
   '@deepseek-ai/schemastery': 'link:vendor/schemastery'
-  # Development link for the optional in-process search addon (dsh-rs); the
-  # published manifest keeps a registry range that npm skips when unavailable.
-  '@saidouahdachi/dsh-native': 'link:../dsh-rs/npm'
 
 peerDependencyRules:
   allowedVersions:
@@ -79,6 +76,13 @@ minimumReleaseAgeExclude:
   # All platform aliases resolve to the @openai/codex package name, so their
   # reviewed exact versions must share one version-union policy entry.
   - '@openai/codex@0.149.1||0.149.1-darwin-arm64||0.149.1-darwin-x64||0.149.1-linux-arm64||0.149.1-linux-x64||0.149.1-win32-arm64||0.149.1-win32-x64'
+  - '@saidouahdachi/dsh-native-darwin-arm64@0.1.0'
+  - '@saidouahdachi/dsh-native-darwin-x64@0.1.0'
+  - '@saidouahdachi/dsh-native-linux-arm64-gnu@0.1.0'
+  - '@saidouahdachi/dsh-native-linux-x64-gnu@0.1.0'
+  - '@saidouahdachi/dsh-native-win32-x64-msvc@0.1.0'
+  - '@saidouahdachi/dsh-native@0.1.0'
+  - '@saidouahdachi/dsh-tool-fs-search-native@0.1.1'
 
 patchedDependencies:
   '@yao-pkg/pkg@6.21.0': patches/@yao-pkg__pkg@6.21.0.patch

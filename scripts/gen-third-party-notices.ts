@@ -38,15 +38,17 @@ const DEV_ONLY_AREAS = [
   'native/',
 ] as const
 
-/** First-party public native packages: reachable at runtime but not third-party. */
+/**
+ * First-party packages: built and published from this repository, reachable at
+ * runtime, and covered by its own LICENSE, so the notices file does not list
+ * them. Shared ownership is not the test — a package built in another
+ * repository and resolved from the registry is external software here and
+ * carries its own terms, whoever wrote it.
+ */
 const FIRST_PARTY = new Set([
   '@deepseek-ai/node-addon-landlock-run',
   '@deepseek-ai/node-addon-landlock-run-linux-arm64',
   '@deepseek-ai/node-addon-landlock-run-linux-x64',
-  // The in-process search addon is built from this repository owner's sibling
-  // dsh-rs checkout. It is optional and absent from a clean install, so the
-  // store cannot answer for it at all.
-  '@saidouahdachi/dsh-native',
 ])
 
 /** Official SDK identity covered by the project's narrow owner authorization. */

@@ -7,7 +7,6 @@ settings:
 overrides:
   '@deepseek-ai/cosmokit': link:vendor/cosmokit
   '@deepseek-ai/schemastery': link:vendor/schemastery
-  '@saidouahdachi/dsh-native': link:../dsh-rs/npm
 
 patchedDependencies:
   '@yao-pkg/pkg@6.21.0': 28edd2180c36691c481522ef81f6f6614505f45e491aad542ac4663d4e6b3ff8
@@ -1309,6 +1308,9 @@ importers:
       '@deepseek-ai/dsh-workflow-worker-thread':
         specifier: workspace:^
         version: link:../../workflow/workflow-worker-thread
+      '@saidouahdachi/dsh-tool-fs-search-native':
+        specifier: 0.1.1
+        version: 0.1.1(@deepseek-ai/cordis@vendor+cordis)(@deepseek-ai/dsh-output-retention@packages+util+output-retention)(@deepseek-ai/dsh-spill@packages+spill+spill)(@deepseek-ai/dsh-system-prompt@packages+core+system-prompt)(@deepseek-ai/dsh-timeout@packages+util+timeout)(@deepseek-ai/dsh-tool-fs-search@packages+fs+tool-fs-search)(@deepseek-ai/dsh-tools@packages+core+tools)(@deepseek-ai/dsh-util-values@packages+util+values)(@deepseek-ai/schemastery@vendor+schemastery)
     devDependencies:
       '@deepseek-ai/cordis':
         specifier: workspace:^
@@ -5551,10 +5553,6 @@ importers:
       '@deepseek-ai/dsh-tools':
         specifier: workspace:^
         version: link:../../core/tools
-    optionalDependencies:
-      '@saidouahdachi/dsh-native':
-        specifier: link:../../../../dsh-rs/npm
-        version: link:../../../../dsh-rs/npm
 
   packages/fs/tool-str-replace-editor:
     dependencies:
@@ -12848,6 +12846,74 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@saidouahdachi/dsh-native-darwin-arm64@0.1.0':
+    resolution: {integrity: sha512-/R0yuaLjYPiKB8z83iFff8WoEUr5wlzXtLcS1NGqDPu1Ge9baZwr6/glTxvjaRi0dc/3Hb+rmhU93M6blI81Ag==}
+    engines: {node: '>=20'}
+    cpu: [arm64]
+    os: [darwin]
+
+  '@saidouahdachi/dsh-native-darwin-x64@0.1.0':
+    resolution: {integrity: sha512-ljU386rI9xHTTJecQkyhr+YllCJd6rWCoMkQ5kRAByymYHW/+FhKQdYwwq3Wc6urabixgKgFrCRbUO+F+dzn7Q==}
+    engines: {node: '>=20'}
+    cpu: [x64]
+    os: [darwin]
+
+  '@saidouahdachi/dsh-native-linux-arm64-gnu@0.1.0':
+    resolution: {integrity: sha512-Es5KZghhZQwD7ibsAcw4w2n3ehr8lGgbcWXidIvOH6bNAA7tbHoUI1q2oSeRT+qMpQxjh5qtf8Rdjz0nJg9GXA==}
+    engines: {node: '>=20'}
+    cpu: [arm64]
+    os: [linux]
+    libc: [glibc]
+
+  '@saidouahdachi/dsh-native-linux-x64-gnu@0.1.0':
+    resolution: {integrity: sha512-Pec61zV3BsrE6gk7jMPeui4c6+gGqMGP9RP8CmbFsPnxHy6kKzSG5woxUz1OTStAFEUbgNfWfeNoyfc6A9Y2ag==}
+    engines: {node: '>=20'}
+    cpu: [x64]
+    os: [linux]
+    libc: [glibc]
+
+  '@saidouahdachi/dsh-native-win32-x64-msvc@0.1.0':
+    resolution: {integrity: sha512-gtHFWkwGJ0aWqne4JKaJkw1BC7l/2S79BPV2GGJKOpfIX6VqUl+GuBuNRK4YYZCzheTGHGFb4IGMZY+/iTAijg==}
+    engines: {node: '>=20'}
+    cpu: [x64]
+    os: [win32]
+
+  '@saidouahdachi/dsh-native@0.1.0':
+    resolution: {integrity: sha512-kDZNZ5Y6n8ma09sacTpKy8RwHWyF3t3AsE1wEutZLFkt9MWP5CQHQ80tUokVsDg3dAI6bT0Lri8sqKFu/Evt9Q==}
+    engines: {node: '>=20'}
+
+  '@saidouahdachi/dsh-tool-fs-search-native@0.1.1':
+    resolution: {integrity: sha512-FZY+sDNAjaIOvASR78cB2bJVs170rZJCr+EGqL8kkCx8nsFFjIVYQHIlXR3J/IaA2IcBqqBTJkRJryWBdnqv+g==}
+    peerDependencies:
+      '@deepseek-ai/cordis': ^4.0.2
+      '@deepseek-ai/dsh-output-retention': '>=0.1.3-alpha.1'
+      '@deepseek-ai/dsh-spill': '>=0.1.3-alpha.1'
+      '@deepseek-ai/dsh-system-prompt': '>=0.1.3-alpha.1'
+      '@deepseek-ai/dsh-timeout': '>=0.1.3-alpha.1'
+      '@deepseek-ai/dsh-tool-fs-search': '>=0.1.3-alpha.1'
+      '@deepseek-ai/dsh-tools': '>=0.1.3-alpha.1'
+      '@deepseek-ai/dsh-util-values': '>=0.1.3-alpha.1'
+      '@deepseek-ai/schemastery': ^3.18.2
+    peerDependenciesMeta:
+      '@deepseek-ai/cordis':
+        optional: true
+      '@deepseek-ai/dsh-output-retention':
+        optional: true
+      '@deepseek-ai/dsh-spill':
+        optional: true
+      '@deepseek-ai/dsh-system-prompt':
+        optional: true
+      '@deepseek-ai/dsh-timeout':
+        optional: true
+      '@deepseek-ai/dsh-tool-fs-search':
+        optional: true
+      '@deepseek-ai/dsh-tools':
+        optional: true
+      '@deepseek-ai/dsh-util-values':
+        optional: true
+      '@deepseek-ai/schemastery':
+        optional: true
+
   '@sec-ant/readable-stream@0.4.1':
     resolution: {integrity: sha512-831qok9r2t8AlxLko40y2ebgSDhenenCatLVeW/uBtnHPyhHOvG0C7TvfgecV+wHzIm5KUICgzmVpWS+IMEAeg==}
 
@@ -18431,6 +18497,43 @@ snapshots:
 
   '@rollup/rollup-win32-x64-msvc@4.62.2':
     optional: true
+
+  '@saidouahdachi/dsh-native-darwin-arm64@0.1.0':
+    optional: true
+
+  '@saidouahdachi/dsh-native-darwin-x64@0.1.0':
+    optional: true
+
+  '@saidouahdachi/dsh-native-linux-arm64-gnu@0.1.0':
+    optional: true
+
+  '@saidouahdachi/dsh-native-linux-x64-gnu@0.1.0':
+    optional: true
+
+  '@saidouahdachi/dsh-native-win32-x64-msvc@0.1.0':
+    optional: true
+
+  '@saidouahdachi/dsh-native@0.1.0':
+    optionalDependencies:
+      '@saidouahdachi/dsh-native-darwin-arm64': 0.1.0
+      '@saidouahdachi/dsh-native-darwin-x64': 0.1.0
+      '@saidouahdachi/dsh-native-linux-arm64-gnu': 0.1.0
+      '@saidouahdachi/dsh-native-linux-x64-gnu': 0.1.0
+      '@saidouahdachi/dsh-native-win32-x64-msvc': 0.1.0
+    optional: true
+
+  '@saidouahdachi/dsh-tool-fs-search-native@0.1.1(@deepseek-ai/cordis@vendor+cordis)(@deepseek-ai/dsh-output-retention@packages+util+output-retention)(@deepseek-ai/dsh-spill@packages+spill+spill)(@deepseek-ai/dsh-system-prompt@packages+core+system-prompt)(@deepseek-ai/dsh-timeout@packages+util+timeout)(@deepseek-ai/dsh-tool-fs-search@packages+fs+tool-fs-search)(@deepseek-ai/dsh-tools@packages+core+tools)(@deepseek-ai/dsh-util-values@packages+util+values)(@deepseek-ai/schemastery@vendor+schemastery)':
+    optionalDependencies:
+      '@deepseek-ai/cordis': link:vendor/cordis
+      '@deepseek-ai/dsh-output-retention': link:packages/util/output-retention
+      '@deepseek-ai/dsh-spill': link:packages/spill/spill
+      '@deepseek-ai/dsh-system-prompt': link:packages/core/system-prompt
+      '@deepseek-ai/dsh-timeout': link:packages/util/timeout
+      '@deepseek-ai/dsh-tool-fs-search': link:packages/fs/tool-fs-search
+      '@deepseek-ai/dsh-tools': link:packages/core/tools
+      '@deepseek-ai/dsh-util-values': link:packages/util/values
+      '@deepseek-ai/schemastery': link:vendor/schemastery
+      '@saidouahdachi/dsh-native': 0.1.0
 
   '@sec-ant/readable-stream@0.4.1': {}
 

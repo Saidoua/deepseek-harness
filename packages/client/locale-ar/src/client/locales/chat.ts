@@ -29,7 +29,7 @@ export const ar = {
   'chat.loadError': 'تعذّر تحميل السجل: {message} ({code})',
   'chat.loadOlder': 'تحميل الأقدم',
   'chat.toBottom': 'العودة إلى الأسفل',
-  'chat.deepDiving': 'تعمّق في التحليل...',
+  'chat.deepDiving': 'جارٍ التعمّق في التحليل...',
   'chat.turnNavigation.label': 'التنقل بين الأدوار',
   'chat.turnNavigation.jump': 'الانتقال إلى الدور {turn}',
   'chat.turnNavigation.jumpLoad': 'تحميل الدور {turn} والانتقال إليه',

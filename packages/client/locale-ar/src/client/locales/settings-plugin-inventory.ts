@@ -20,7 +20,7 @@ export const ar = {
   globalSubtitle: 'مشتركة بين النظام وكل المحادثات',
   presetProvidedDetail: 'معطّلة عمومًا؛ توفّرها الإعدادات المسبقة للوكيل لكل محادثة',
   enabledIn: 'مفعّلة في',
-  viewInPreset: 'عرضها في مجموعة الإعداد المسبق',
+  viewInPreset: 'العرض في مجموعة الإعداد المسبق',
   matchesInOtherPresets: '{count} مطابقة إضافية في إعدادات مسبقة أخرى: ',
   failedCountLabel: 'فاشلة',
   enabledTag: 'مفعّلة',

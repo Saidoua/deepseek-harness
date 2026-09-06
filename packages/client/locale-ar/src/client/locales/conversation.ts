@@ -162,9 +162,9 @@ export const ar = {
   'terminal.running': 'قيد التشغيل',
   'terminal.failed': 'فشل',
   'terminal.done': 'انتهى',
-  'terminal.noOutput': 'لا يوجد إخراج',
-  'terminal.collapseAria': 'طي الإخراج',
-  'terminal.expandAria': 'توسيع أسطر الإخراج الـ{n} المتبقية',
+  'terminal.noOutput': 'لا توجد مخرجات',
+  'terminal.collapseAria': 'طي المخرجات',
+  'terminal.expandAria': 'توسيع أسطر المخرجات الـ{n} المتبقية',
   'terminal.expandRest': '… {n} سطر إضافي',
   'terminal.sendInput': '(إرسال إدخال)',
   // {sessionId} is an opaque id and renders verbatim.

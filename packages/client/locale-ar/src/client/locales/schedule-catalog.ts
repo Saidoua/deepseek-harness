@@ -18,7 +18,7 @@ export const ar = {
   'unit.minute.other': 'دقيقة',
   'unit.second.one': 'ثانية',
   'unit.second.other': 'ثانية',
-  'relative.now': 'حان الآن',
+  'relative.now': 'حان موعده الآن',
   'relative.future': 'بعد {value} {unit}',
   'relative.overdue': 'متأخر {value} {unit}',
 } satisfies Record<ScheduleCatalogKey, string>

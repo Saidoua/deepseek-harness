@@ -61,8 +61,8 @@ export const ar = {
   'message.compaction': 'ضُغط السياق',
   'message.compaction.running': 'جارٍ ضغط السياق…',
   'message.compaction.completed': 'ضُغط {items} عنصرًا من السجل (~{tokens} رمز)',
-  'message.compaction.expand': 'عرض ملخص الضغط',
-  'message.compaction.unavailable': 'ملخص الضغط غير متاح',
+  'message.compaction.expand': 'عرض ملخص ضغط السياق',
+  'message.compaction.unavailable': 'ملخص ضغط السياق غير متاح',
   // The slash command's own name, typed exactly.
   'message.compaction.commandTitle': 'compact',
   'message.think': 'تفكير',

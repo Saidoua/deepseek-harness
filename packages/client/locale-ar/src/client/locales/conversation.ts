@@ -146,7 +146,7 @@ export const ar = {
   'details.running': 'قيد التشغيل…',
   'queue.count': '{n} رسالة في الطابور',
   'queue.image': 'صورة رسالة في الطابور',
-  'queue.file': 'ملف في الطابور {name}',
+  'queue.file': 'الملف {name} في الطابور',
   'queue.edit': 'تحرير الرسالة في الطابور',
   'queue.edit.unsupported': 'تحتوي على محتوى غير نصي؛ التحرير غير مدعوم بعد',
   'queue.save': 'حفظ الرسالة في الطابور',

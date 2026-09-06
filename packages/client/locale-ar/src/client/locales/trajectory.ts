@@ -49,7 +49,7 @@ export const ar = {
   'timing.durationTooShort': 'المدة قصيرة جدًا',
   'timing.showLocalTime': 'عرض التوقيت المحلي',
   // The epoch format's own name.
-  'timing.showUnixTimestamp': 'عرض طابع Unix الزمني',
+  'timing.showUnixTimestamp': 'عرض الطابع الزمني Unix',
   'timing.started': 'بدأ',
   'timing.totalDuration': 'إجمالي المدة',
   // The metric's reported acronym.

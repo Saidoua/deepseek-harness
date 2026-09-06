@@ -32,4 +32,4 @@ Tool names, JSON schemas, system-prompt guidance, render text, and search cards 
 
 The base bundle can no longer be built from workspace sources alone, and a plugin version that breaks the registration seam surfaces at boot or in the composition test, not in this repository's typecheck.
 
-The predecessor note on the addon as an optional registry dependency was deleted with the patch it described: `dsh-tool-fs-search` declares no addon dependency, so its manifest rationale has no subject. Its notices rationale does not carry forward — the generator no longer names the addon, and the plugin is listed as an external runtime dependency.
+The predecessor note on the addon as an optional registry dependency was deleted with the patch it described: `dsh-tool-fs-search` declares no addon dependency, so its manifest rationale has no subject. Its notices rationale does not carry forward either: the generator's first-party set covers packages this repository builds and licenses, not every package its owner wrote, so the addon's exemption is gone and the plugin is listed under its own terms.

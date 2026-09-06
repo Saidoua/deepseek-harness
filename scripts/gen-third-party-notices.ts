@@ -38,7 +38,13 @@ const DEV_ONLY_AREAS = [
   'native/',
 ] as const
 
-/** First-party public native packages: reachable at runtime but not third-party. */
+/**
+ * First-party packages: built and published from this repository, reachable at
+ * runtime, and covered by its own LICENSE, so the notices file does not list
+ * them. Shared ownership is not the test — a package built in another
+ * repository and resolved from the registry is external software here and
+ * carries its own terms, whoever wrote it.
+ */
 const FIRST_PARTY = new Set([
   '@deepseek-ai/node-addon-landlock-run',
   '@deepseek-ai/node-addon-landlock-run-linux-arm64',

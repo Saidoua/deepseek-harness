@@ -152,6 +152,7 @@ export function Tooltip({ label, side = 'right', delayMs = 0, disabled = false, 
           data-side={placement}
           style={{ left: pos.x, top: y, ...maxWidth === undefined ? {} : { maxWidth } }}
           role="tooltip"
+          data-dsh-text-zone
         >
           {resolvedLabel}
         </span>

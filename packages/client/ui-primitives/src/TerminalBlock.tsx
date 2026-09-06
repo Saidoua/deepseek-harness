@@ -196,7 +196,7 @@ export function TerminalBlock({
   const { hidden, capped, headLines, tailLines } = headTailCap(lines.length, maxLines, expanded)
 
   return (
-    <div className={clsx(css.block, className)} data-terminal="" data-running={running ? '' : undefined}>
+    <div className={clsx(css.block, className)} data-terminal="" data-running={running ? '' : undefined} dir="ltr">
       <div className={css.header}>
         <div className={css.prompt}>
           <span className={css.runStateLabel}>{state.label}</span>

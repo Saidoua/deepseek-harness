@@ -96,7 +96,7 @@
    which would break the one-line row in the narrow case the slot exists for. */
 .summarySuffix {
   flex: none;
-  margin-left: 4px;
+  margin-inline-start: 4px;
   white-space: nowrap;
   font-size: var(--dsh-content-font-size-secondary, 13px);
   line-height: calc(24px + var(--dsh-content-font-delta, 0px));
@@ -111,7 +111,7 @@
    half-pixel nudge closes the baseline gap the size difference leaves under
    the row's box-centering (a transform, so flex layout is untouched). */
 .diffStat {
-  margin-left: 10px;
+  margin-inline-start: 10px;
   font-family: var(--ds-font-family-code);
   font-size: calc(var(--dsh-content-font-size-secondary, 13px) - 2px);
   color: var(--dsw-alias-label-caption);
@@ -134,7 +134,7 @@
   border: none;
   background: none;
   font: inherit;
-  text-align: left;
+  text-align: inherit;
   font-size: var(--dsh-content-font-size-secondary, 13px);
   line-height: calc(24px + var(--dsh-content-font-delta, 0px));
   color: var(--dsw-alias-label-secondary);

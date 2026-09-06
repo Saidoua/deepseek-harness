@@ -68,7 +68,7 @@
   background: none;
   color: inherit;
   font: inherit;
-  text-align: left;
+  text-align: inherit;
 }
 
 .compactionButton:not(:disabled) {
@@ -85,7 +85,7 @@
   place-items: center;
   width: calc(16px + var(--dsh-content-font-delta, 0px));
   height: calc(16px + var(--dsh-content-font-delta, 0px));
-  margin-right: 6px;
+  margin-inline-end: 6px;
   color: var(--dsw-alias-label-secondary);
 }
 
@@ -225,7 +225,7 @@
   display: grid;
   gap: 2px;
   margin-top: 3px;
-  padding-left: 14px;
+  padding-inline-start: 14px;
   overflow-wrap: anywhere;
   font-size: var(--dsh-content-font-size-secondary, 13px);
   line-height: calc(18px + var(--dsh-content-font-delta-secondary, 0px));
@@ -255,7 +255,7 @@
 }
 
 .turnErrorTitle {
-  margin-right: 6px;
+  margin-inline-end: 6px;
   color: var(--dsw-alias-state-error-primary);
   font-weight: 600;
 }
@@ -270,7 +270,7 @@
 }
 
 .maxTokensTitle {
-  margin-right: 6px;
+  margin-inline-end: 6px;
   color: var(--dsw-alias-state-warn-primary);
   font-weight: 600;
 }

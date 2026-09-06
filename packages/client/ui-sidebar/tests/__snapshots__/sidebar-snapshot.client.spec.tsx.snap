@@ -62,6 +62,7 @@ exports[`sidebar shell snapshots > renders the collapsed rail after the crossfad
     </button>
     <div
       class="regionArea"
+      data-dsh-text-zone="true"
     >
       <div
         data-slot="sidebar.workspaces"
@@ -70,6 +71,7 @@ exports[`sidebar shell snapshots > renders the collapsed rail after the crossfad
     </div>
     <div
       class="footArea"
+      data-dsh-text-zone="true"
     >
       <div
         class="footerActions"
@@ -192,6 +194,7 @@ exports[`sidebar shell snapshots > renders the expanded column (wordmark, capsul
     </button>
     <div
       class="regionArea"
+      data-dsh-text-zone="true"
     >
       <div
         data-slot="sidebar.workspaces"
@@ -200,6 +203,7 @@ exports[`sidebar shell snapshots > renders the expanded column (wordmark, capsul
     </div>
     <div
       class="footArea"
+      data-dsh-text-zone="true"
     >
       <div
         class="footerActions"
@@ -322,6 +326,7 @@ exports[`sidebar shell snapshots > renders the expanded column in the default lo
     </button>
     <div
       class="regionArea"
+      data-dsh-text-zone="true"
     >
       <div
         data-slot="sidebar.workspaces"
@@ -330,6 +335,7 @@ exports[`sidebar shell snapshots > renders the expanded column in the default lo
     </div>
     <div
       class="footArea"
+      data-dsh-text-zone="true"
     >
       <div
         class="footerActions"

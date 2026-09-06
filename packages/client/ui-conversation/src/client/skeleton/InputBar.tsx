@@ -434,7 +434,7 @@ export const InputBar = memo(function InputBar({
             surface, so wrapping, caret geometry, and scrolling are the
             browser's own. */}
         <div ref={scrollRef} className={css.scroll} data-input-scroll>
-          <div className={css.grow}>
+          <div className={css.grow} data-dsh-text-zone>
             <ComposerContentEditable
               editor={workspaceTrigger ? null : editor}
               editable={editable}

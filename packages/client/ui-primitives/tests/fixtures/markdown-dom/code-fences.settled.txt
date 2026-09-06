@@ -1,5 +1,5 @@
-<div class="_markdown_404681">
-  <div class="_block_9aea57 md-code-block">
+<div class="_markdown_404681" data-dsh-text-auto="true" dir="auto">
+  <div class="_block_9aea57 md-code-block" dir="ltr">
     <div class="_bannerWrap_9aea57">
       <div class="_banner_9aea57">
         <div class="_infostring_9aea57">
@@ -23,7 +23,7 @@
               #text " ="
             <span style="color:var(--shiki-token-constant)">
               #text " 42"
-  <div class="_block_9aea57 md-code-block">
+  <div class="_block_9aea57 md-code-block" dir="ltr">
     <div class="_bannerWrap_9aea57">
       <div class="_banner_9aea57">
         <div class="_infostring_9aea57">
@@ -33,7 +33,7 @@
     <pre class="_plain_9aea57">
       <code>
         #text "no language"
-  <div class="_block_9aea57 md-code-block">
+  <div class="_block_9aea57 md-code-block" dir="ltr">
     <div class="_bannerWrap_9aea57">
       <div class="_banner_9aea57">
         <div class="_infostring_9aea57">
@@ -44,7 +44,7 @@
     <pre class="_plain_9aea57">
       <code>
         #text "plain fallback"
-  <div class="_block_9aea57 md-code-block">
+  <div class="_block_9aea57 md-code-block" dir="ltr">
     <div class="_bannerWrap_9aea57">
       <div class="_banner_9aea57">
         <div class="_infostring_9aea57">
@@ -66,7 +66,7 @@
               #text " true"
   <pre>
     <code>
-  <div class="_block_9aea57 md-code-block">
+  <div class="_block_9aea57 md-code-block" dir="ltr">
     <div class="_bannerWrap_9aea57">
       <div class="_banner_9aea57">
         <div class="_infostring_9aea57">

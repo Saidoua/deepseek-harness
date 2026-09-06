@@ -1,12 +1,14 @@
 // @vitest-environment jsdom
 /**
- * `<html lang>` tracks the active locale.
+ * `<html lang>` and the root text-direction attribute track the active locale.
  *
  * The served markup declares one language, but the resolved locale may differ
  * (browser detection, or a stored Host preference adopted after activation),
  * and it changes again whenever the user switches. Assistive technology and
- * browser features read this attribute, so a stale value misreports the
- * document language rather than merely looking untidy.
+ * browser features read the language attribute, so a stale value misreports
+ * the document language rather than merely looking untidy. The direction
+ * attribute drives the ui-theme zone rule; `html[dir]` must stay unwritten so
+ * the application frame keeps left-to-right placement in every language.
  */
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { Context } from '@deepseek-ai/cordis'
@@ -43,11 +45,13 @@ async function bench(preference?: string) {
   // The settings transport and the forwarded-event port the plugin injects.
   new TestRemote(ctx, { settings: { describe: describeRpc, mutate } })
   await ctx.plugin({ inject: [...settingsInject], apply: settingsApply }).await()
-  await ctx.plugin({ inject: [...inject], apply }).await()
-  return { ctx, locale: ctx.get('locale') as LocaleRuntime }
+  const fiber = ctx.plugin({ inject: [...inject], apply })
+  await fiber.await()
+  return { ctx, fiber, locale: ctx.get('locale') as LocaleRuntime }
 }
 
 const langOf = (): string => document.documentElement.lang
+const dirOf = (): string | null => document.documentElement.getAttribute('data-dsh-text-direction')
 
 describe('document language', () => {
   beforeEach(() => {
@@ -96,5 +100,27 @@ describe('document language', () => {
     locale.addLanguage({ id: 'pt-BR', label: 'Português', fallback: 'en' })
     locale.setLocale('pt-BR')
     expect(langOf()).toBe('pt-BR')
+  })
+
+  it('publishes the active language reading order without touching html[dir]', async () => {
+    const { locale } = await bench()
+    expect(dirOf()).toBe('ltr')
+    locale.addLanguage({ id: 'ar', label: 'العربية', fallback: 'en', direction: 'rtl' })
+    locale.setLocale('ar')
+    expect(dirOf()).toBe('rtl')
+    // The frame follows the document, so mirroring it would move the sidebar,
+    // toolbars, and menus that must stay put in every language.
+    expect(document.documentElement.hasAttribute('dir')).toBe(false)
+    locale.setLocale('en')
+    expect(dirOf()).toBe('ltr')
+  })
+
+  it('retracts the direction attribute on unload, leaving no zone mirrored', async () => {
+    const { fiber, locale } = await bench()
+    locale.addLanguage({ id: 'ar', label: 'العربية', fallback: 'en', direction: 'rtl' })
+    locale.setLocale('ar')
+    expect(dirOf()).toBe('rtl')
+    await fiber.dispose()
+    expect(dirOf()).toBeNull()
   })
 })

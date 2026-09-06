@@ -177,5 +177,5 @@ export const MarkdownText = memo(function MarkdownText({ text, streaming = false
     }
     return streamRef.current.render(text)
   }, [text, streaming, labels, fileMentions])
-  return <div className={css.markdown}>{children}</div>
+  return <div className={css.markdown} dir="auto" data-dsh-text-auto>{children}</div>
 })

@@ -6,7 +6,7 @@
  * The pack contributes translations and the language's reading order; it does
  * not decide layout. `direction: 'rtl'` reaches the document through the
  * locale runtime's root attribute, and the theme's single rule applies it to
- * the marked text zones ([decision](../../../../.agents/notes/proposed/feature/2026-09-05-arabic-rtl-language-pack.md)).
+ * the marked text zones ([decision](../../../../.agents/notes/implemented/feature/2026-09-05-arabic-rtl-language-pack.md)).
  *
  * Every dictionary is checked against its namespace's key union at compile
  * time, so a key added upstream without an Arabic counterpart fails this

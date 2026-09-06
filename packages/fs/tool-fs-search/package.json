@@ -27,11 +27,8 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@deepseek-ai/schemastery": "workspace:^",
-    "@vscode/ripgrep": "^1.18.0"
-  },
-  "optionalDependencies": {
-    "@saidouahdachi/dsh-native": "^0.1.0"
+    "@vscode/ripgrep": "^1.18.0",
+    "@deepseek-ai/schemastery": "workspace:^"
   },
   "peerDependencies": {
     "@deepseek-ai/dsh-llm": "workspace:^",

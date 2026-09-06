@@ -68,10 +68,6 @@ Routine budgets stay out of the model-facing schema: a model that needs surround
 
 The generated [configuration catalog](../../../docs/config-catalog.md#deepseek-aidsh-tool-fs-search) is the exhaustive source for every accepted field and its JSDoc.
 
-### Execution backend
-
-Both tools spawn the packaged ripgrep binary through `ctx.subprocess`. When the optional `@saidouahdachi/dsh-native` addon is installed, they run ripgrep's library crates in-process instead — on libuv's thread pool, so the event loop stays free for the length of a tree walk — and the spawn remains the fallback: `DSH_NATIVE=0`, a platform without a prebuilt binary, or an unloadable addon keeps the spawn path exactly. The in-process path has no `--json` transport, so there is no raw-stdout cap to overflow (an ordinary broad search such as `grep "const"` over a large tree produces more than the 20 MB cap and fails on the spawn path); its one contract difference is cancellation — a running in-process search has no process to terminate, so `exec.signal` is honoured before the search starts and observed when it returns. Results are indistinguishable to a model: the integration suite runs once per backend.
-
 ### Deployment requirement
 
 Node deployments receive the `@vscode/ripgrep` platform package on supported macOS, Linux, and Windows targets; Python SDK wheels copy the target-native binary beside the single-file runtime as a `-rg` sidecar. No carrier requires a host `rg`. Returned paths are displayed relative to the resolved workdir (the calling session's cwd when present) and are follow-up-readable with `read` only when that workdir and the filesystem root are the same workspace.
@@ -102,7 +98,6 @@ Local workspace discovery is naturally a process-backed `rg` workflow, and putti
 | [`src/glob.ts`](src/glob.ts) | `glob` schema, argv, parsing, inline sampling, formatting |
 | [`src/grep.ts`](src/grep.ts) | `grep` schema, argv, `--json` parsing, preview retention, formatting |
 | [`src/search-core.ts`](src/search-core.ts) | Shared spawn helper, `SEARCH_*` errors, spill handoff, workdir-relative display |
-| [`src/native.ts`](src/native.ts) | Optional in-process backend: addon resolution, `DSH_NATIVE` switch, `SEARCH_*` error mapping |
 | [`src/presentation.ts`](src/presentation.ts) | Search-card metadata projection |
 | [`src/direct-call.ts`](src/direct-call.ts) | Direct-call result acceptance for spill post-processing |
 

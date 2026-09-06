@@ -61,10 +61,10 @@ const EXPECTED_TOOLS = [
 ]
 
 /**
- * `glob` and `grep` come from `dsh-tool-fs-search`, which spawns the PACKAGED
- * ripgrep binary (`@vscode/ripgrep`) through the subprocess seam, so the pair
- * is always present on every host — asserted as fixed members, not a host
- * dependency.
+ * `glob` and `grep` come from `@saidouahdachi/dsh-tool-fs-search-native`, which
+ * runs ripgrep's library crates in-process and registers the in-box
+ * spawn-backed tools when the addon is unavailable, so the pair is always
+ * present on every host — asserted as fixed members, not a host dependency.
  */
 const RIPGREP_TOOLS = ['glob', 'grep']
 

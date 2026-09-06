@@ -43,10 +43,6 @@ const FIRST_PARTY = new Set([
   '@deepseek-ai/node-addon-landlock-run',
   '@deepseek-ai/node-addon-landlock-run-linux-arm64',
   '@deepseek-ai/node-addon-landlock-run-linux-x64',
-  // The in-process search addon is built from this repository owner's sibling
-  // dsh-rs checkout. It is optional and absent from a clean install, so the
-  // store cannot answer for it at all.
-  '@saidouahdachi/dsh-native',
 ])
 
 /** Official SDK identity covered by the project's narrow owner authorization. */

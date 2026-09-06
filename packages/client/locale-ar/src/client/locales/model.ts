@@ -21,5 +21,5 @@ export const ar = {
   'warning.groupLoad': 'تعذّر تحميل {name}: {message}',
   'empty.models': 'لا تتوفر نماذج.',
   'blocked.composer': 'هذا النموذج غير متاح — اختر نموذجًا للمتابعة',
-  'empty.efforts': 'لا يوفر هذا النموذج مستويات استدلال.',
+  'empty.efforts': 'لا يوفر هذا النموذج مستويات الاستدلال.',
 } satisfies Record<ModelKey, string>

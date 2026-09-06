@@ -432,6 +432,26 @@ export type SurfaceIntent<T extends SurfaceEventType = SurfaceEventType> = {
 })
 
 /**
+ * Log-only append options for {@link Session.append}. Accepted on every event
+ * type outside {@link SurfaceEventType}, which carries {@link SurfaceIntent}
+ * instead.
+ *
+ * A surface event cannot be marked: it produces derived model history, so a
+ * reader skipping it would change the reconstruction the marker promises to
+ * leave intact.
+ */
+export type LogIntent = {
+  /**
+   * Sets {@link SessionEvent.ignorable} on the appended event, letting a reader
+   * that does not recognize the event type skip it instead of refusing the whole
+   * log. Set it only on a purely informational record whose loss cannot affect
+   * reconstruction — an out-of-repository plugin's own event type is the case
+   * this exists for.
+   */
+  ignorable?: true
+}
+
+/**
  * One immutable entry in the session log.
  *
  * A proper discriminated union over `type` (not independent `type`/`data`

@@ -103,6 +103,7 @@ These limits define where the Arabic surface is incomplete. They are current pac
 - **No plural agreement** — the runtime selects no plural category, so a count-bearing sentence is phrased to read acceptably at every count rather than agreeing with its number. Adding plural rules is a locale-runtime change, not a dictionary one.
 - **`directory-browser` has no compile-time completeness check** — its owner declares dictionaries inline instead of exporting a key union, so a key added there falls back to English silently.
 - **Copy captured at registration time keeps its language** — the locale service's [registry-held text limitation](../locale/README.md#known-limitations-and-deferred-work) applies to this pack unchanged.
+- **Slash-command names and descriptions stay English** — the command registry holds them Host-side, outside every locale namespace, so the palette lists them verbatim. They carry `dir="auto"` and keep their own reading order rather than being aligned as product copy. Translating them is a change to the registry, not to a language pack.
 - **No Arabic web font ships** — the pack appends nothing to the font stack and relies on the system Arabic families the platform provides.
 
 <a id="dev-note"></a>

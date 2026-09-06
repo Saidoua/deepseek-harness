@@ -48,6 +48,7 @@ const ZONE_STYLESHEETS = [
   'ui-approval/src/client/ApprovalPanel.module.css',
   'ui-user-questions/src/client/QuestionComposer.module.css',
   'ui-settings-general/src/client/SettingsRoot.module.css',
+  'ui-input-trigger/src/client/MenuView.module.css',
 ]
 
 /** Physical inline-axis properties a zone stylesheet may not declare. */
@@ -79,6 +80,9 @@ const PHYSICAL_ALLOWLIST = new Map([
   // language, so its offsets are physical screen positions, not reading order.
   ['ui-tool/src/client/tool/components/ToolRow.module.css|left', 'running-row shimmer sweep'],
   ['ui-tool/src/client/tool/toolviews/bash-sample.module.css|left', 'running-row shimmer sweep'],
+  // The overlay stretches across its anchor rather than following reading order.
+  ['ui-input-trigger/src/client/MenuView.module.css|left', 'trigger menu spans its anchor'],
+  ['ui-input-trigger/src/client/MenuView.module.css|right', 'trigger menu spans its anchor'],
 ])
 
 const sheetPath = fileURLToPath(new URL('../src/styles/text-direction.css', import.meta.url))

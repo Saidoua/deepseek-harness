@@ -3,9 +3,9 @@ import type { SubagentKey } from '@deepseek-ai/dsh-client-ui-subagent/src/client
 
 // Count keys share one count-neutral wording; see the job namespace.
 export const ar = {
-  'diagnostic.corrupt': 'سجل جلسة تالف',
+  'diagnostic.corrupt': 'سجل محادثة تالف',
   'diagnostic.unsupported': 'إصدار سجل وكيل فرعي غير مدعوم',
-  'diagnostic.unavailable': 'سجل الجلسة غير متاح مؤقتًا',
+  'diagnostic.unavailable': 'سجل المحادثة غير متاح مؤقتًا',
   'duration.seconds': '{seconds} ث',
   'duration.minutes': '{minutes} د {seconds} ث',
   'duration.hours': '{hours} س {minutes} د {seconds} ث',
@@ -35,9 +35,9 @@ export const ar = {
   'count.running.one': '{count} وكيل فرعي قيد التشغيل',
   'count.running.other': '{count} وكيل فرعي قيد التشغيل',
   'switcher.aria': 'تبديل الوكيل الفرعي: {title}',
-  'tree.aria': 'جلسات الوكلاء الفرعيين',
+  'tree.aria': 'محادثات الوكلاء الفرعيين',
   'readonly.oneShot.title': 'سجل وكيل فرعي لمرة واحدة',
   'readonly.title': 'هذا الوكيل الفرعي للقراءة فقط حاليًا',
   'readonly.oneShot.body': 'لا تقبل المهام لمرة واحدة رسائل متابعة؛ راجع سجل التنفيذ الكامل هنا.',
-  'readonly.body': 'الجلسة الأصل غير متصلة؛ أعد فتحها لمتابعة إرسال الرسائل.',
+  'readonly.body': 'المحادثة الأصل غير متصلة؛ أعد فتحها لمتابعة إرسال الرسائل.',
 } satisfies Record<SubagentKey, string>

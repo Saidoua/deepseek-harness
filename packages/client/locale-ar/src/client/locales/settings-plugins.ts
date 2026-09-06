@@ -42,7 +42,7 @@ export const ar = {
   subagentModelSelectionTitle: 'الوكيل الفرعي',
   subagentModelSelectionDescription: 'تحكّم في النماذج التي يجوز للوكلاء اختيارها للوكلاء الفرعيين.',
   subagentModelSelectionToggle: 'السماح للوكلاء باختيار نماذج للوكلاء الفرعيين',
-  subagentModelSelectionChoose: 'عند التفعيل، يمكن للوكلاء اختيار مزوّد ونموذج ومستوى استدلال لكل وكيل فرعي من النماذج المصرّح بها أدناه. ينطبق على الجلسات الجديدة فقط.',
+  subagentModelSelectionChoose: 'عند التفعيل، يمكن للوكلاء اختيار مزوّد ونموذج ومستوى استدلال لكل وكيل فرعي من النماذج المصرّح بها أدناه. ينطبق على المحادثات الجديدة فقط.',
   subagentModelSelectionAllowed: 'النماذج التي يجوز للوكلاء اختيارها',
   subagentModelSelectionLoading: 'جارٍ تحميل النماذج…',
   subagentModelSelectionLoadFailed: 'تعذّر تحميل النماذج.',

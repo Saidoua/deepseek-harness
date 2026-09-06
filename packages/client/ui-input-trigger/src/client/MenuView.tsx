@@ -74,7 +74,7 @@ export function MenuView({ menu, headers, onPick, onCrumb, onHover, onDismiss, t
   return (
     // The listbox role sits on the scrolling viewport, not this shell: a
     // breadcrumb header is not an option, and a listbox may not carry one.
-    <div ref={listRef} className={css.menu} style={{ maxHeight }} data-trigger-menu="">
+    <div ref={listRef} className={css.menu} style={{ maxHeight }} data-trigger-menu="" data-dsh-text-zone>
       {state.groups.map((group) => {
         const trail = crumbs.get(group.source)
         return trail === undefined ? null : (
@@ -85,6 +85,9 @@ export function MenuView({ menu, headers, onPick, onCrumb, onHover, onDismiss, t
                 <button
                   type="button"
                   className={clsx(css.crumb, crumb.current === true && css.crumbCurrent)}
+                  // A crumb names a real folder, so it follows the path's words.
+                  dir="auto"
+                  data-dsh-text-auto
                   aria-current={crumb.current === true ? 'location' : undefined}
                   disabled={crumb.current === true}
                   // mousedown, not click: the composer keeps focus, same as a row.
@@ -128,7 +131,7 @@ export function MenuView({ menu, headers, onPick, onCrumb, onHover, onDismiss, t
                   return (
                     <Fragment key={optionId(group.source, index)}>
                       {item.section !== undefined && item.section !== group.items[index - 1]?.section
-                        ? <div className={css.sectionTitle} role="presentation">{item.section}</div>
+                        ? <div className={css.sectionTitle} role="presentation" dir="auto" data-dsh-text-auto>{item.section}</div>
                         : null}
                       <button
                         id={optionId(group.source, index)}
@@ -153,8 +156,10 @@ export function MenuView({ menu, headers, onPick, onCrumb, onHover, onDismiss, t
                             <ReferenceIcon kind={item.icon} size={16} />
                           </span>
                         )}
-                        <span className={css.itemName}>{item.name}</span>
-                        {item.description !== undefined && <span className={css.itemDescription}>{item.description}</span>}
+                        <span className={css.itemName} dir="auto" data-dsh-text-auto>{item.name}</span>
+                        {item.description !== undefined && (
+                          <span className={css.itemDescription} dir="auto" data-dsh-text-auto>{item.description}</span>
+                        )}
                         {item.drill === true && (
                           <span className={css.trailing}>
                             {/* Visual hint only: Tab drills the highlighted row (the

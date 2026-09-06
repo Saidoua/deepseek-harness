@@ -12,7 +12,10 @@
  * name), because translating an identifier makes it unsearchable.
  */
 export const GLOSSARY = {
-  session: 'جلسة',
+  // A session is what the reader has with the agent, and Arabic names that a
+  // conversation rather than a sitting; the two are one thing in this product,
+  // so `chat` and `conversation` share this term.
+  session: 'محادثة',
   workspace: 'مساحة عمل',
   tool: 'أداة',
   plugin: 'إضافة',

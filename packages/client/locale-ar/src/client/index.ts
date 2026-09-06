@@ -34,6 +34,7 @@ import { ar as plan } from './locales/plan.ts'
 import { ar as question } from './locales/question.ts'
 import { ar as reference } from './locales/reference.ts'
 import { ar as scheduleCatalog } from './locales/schedule-catalog.ts'
+import { ar as sessionLogDownload } from './locales/session-log-download.ts'
 import { ar as settings } from './locales/settings.ts'
 import { ar as settingsAgentPreset } from './locales/settings-agent-preset.ts'
 import { ar as settingsLocale } from './locales/settings-locale.ts'
@@ -77,6 +78,7 @@ const DICTIONARIES: Readonly<Record<string, Readonly<Record<string, string>>>> =
   'question': question,
   'reference': reference,
   'schedule.catalog': scheduleCatalog,
+  'session-log-download': sessionLogDownload,
   'settings': settings,
   'settings.agentPreset': settingsAgentPreset,
   'settings.locale': settingsLocale,

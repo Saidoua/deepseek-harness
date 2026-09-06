@@ -3,7 +3,7 @@ import type { ReferenceKey } from '@deepseek-ai/dsh-client-ui-reference/src/clie
 
 export const ar = {
   'section.files': 'الملفات والمجلدات',
-  'section.sessions': 'الجلسات',
+  'section.sessions': 'المحادثات',
   'candidate.noCwd': '(بدون مجلد عمل)',
   'crumb.root': 'مساحة العمل',
   'time.now': 'الآن',

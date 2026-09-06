@@ -2,8 +2,8 @@
 import type { SidebarKey } from '@deepseek-ai/dsh-client-ui-sidebar/src/client/locales.ts'
 
 export const ar = {
-  'session.new': 'جلسة جديدة',
-  'session.new.label': 'جلسة جديدة',
+  'session.new': 'محادثة جديدة',
+  'session.new.label': 'محادثة جديدة',
   // The sidebar keeps its side in every language, so these name the panel,
   // never a direction.
   'toggle.open': 'فتح الشريط الجانبي',

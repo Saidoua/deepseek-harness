@@ -38,14 +38,15 @@ describe('Arabic language pack', () => {
     // One key per namespace family, chosen where a wrong namespace id would
     // otherwise be invisible because English reads acceptably.
     expect(locale.bind('common')('cancel')).toBe('إلغاء')
-    expect(locale.bind('sidebar')('session.new')).toBe('جلسة جديدة')
+    expect(locale.bind('sidebar')('session.new')).toBe('محادثة جديدة')
     expect(locale.bind('chat')('view.chat')).toBe('المحادثة')
     expect(locale.bind('conversation')('input.send')).toBe('إرسال الرسالة')
     expect(locale.bind('settings')('title')).toBe('الإعدادات')
     expect(locale.bind('settings.locale')('language.title')).toBe('اللغة')
-    expect(locale.bind('workspace')('section.sessions')).toBe('الجلسات')
+    expect(locale.bind('workspace')('section.sessions')).toBe('المحادثات')
     expect(locale.bind('trajectory')('view.trajectory')).toBe('المسار')
     expect(locale.bind('directory-browser')('browser.home')).toBe('المجلد الرئيسي')
+    expect(locale.bind('session-log-download')('header.action')).toBe('سجل المحادثة')
   })
 
   it('leaves an untranslated key on the English fallback rather than the bare key', async () => {

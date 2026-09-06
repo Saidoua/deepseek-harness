@@ -27,8 +27,8 @@ export const ar = {
   'panel.empty': 'لم تُعرَّف إضافات بعد',
   'panel.loading': 'جارٍ القراءة…',
   'panel.readFailed': 'تعذّرت قراءة قائمة الإضافات: {message}',
-  'panel.group.current': 'هذه الجلسة',
-  'panel.group.others': 'جلسات أخرى',
+  'panel.group.current': 'هذه المحادثة',
+  'panel.group.others': 'محادثات أخرى',
   'panel.version': 'الإصدار',
   // {packageId} is a package identifier and renders verbatim.
   'panel.current': 'الحالي: {packageId}',

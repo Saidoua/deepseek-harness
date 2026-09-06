@@ -4,8 +4,8 @@
  */
 
 import { describe, expect, it } from 'vitest'
-import { SESSION_FORMAT_VERSION, SessionId } from '@deepseek-ai/dsh-session'
-import type { SessionEvent } from '@deepseek-ai/dsh-session'
+import { SESSION_FORMAT_VERSION, Session, SessionId } from '@deepseek-ai/dsh-session'
+import type { SessionEvent, SessionEventType } from '@deepseek-ai/dsh-session'
 import {
   SessionAlreadyExistsError,
   SessionAlreadyOwnedError,
@@ -145,6 +145,27 @@ describe('validateStoredEvents', () => {
     ] as unknown as SessionEvent[]
     expect(validateStoredEvents(m, events)).toBe(events)
     expect(events[0]).toMatchObject({ type: 'foreign/telemetry', ignorable: true })
+  })
+
+  it('accepts a log whose unknown event Session.append marked ignorable', () => {
+    // The writer half of the same contract: a plugin declaration-merges its own
+    // type, so this build's KNOWN_SESSION_EVENT_TYPES does not carry it. Without
+    // the marker the whole log is refused, which is what makes an unmarked
+    // plugin event cost the session rather than the event.
+    const session = Session.create(SessionId('plugin-writer'))
+    const pluginType = 'foreign/telemetry' as SessionEventType
+    session.append(pluginType, { note: 'informational' } as never, { ignorable: true })
+    // validateStoredEvents adopts in place, so a backend owns its decoded array;
+    // snapshotEvents() hands out a frozen one.
+    const marked = [...session.snapshotEvents()] as SessionEvent[]
+
+    expect(validateStoredEvents(meta('plugin-writer'), marked)).toBe(marked)
+    expect(marked[0]).toMatchObject({ type: 'foreign/telemetry', ignorable: true })
+
+    const unmarked = Session.create(SessionId('plugin-writer'))
+    unmarked.append(pluginType, { note: 'informational' } as never)
+    expect(() => validateStoredEvents(meta('plugin-writer'), [...unmarked.snapshotEvents()] as SessionEvent[]))
+      .toThrow(SessionFormatUnsupportedError)
   })
 
   it('refuses the retired request/header "fallback" reason while accepting current headers', () => {

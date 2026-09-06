@@ -88,7 +88,7 @@ export type SessionEvent<T extends SessionEventType = SessionEventType> = {
 }[T]
 ```
 
-Sources: [`packages/core/session/src/types.ts:379`](../packages/core/session/src/types.ts) · [`packages/core/session/src/types.ts:387`](../packages/core/session/src/types.ts) · [`packages/core/session/src/types.ts:416`](../packages/core/session/src/types.ts) · [`packages/core/session/src/types.ts:447`](../packages/core/session/src/types.ts)
+Sources: [`packages/core/session/src/types.ts:379`](../packages/core/session/src/types.ts) · [`packages/core/session/src/types.ts:387`](../packages/core/session/src/types.ts) · [`packages/core/session/src/types.ts:416`](../packages/core/session/src/types.ts) · [`packages/core/session/src/types.ts:467`](../packages/core/session/src/types.ts)
 
 ## Events
 

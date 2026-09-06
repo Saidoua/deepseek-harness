@@ -629,6 +629,39 @@ describe('Session', () => {
     expect(session.snapshotEvents()).toHaveLength(1)
   })
 
+  it('marks a non-surface append ignorable and leaves an unmarked one required', () => {
+    const session = Session.create(SessionId('s5c'))
+    const marked = session.append('turn/start', { turn: 1 }, { ignorable: true })
+    const unmarked = session.append('turn/start', { turn: 2 })
+
+    expect(marked.ignorable).toBe(true)
+    // Absent, not `undefined`: the read-side guard treats any value other than
+    // `true` as required, and the envelope is compared as written.
+    expect(Object.hasOwn(marked, 'ignorable')).toBe(true)
+    expect(Object.hasOwn(unmarked, 'ignorable')).toBe(false)
+  })
+
+  it('carries the ignorable marker into the durable snapshot', () => {
+    const session = Session.create(SessionId('s5d'))
+    session.append('turn/start', { turn: 1 }, { ignorable: true })
+
+    const [stored] = session.snapshotEvents()
+    expect(stored?.ignorable).toBe(true)
+  })
+
+  it('keeps each intent to its own event class', () => {
+    const session = Session.create(SessionId('s5e'))
+    const message = createUserMessage({
+      content: [{ type: 'text', text: 'hi' }], source: { kind: 'user' },
+    })
+
+    // @ts-expect-error a log-only type has no surface to join
+    expect(() => session.append('turn/start', { turn: 1 }, { surfaceOp: 'append' }))
+      .toThrow(/is not surface-eligible and cannot carry surfaceOp/)
+    // @ts-expect-error a surface event still requires its SurfaceIntent
+    expect(() => session.append('user/message', message, { ignorable: true })).toThrow()
+  })
+
   it('accepts dense arrays and nested plain objects', () => {
     const session = Session.create(SessionId('s6'))
     expect(() => session.append('user/message', { content: [{ type: 'text', text: 'x' }], source: { kind: 'user' }, extra: [1, 2, [3, { a: null, b: true }]] } as never, { surfaceOp: 'append' })).not.toThrow()

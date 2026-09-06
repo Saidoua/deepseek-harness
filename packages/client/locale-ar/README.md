@@ -79,7 +79,7 @@ Counts are wording-neutral. Arabic distinguishes six plural categories while the
 
 - [Client locale service](../locale/README.md) — the catalog, the fallback chain, and the text-direction attribute this pack drives.
 - [ui-theme](../ui-theme/README.md) — the single rule that applies the reading order to marked text zones.
-- [Arabic pack decision](../../../.agents/notes/proposed/feature/2026-09-05-arabic-rtl-language-pack.md) — why direction is a language property and why the frame does not mirror.
+- [Arabic pack decision](../../../.agents/notes/implemented/feature/2026-09-05-arabic-rtl-language-pack.md) — why direction is a language property and why the frame does not mirror.
 - [Client group map](../README.md) — the browser half this package belongs to.
 
 -----

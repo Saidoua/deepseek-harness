@@ -79,7 +79,7 @@ kind: "package-reference"
 
 - [客户端 locale 服务](../locale/README.zh.md) —— 本包驱动的语言目录、回退链与文本方向属性。
 - [ui-theme](../ui-theme/README.zh.md) —— 把阅读顺序应用到被标记文本区域的唯一一条规则。
-- [阿拉伯语语言包决策](../../../.agents/notes/proposed/feature/2026-09-05-arabic-rtl-language-pack.zh.md) —— 为什么方向是语言属性，以及为什么框架不镜像。
+- [阿拉伯语语言包决策](../../../.agents/notes/implemented/feature/2026-09-05-arabic-rtl-language-pack.zh.md) —— 为什么方向是语言属性，以及为什么框架不镜像。
 - [客户端分组地图](../README.zh.md) —— 本包所属的浏览器半侧。
 
 -----

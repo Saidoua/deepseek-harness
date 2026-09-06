@@ -31,7 +31,7 @@
     "@vscode/ripgrep": "^1.18.0"
   },
   "optionalDependencies": {
-    "@saidoua/dsh-native": "^0.1.0"
+    "@saidouahdachi/dsh-native": "^0.1.0"
   },
   "peerDependencies": {
     "@deepseek-ai/dsh-llm": "workspace:^",

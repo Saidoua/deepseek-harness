@@ -6,11 +6,11 @@ Status: implemented
 
 ## 问题
 
-`dsh-tool-fs-search` 将其进程内 ripgrep 后端 `@saidoua/dsh-native` 声明为硬依赖，且使用指向仓库之外路径的 `link:` 范围（`link:../../../../dsh-rs/npm`）。`link:` 范围是工作站路径而非注册表说明符：`verify-npm-install-layout` 与 `verify-packed-install` 失败，因为 npm 无法在合成的双版本注册表中解析它，而任何已发布的 `dsh-tool-fs-search` 清单都会携带同样无法解析的路径。该包未发布到 npm，且工具本已把插件视为可缺失——`native.ts` 在首次使用时通过 `createRequire` 加载它，并保留 ripgrep 子进程作为回退。
+`dsh-tool-fs-search` 将其进程内 ripgrep 后端 `@saidouahdachi/dsh-native` 声明为硬依赖，且使用指向仓库之外路径的 `link:` 范围（`link:../../../../dsh-rs/npm`）。`link:` 范围是工作站路径而非注册表说明符：`verify-npm-install-layout` 与 `verify-packed-install` 失败，因为 npm 无法在合成的双版本注册表中解析它，而任何已发布的 `dsh-tool-fs-search` 清单都会携带同样无法解析的路径。该包未发布到 npm，且工具本已把插件视为可缺失——`native.ts` 在首次使用时通过 `createRequire` 加载它，并保留 ripgrep 子进程作为回退。
 
 ## 决策
 
-`@saidoua/dsh-native` 是 `optionalDependencies` 条目，注册表范围为 `^0.1.0`。本地开发通过 `pnpm-workspace.yaml` 中工作区级别的 `overrides` 条目（`link:../dsh-rs/npm`）保持插件链接，这与链接 vendored 的 `@deepseek-ai/cosmokit` 和 `@deepseek-ai/schemastery` 是同一机制。因此已发布的清单携带干净的注册表范围，包不可用时 npm 会跳过它，而锁文件把该覆盖记录为 pnpm 自身的解析结果。
+`@saidouahdachi/dsh-native` 是 `optionalDependencies` 条目，注册表范围为 `^0.1.0`。本地开发通过 `pnpm-workspace.yaml` 中工作区级别的 `overrides` 条目（`link:../dsh-rs/npm`）保持插件链接，这与链接 vendored 的 `@deepseek-ai/cosmokit` 和 `@deepseek-ai/schemastery` 是同一机制。因此已发布的清单携带干净的注册表范围，包不可用时 npm 会跳过它，而锁文件把该覆盖记录为 pnpm 自身的解析结果。
 
 ## 考虑过的替代方案
 

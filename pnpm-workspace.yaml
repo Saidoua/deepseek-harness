@@ -21,7 +21,7 @@ overrides:
   '@deepseek-ai/schemastery': 'link:vendor/schemastery'
   # Development link for the optional in-process search addon (dsh-rs); the
   # published manifest keeps a registry range that npm skips when unavailable.
-  '@saidoua/dsh-native': 'link:../dsh-rs/npm'
+  '@saidouahdachi/dsh-native': 'link:../dsh-rs/npm'
 
 peerDependencyRules:
   allowedVersions:

@@ -9,7 +9,7 @@
  * fake-service suite (tools.spec.ts) carries the coverage gate.
  *
  * Every case runs twice: once over the ripgrep spawn, and once over the
- * optional in-process backend (`@saidoua/dsh-native`), because the two
+ * optional in-process backend (`@saidouahdachi/dsh-native`), because the two
  * execution paths must be indistinguishable to a model. Without the addon
  * installed both rounds exercise the spawn.
  */

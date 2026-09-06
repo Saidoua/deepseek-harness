@@ -6,11 +6,11 @@ English | [中文](2026-09-05-optional-in-process-search-addon-dependency.zh.md)
 
 ## Problem
 
-`dsh-tool-fs-search` declared its in-process ripgrep backend, `@saidoua/dsh-native`, as a hard dependency with a `link:` range pointing outside the repository (`link:../../../../dsh-rs/npm`). A `link:` range is a workstation path, not a registry specifier: `verify-npm-install-layout` and `verify-packed-install` failed because npm could not resolve it in the synthetic two-release registry, and any published `dsh-tool-fs-search` manifest would have carried the same unresolvable path. The package is not published on npm, and the tool already treats the addon as absent-safe — `native.ts` loads it through `createRequire` at first use and keeps the ripgrep spawn as the fallback.
+`dsh-tool-fs-search` declared its in-process ripgrep backend, `@saidouahdachi/dsh-native`, as a hard dependency with a `link:` range pointing outside the repository (`link:../../../../dsh-rs/npm`). A `link:` range is a workstation path, not a registry specifier: `verify-npm-install-layout` and `verify-packed-install` failed because npm could not resolve it in the synthetic two-release registry, and any published `dsh-tool-fs-search` manifest would have carried the same unresolvable path. The package is not published on npm, and the tool already treats the addon as absent-safe — `native.ts` loads it through `createRequire` at first use and keeps the ripgrep spawn as the fallback.
 
 ## Decision
 
-`@saidoua/dsh-native` is an `optionalDependencies` entry with the registry range `^0.1.0`. Local development keeps the addon linked through the workspace-level `overrides` entry in `pnpm-workspace.yaml` (`link:../dsh-rs/npm`), the same mechanism that links the vendored `@deepseek-ai/cosmokit` and `@deepseek-ai/schemastery`. Published manifests therefore carry a clean registry range that npm skips when the package is unavailable, and the lockfile records the override as pnpm's own resolution.
+`@saidouahdachi/dsh-native` is an `optionalDependencies` entry with the registry range `^0.1.0`. Local development keeps the addon linked through the workspace-level `overrides` entry in `pnpm-workspace.yaml` (`link:../dsh-rs/npm`), the same mechanism that links the vendored `@deepseek-ai/cosmokit` and `@deepseek-ai/schemastery`. Published manifests therefore carry a clean registry range that npm skips when the package is unavailable, and the lockfile records the override as pnpm's own resolution.
 
 ## Alternatives considered
 

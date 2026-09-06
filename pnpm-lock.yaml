@@ -7,7 +7,7 @@ settings:
 overrides:
   '@deepseek-ai/cosmokit': link:vendor/cosmokit
   '@deepseek-ai/schemastery': link:vendor/schemastery
-  '@saidoua/dsh-native': link:../dsh-rs/npm
+  '@saidouahdachi/dsh-native': link:../dsh-rs/npm
 
 patchedDependencies:
   '@yao-pkg/pkg@6.21.0': 28edd2180c36691c481522ef81f6f6614505f45e491aad542ac4663d4e6b3ff8
@@ -5453,7 +5453,7 @@ importers:
         specifier: workspace:^
         version: link:../../core/tools
     optionalDependencies:
-      '@saidoua/dsh-native':
+      '@saidouahdachi/dsh-native':
         specifier: link:../../../../dsh-rs/npm
         version: link:../../../../dsh-rs/npm
 

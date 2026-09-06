@@ -11,7 +11,7 @@
  *
  * Every case here is about the ripgrep SPAWN transport, so the suite pins the
  * spawn execution path: with the optional in-process backend
- * (`@saidoua/dsh-native`) selected there is no spawn to script, and
+ * (`@saidouahdachi/dsh-native`) selected there is no spawn to script, and
  * integration.spec.ts covers both paths against the real filesystem.
  */
 

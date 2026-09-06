@@ -1,7 +1,7 @@
 /**
  * Optional in-process execution backend for the `grep` and `glob` tools.
  *
- * When `@saidoua/dsh-native` (the dsh-rs addon) is installed and loadable,
+ * When `@saidouahdachi/dsh-native` (the dsh-rs addon) is installed and loadable,
  * both tools run their search inside this process through ripgrep's own
  * library crates instead of spawning the packaged ripgrep binary: no process
  * spawn, no `rg --json` transport, and therefore no raw-stdout cap to
@@ -63,7 +63,7 @@ export function nativeSearch(): NativeSearch | undefined {
   if (process.env.DSH_NATIVE === '0') return undefined
   if (loaded === undefined) {
     try {
-      loaded = createRequire(import.meta.url)('@saidoua/dsh-native') as NativeSearch
+      loaded = createRequire(import.meta.url)('@saidouahdachi/dsh-native') as NativeSearch
     } catch {
       // An absent or unloadable addon is not an error: the spawn path is the
       // contract, and this one is an optimization over it.

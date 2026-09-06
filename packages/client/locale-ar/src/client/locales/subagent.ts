@@ -27,7 +27,7 @@ export const ar = {
   'mode.oneShot': 'لمرة واحدة',
   'mode.continuable': 'قابل للمتابعة',
   'activity.running': 'قيد التشغيل',
-  'activity.inactive': 'غير مشتغل',
+  'activity.inactive': 'لا يعمل',
   'branch.collapse': 'طي فروع {label}',
   'branch.expand': 'توسيع فروع {label}',
   'count.total.one': '{count} وكيل فرعي',

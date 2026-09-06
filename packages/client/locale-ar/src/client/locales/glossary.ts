@@ -29,6 +29,9 @@ export const GLOSSARY = {
   goal: 'هدف',
   skill: 'مهارة',
   command: 'أمر',
+  // الصدفة is the dictionary term for a shell, but standing alone in a card
+  // title it reads as "coincidence"; this names the same surface plainly.
+  shell: 'سطر الأوامر',
   message: 'رسالة',
   turn: 'دور',
   step: 'خطوة',

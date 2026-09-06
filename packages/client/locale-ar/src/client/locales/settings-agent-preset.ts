@@ -16,13 +16,13 @@ export const ar = {
   // The mode names are the product's own labels for shipped presets.
   presetStandardName: 'الوضع القياسي',
   presetStandardDescription:
-    'وكيل برمجة كامل مع تحرير الملفات والصدفة والبحث في الملفات والويب والمهارات والتخطيط والأهداف والوكلاء الفرعيين وسير العمل.',
+    'وكيل برمجة كامل مع تحرير الملفات وسطر الأوامر والبحث في الملفات والويب والمهارات والتخطيط والأهداف والوكلاء الفرعيين وسير العمل.',
   presetPtcName: 'وضع PTC',
   presetPtcDescription:
     'وكيل برمجة كامل بلا أداة سير العمل؛ تُعرض الأدوات الأخرى عبر حزمة تطوير وضع PTC ليجمع النموذج عمليات متعددة الخطوات في برنامج TypeScript واحد.',
   presetMinimalName: 'الوضع الأدنى',
   presetMinimalDescription:
-    'وكيل برمجة بأداتين: صدفة bash دائمة وأداة str_replace_editor.',
+    'وكيل برمجة بأداتين: سطر أوامر bash دائم وأداة str_replace_editor.',
   presetCordisName: 'وضع المُنشئ',
   presetCordisDescription:
     'مُعدّ لإنشاء إعدادات وكيل مخصصة، بكل قدرات الوضع القياسي إضافة إلى فحص وقت التشغيل وتجارب الإضافات وإرشاد تأليف الإعدادات.',

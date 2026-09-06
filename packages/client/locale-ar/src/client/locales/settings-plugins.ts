@@ -19,7 +19,7 @@ export const ar = {
   unsaved: 'غير محفوظ',
   saveFailed: 'لم يقبل النشر هذه القيم، وتُركت لك لتصحيحها.',
   invalidNumber: 'أدخل رقمًا، أو اترك الحقل فارغًا لاستخدام الافتراضي.',
-  bashTitle: 'الصدفة',
+  bashTitle: 'سطر الأوامر',
   bashDescription: 'يحدّ كل أمر ينفّذه الوكيل.',
   bashTimeoutMs: 'مهلة الأمر (م.ث)',
   bashTimeoutMsHint: 'المدة المسموح بها لأمر واحد قبل إنهائه.',

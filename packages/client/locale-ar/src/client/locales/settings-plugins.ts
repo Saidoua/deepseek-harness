@@ -24,7 +24,7 @@ export const ar = {
   bashTimeoutMs: 'مهلة الأمر (م.ث)',
   bashTimeoutMsHint: 'المدة المسموح بها لأمر واحد قبل إنهائه.',
   bashMaxOutputBytes: 'حد الإخراج لكل مجرى (بايت)',
-  bashMaxOutputBytesHint: 'ما يتجاوز الحد يُحفظ في ملف مؤقت بدل أن يضيع.',
+  bashMaxOutputBytesHint: 'ما يتجاوز الحد يُحفظ في ملف مؤقت بدلًا من أن يضيع.',
   agentLoopTitle: 'حلقة الوكيل',
   agentLoopDescription: 'كيف يوزّع الوكيل استدعاءات الأدوات.',
   agentLoopMaxParallel: 'استدعاءات الأدوات المتوازية',
@@ -53,5 +53,5 @@ export const ar = {
   subagentModelSelectionEmpty: 'لا يعلن أي مزوّد نماذج حاليًا عن نموذج.',
   subagentModelSelectionRequired: 'اختر نموذجًا واحدًا على الأقل قبل الحفظ.',
   subagentModelSelectionConflict: 'تغيّرت الإعدادات في مكان آخر. تجاهل مسودتك وحاول مجددًا.',
-  subagentModelSelectionOff: 'يستخدم الوكلاء الفرعيون الافتراضيات المضبوطة أو يرثون نموذج الوكيل الأصل. وتبقى النماذج المحفوظة كما هي.',
+  subagentModelSelectionOff: 'يستخدم الوكلاء الفرعيون الافتراضيات المضبوطة أو يرثون نموذج الوكيل الأم. وتبقى النماذج المحفوظة كما هي.',
 } satisfies Record<PluginsSettingsLocaleKey, string>

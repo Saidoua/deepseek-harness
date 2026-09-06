@@ -19,7 +19,7 @@ export const ar = {
   'member.open': 'فتح {name}',
   'status.running': 'قيد التشغيل',
   'status.completed': 'مكتمل',
-  'status.failed': 'أخفق',
-  'status.cancelled': 'أُلغي',
-  'status.interrupted': 'قوطع',
+  'status.failed': 'فشل',
+  'status.cancelled': 'ملغى',
+  'status.interrupted': 'مقاطَع',
 } satisfies Record<WorkflowRunKey, string>

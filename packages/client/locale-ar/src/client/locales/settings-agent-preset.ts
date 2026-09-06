@@ -27,7 +27,7 @@ export const ar = {
   presetCordisDescription:
     'مُعدّ لإنشاء إعدادات وكيل مخصصة، بكل قدرات الوضع القياسي إضافة إلى فحص وقت التشغيل وتجارب الإضافات وإرشاد تأليف الإعدادات.',
   duplicate: 'نسخ',
-  duplicateUnavailable: 'لا يملك هذا النشر مجلد إعدادات قابلًا للكتابة',
+  duplicateUnavailable: 'لا يملك هذا النشر مجلد إعدادات مسبقة قابلًا للكتابة',
   delete: 'حذف',
   presetId: 'المعرّف',
   // A directory name the user types; the placeholder shows its exact form.

@@ -76,7 +76,7 @@ export const ar = {
   'message.turnProcess.subagents.other': '{count} وكيل فرعي',
   'message.turnProcess.thoughtForAWhile': 'فكّر لبعض الوقت',
   'message.turnProcess.separator': ' · ',
-  'message.stopped': 'أُوقف',
+  'message.stopped': 'متوقف',
   'message.branch': 'التفرّع إلى محادثة جديدة',
   'message.branchUnavailable': 'متاح فقط على آخر رسالة في دور مكتمل',
   'message.retry.active': 'جارٍ إعادة طلب النموذج',
@@ -113,7 +113,7 @@ export const ar = {
   'command.done': 'مكتمل',
   'command.title': 'أمر',
   'row.running': 'قيد التشغيل',
-  'row.failed': 'أخفق',
+  'row.failed': 'فشل',
   'json.truncated': '… مقتطع، {total} حرف إجمالًا',
   // Numeric date templates the renderer fills.
   'clock.md': '{m}/{d}',

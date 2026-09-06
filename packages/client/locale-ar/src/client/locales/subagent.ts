@@ -39,5 +39,5 @@ export const ar = {
   'readonly.oneShot.title': 'سجل وكيل فرعي لمرة واحدة',
   'readonly.title': 'هذا الوكيل الفرعي للقراءة فقط حاليًا',
   'readonly.oneShot.body': 'لا تقبل المهام لمرة واحدة رسائل متابعة؛ راجع سجل التنفيذ الكامل هنا.',
-  'readonly.body': 'المحادثة الأصل غير متصلة؛ أعد فتحها لمتابعة إرسال الرسائل.',
+  'readonly.body': 'المحادثة الأم غير متصلة؛ أعد فتحها لمتابعة إرسال الرسائل.',
 } satisfies Record<SubagentKey, string>

@@ -37,7 +37,7 @@ export const ar = {
   'group.message': 'رسالة',
   'group.step': 'الخطوة {step}',
   'group.compaction': 'الضغط {seq}',
-  'status.failed': 'أخفق',
+  'status.failed': 'فشل',
   'status.pending': 'معلّق',
   'status.completed': 'مكتمل',
   'timing.notAvailable': 'غير متاح',

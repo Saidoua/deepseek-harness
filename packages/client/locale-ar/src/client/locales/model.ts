@@ -1,6 +1,7 @@
 /** `model` namespace: model and reasoning-effort selection. */
 import type { ModelKey } from '@deepseek-ai/dsh-client-ui-model-selection/src/client/locales.ts'
 
+/** Arabic dictionary, checked complete against the `model` key set. */
 export const ar = {
   'command.description': 'اختيار النموذج لهذه المحادثة',
   // {message} carries the provider's own diagnostic and renders verbatim.

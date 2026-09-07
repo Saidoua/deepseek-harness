@@ -1,6 +1,7 @@
 /** `goal` namespace: the goal bar's phases and actions. */
 import type { GoalKey } from '@deepseek-ai/dsh-client-ui-goal/src/client/locales.ts'
 
+/** Arabic dictionary, checked complete against the `goal` key set. */
 export const ar = {
   'phase.active': 'هدف جارٍ',
   'phase.paused': 'هدف متوقف مؤقتًا',

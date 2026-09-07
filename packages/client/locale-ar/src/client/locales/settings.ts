@@ -1,6 +1,7 @@
 /** `settings` namespace: the Settings shell and the connection indicator. */
 import type { SettingsKey } from '@deepseek-ai/dsh-client-ui-settings-general/src/client/locales.ts'
 
+/** Arabic dictionary, checked complete against the `settings` key set. */
 export const ar = {
   'trigger': 'الإعدادات',
   'title': 'الإعدادات',

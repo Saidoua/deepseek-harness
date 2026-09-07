@@ -2,6 +2,7 @@
 import type { TrajectoryKey } from '@deepseek-ai/dsh-client-ui-trajectory/src/client/locales.ts'
 
 // Count keys share one count-neutral wording; see the job namespace.
+/** Arabic dictionary, checked complete against the `trajectory` key set. */
 export const ar = {
   'view.trajectory': 'المسار',
   'toolbar.aria': 'شريط أدوات المسار',

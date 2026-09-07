@@ -2,6 +2,7 @@
 import type { ScheduleCatalogKey } from '@deepseek-ai/dsh-client-ui-schedule/src/client/locales.ts'
 
 // One count-neutral wording serves both count keys; see the job namespace.
+/** Arabic dictionary, checked complete against the `schedule.catalog` key set. */
 export const ar = {
   'trigger.one': '{count} تذكير',
   'trigger.other': '{count} تذكير',

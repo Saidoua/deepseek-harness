@@ -1,6 +1,7 @@
 /** `command` namespace: the slash-command option palette. */
 import type { CommandKey } from '@deepseek-ai/dsh-client-ui-commands/src/client/locales.ts'
 
+/** Arabic dictionary, checked complete against the `command` key set. */
 export const ar = {
   'search.placeholder': 'بحث…',
   'search.aria': 'تصفية الخيارات',

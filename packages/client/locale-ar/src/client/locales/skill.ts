@@ -1,6 +1,7 @@
 /** `skill` namespace: the skill row in the conversation. */
 import type { SkillKey } from '@deepseek-ai/dsh-client-ui-skill/src/client/locales.ts'
 
+/** Arabic dictionary, checked complete against the `skill` key set. */
 export const ar = {
   'row.title': 'مهارة',
   'row.running': 'جارٍ تحميل المهارة',

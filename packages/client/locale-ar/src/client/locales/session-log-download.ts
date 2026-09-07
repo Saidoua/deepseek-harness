@@ -1,6 +1,7 @@
 /** `session-log-download` namespace: the Session log export control and dialog. */
 import type { SessionLogDownloadKey } from '@deepseek-ai/dsh-session-log-export/src/client/locales.ts'
 
+/** Arabic dictionary, checked complete against the `session-log-download` key set. */
 export const ar = {
   'header.action': 'سجل المحادثة',
   'dialog.preparingTitle': 'جارٍ تصدير المحادثة',

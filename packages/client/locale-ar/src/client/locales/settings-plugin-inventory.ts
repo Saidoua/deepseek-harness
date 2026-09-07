@@ -1,6 +1,7 @@
 /** `settings.pluginInventory` namespace: the plugin list and its statuses. */
 import type { PluginInventoryLocaleKey } from '@deepseek-ai/dsh-client-ui-settings-plugin-inventory/src/client/locales.ts'
 
+/** Arabic dictionary, checked complete against the `settings.pluginInventory` key set. */
 export const ar = {
   tab: 'قائمة الإضافات',
   loading: 'جارٍ قراءة الإضافات…',

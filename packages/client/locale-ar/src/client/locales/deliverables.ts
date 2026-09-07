@@ -1,6 +1,7 @@
 /** `deliverables` namespace: files a turn produced. */
 import type { DeliverablesKey } from '@deepseek-ai/dsh-client-ui-deliverables/src/client/locales.ts'
 
+/** Arabic dictionary, checked complete against the `deliverables` key set. */
 export const ar = {
   'produced.label': 'أُنتجت',
   'produced.moreOne': '+ ملف واحد',

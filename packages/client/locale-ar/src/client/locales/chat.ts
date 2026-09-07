@@ -2,6 +2,7 @@
 import type { ChatKey } from '@deepseek-ai/dsh-client-ui-chat/src/client/locale.ts'
 
 // Count keys share one count-neutral wording; see the job namespace.
+/** Arabic dictionary, checked complete against the `chat` key set. */
 export const ar = {
   'view.chat': 'المحادثة',
   // Punctuation the renderer joins numbers with, not a word.

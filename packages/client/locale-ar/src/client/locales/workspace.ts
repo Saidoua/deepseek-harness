@@ -2,6 +2,7 @@
 import type { WorkspaceKey } from '@deepseek-ai/dsh-client-ui-workspace/src/client/locales.ts'
 
 // Count keys share one count-neutral wording; see the job namespace.
+/** Arabic dictionary, checked complete against the `workspace` key set. */
 export const ar = {
   'group.ungrouped': 'بلا مجموعة',
   'session.new': 'محادثة جديدة',

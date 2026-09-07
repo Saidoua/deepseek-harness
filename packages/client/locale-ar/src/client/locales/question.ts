@@ -1,6 +1,7 @@
 /** `question` namespace: the question card and plan review. */
 import type { QuestionKey } from '@deepseek-ai/dsh-client-ui-user-questions/src/client/locales.ts'
 
+/** Arabic dictionary, checked complete against the `question` key set. */
 export const ar = {
   'error.incomplete': 'يرجى إكمال هذا السؤال أولًا.',
   'error.unanswered': 'يرجى اختيار خيار أو كتابة إجابة خاصة.',

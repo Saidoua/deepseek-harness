@@ -1,6 +1,7 @@
 /** `approval` namespace: the panel that waits on a user decision. */
 import type { ApprovalKey } from '@deepseek-ai/dsh-client-ui-approval/src/client/locales.ts'
 
+/** Arabic dictionary, checked complete against the `approval` key set. */
 export const ar = {
   waiting: 'في انتظار الموافقة',
   'detail.aria': 'تفاصيل الموافقة',

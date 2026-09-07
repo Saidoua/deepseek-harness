@@ -1,6 +1,7 @@
 /** `common` namespace: the shared vocabulary every feature falls back to. */
 import type { CommonKey } from '@deepseek-ai/dsh-client-locale/src/locales/index.ts'
 
+/** Arabic dictionary, checked complete against the `common` key set. */
 export const ar = {
   'ok': 'حسنًا',
   'cancel': 'إلغاء',

@@ -1,6 +1,7 @@
 /** `plan` namespace: the plan-mode chip. */
 import type { PlanKey } from '@deepseek-ai/dsh-client-ui-plan/src/client/locales.ts'
 
+/** Arabic dictionary, checked complete against the `plan` key set. */
 export const ar = {
   'chip.label': 'خطة',
   'chip.on.aria': 'وضع الخطة مفعّل، اضغط لإيقافه',

@@ -1,6 +1,7 @@
 /** `cordis` namespace: the Cordis plugin panel and its run rows. */
 import type { CordisKey } from '@deepseek-ai/dsh-client-ui-cordis/src/client/locales.ts'
 
+/** Arabic dictionary, checked complete against the `cordis` key set. */
 export const ar = {
   // Cordis is the runtime's own name and stays Latin.
   'row.defineTitle': 'تسجيل إضافة Cordis',

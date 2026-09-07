@@ -1,6 +1,7 @@
 /** `slash.menu` namespace: the composer's trigger menu. */
 import type { MenuKey } from '@deepseek-ai/dsh-client-ui-input-trigger/src/client/locales.ts'
 
+/** Arabic dictionary, checked complete against the `slash.menu` key set. */
 export const ar = {
   'command': 'الأوامر',
   'skill': 'المهارات',

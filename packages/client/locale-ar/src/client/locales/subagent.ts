@@ -2,6 +2,7 @@
 import type { SubagentKey } from '@deepseek-ai/dsh-client-ui-subagent/src/client/locales.ts'
 
 // Count keys share one count-neutral wording; see the job namespace.
+/** Arabic dictionary, checked complete against the `subagent` key set. */
 export const ar = {
   'diagnostic.corrupt': 'سجل محادثة تالف',
   'diagnostic.unsupported': 'إصدار سجل وكيل فرعي غير مدعوم',

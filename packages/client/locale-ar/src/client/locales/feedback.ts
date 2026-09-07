@@ -1,6 +1,7 @@
 /** `feedback` namespace: per-message rating and its note dialog. */
 import type { MessageFeedbackKey } from '@deepseek-ai/dsh-client-ui-message-feedback/src/client/locales.ts'
 
+/** Arabic dictionary, checked complete against the `feedback` key set. */
 export const ar = {
   'action.like': 'رد جيد',
   'action.likeActive': 'إزالة التقييم',

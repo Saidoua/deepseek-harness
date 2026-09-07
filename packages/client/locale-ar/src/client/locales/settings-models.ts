@@ -1,6 +1,7 @@
 /** `settings.models` namespace: provider and model configuration. */
 import type { ModelsKey } from '@deepseek-ai/dsh-client-ui-settings-models/src/client/locales.ts'
 
+/** Arabic dictionary, checked complete against the `settings.models` key set. */
 export const ar = {
   nav: 'النماذج',
   title: 'النماذج',

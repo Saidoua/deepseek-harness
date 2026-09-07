@@ -1,6 +1,7 @@
 /** `permission.access` namespace: the in-session access switch. */
 import type { PermissionAccessKey } from '@deepseek-ai/dsh-client-ui-permission-presets/src/client/locales.ts'
 
+/** Arabic dictionary, checked complete against the `permission.access` key set. */
 export const ar = {
   'preset.readOnly': 'قراءة فقط',
   'preset.workspaceWrite': 'الكتابة في مساحة العمل',

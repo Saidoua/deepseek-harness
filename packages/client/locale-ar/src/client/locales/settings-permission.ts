@@ -1,6 +1,7 @@
 /** `settings.permission` namespace: the default permission mode row. */
 import type { PermissionSettingsKey } from '@deepseek-ai/dsh-client-ui-permission-presets/src/client/locales.ts'
 
+/** Arabic dictionary, checked complete against the `settings.permission` key set. */
 export const ar = {
   'title': 'الأذونات',
   'description': 'اختر وضع الأذونات الافتراضي للمحادثات الجديدة',

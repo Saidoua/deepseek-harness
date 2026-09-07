@@ -1,6 +1,7 @@
 /** `settings.agentPreset` namespace: the agent-preset section and its dialogs. */
 import type { AgentPresetSettingsKey } from '@deepseek-ai/dsh-client-ui-agent-preset/src/client/locales.ts'
 
+/** Arabic dictionary, checked complete against the `settings.agentPreset` key set. */
 export const ar = {
   error: 'تعذّر تحميل إعدادات الوكيل المسبقة.',
   userTrust: 'مخصص',

@@ -5,6 +5,7 @@ import type { ConversationKey } from '@deepseek-ai/dsh-client-ui-conversation/sr
 const PLAN_NEXT_ACTION = 'صِف مهمتك لتوليد خطة'
 
 // Count keys share one count-neutral wording; see the job namespace.
+/** Arabic dictionary, checked complete against the `conversation` key set. */
 export const ar = {
   'hint.plan': PLAN_NEXT_ACTION,
   'hint.goal': 'صِف هدف مهمة طويلة الأمد',

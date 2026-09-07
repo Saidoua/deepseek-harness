@@ -2,6 +2,7 @@
 import type { WorkflowRunKey } from '@deepseek-ai/dsh-client-ui-workflow-run/src/client/locales.ts'
 
 // One count-neutral wording serves both count keys; see the job namespace.
+/** Arabic dictionary, checked complete against the `workflowRun` key set. */
 export const ar = {
   // The run's own name, passed through unchanged.
   'run.title': '{name}',

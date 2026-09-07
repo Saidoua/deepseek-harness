@@ -1,6 +1,7 @@
 /** `settings.theme` namespace: the Appearance and font-size rows. */
 import type { ThemeKey } from '@deepseek-ai/dsh-client-ui-theme/src/client/locales.ts'
 
+/** Arabic dictionary, checked complete against the `settings.theme` key set. */
 export const ar = {
   'appearance.title': 'المظهر',
   'appearance.light': 'فاتح',

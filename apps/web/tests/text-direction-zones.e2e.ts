@@ -31,7 +31,7 @@ async function box(page: Page, selector: string) {
 /** Apply or retract the root attribute exactly as the locale plugin does. */
 async function setDirection(page: Page, value: 'ltr' | 'rtl'): Promise<void> {
   await page.evaluate(([attribute, next]) => {
-    document.documentElement.setAttribute(attribute!, next!)
+    document.documentElement.setAttribute(attribute, next)
   }, [DIRECTION_ATTRIBUTE, value])
 }
 

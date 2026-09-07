@@ -3,8 +3,7 @@
  * that rescope with `--reverse`. Every harness package declares `cordis` as a
  * peer dependency, so publication carries this framework layer too; publishing
  * it under the upstream names would squat them on the registry
- * ([rationale](../.agents/notes/implemented/process/2026-08-10-vendor-package-rescope.md),
- * [name mapping](../docs/rescope.md)).
+ * ([rationale and name mapping](../docs/rescope.md)).
  *
  * The generic pass rewrites ONLY delimited, complete package-name tokens:
  * `'old'` / `"old"` / `` `old` `` / `'old/subpath'`, plus a YAML `name: old`
@@ -102,6 +101,11 @@ const GENERIC_SKIPS: readonly GenericSkip[] = [
   { file: 'apps/cli/tests/windows-shell.spec.ts', upstream: ['cordis'] },
   // GROUP_ORDER holds `packages/<group>/` directory names, not package names.
   { file: 'scripts/gen-module-graph.ts', upstream: ['cordis'] },
+  // `cordis` is also the locale-dictionary namespace id under which the Arabic
+  // pack ships the Cordis plugin panel's strings, so in these files the bare
+  // name is a translation namespace, not a package reference.
+  { file: 'packages/client/locale-ar/src/client/index.ts', upstream: ['cordis'] },
+  { file: 'packages/client/locale-ar/src/client/locales/cordis.ts', upstream: ['cordis'] },
   { file: 'scripts/gen-doc-graphs.ts', upstream: ['cordis'] },
   // `cordis/*` is the extensions event domain, not a package subpath. The
   // generated catalogs and every producer/consumer must preserve that wire id.

@@ -6,7 +6,6 @@ import type { Agent } from '@deepseek-ai/dsh-agent'
 import CommandRuntime from '@deepseek-ai/dsh-commands'
 import AgentLoop from '@deepseek-ai/dsh-agent-loop'
 import { mountAgentLoopTestDependencies } from '@deepseek-ai/dsh-agent-loop-testkit'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
 import * as SessionRules from '../src/index.ts'
 import { MockAdapter, textResponse, toolCallResponse } from '../../../core/agent-loop/tests/mock-adapter.ts'
 
@@ -20,7 +19,6 @@ import { MockAdapter, textResponse, toolCallResponse } from '../../../core/agent
 async function harness(adapter: MockAdapter): Promise<Context> {
   const ctx = new Context()
   await mountAgentLoopTestDependencies(ctx)
-  await ctx.plugin(SessionProjectionRegistry)
   // The plugin injects `commands` (the /rule registration); without the
   // runtime mounted the plugin stays PENDING and no tool ever registers.
   await ctx.plugin(CommandRuntime)

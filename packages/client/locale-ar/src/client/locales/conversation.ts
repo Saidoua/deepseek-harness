@@ -145,6 +145,7 @@ export const ar = {
   'web.contentTruncated': 'اقتُطع المحتوى',
   'details.running': 'قيد التشغيل…',
   'queue.count': '{n} رسالة في الطابور',
+  'queue.sending': 'جارٍ الإرسال…',
   'queue.image': 'صورة رسالة في الطابور',
   'queue.file': 'الملف {name} في الطابور',
   'queue.edit': 'تحرير الرسالة في الطابور',

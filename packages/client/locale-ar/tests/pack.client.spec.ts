@@ -39,6 +39,9 @@ describe('Arabic language pack', () => {
     // otherwise be invisible because English reads acceptably.
     expect(locale.bind('common')('cancel')).toBe('إلغاء')
     expect(locale.bind('sidebar')('session.new')).toBe('محادثة جديدة')
+    expect(locale.bind('sidebarFiles')('type.label')).toBe('الملفات')
+    expect(locale.bind('sidebarRight')('tab.guide.title')).toBe('البداية')
+    expect(locale.bind('sidebarTextpreview')('wrap')).toBe('التفاف الأسطر')
     expect(locale.bind('chat')('view.chat')).toBe('المحادثة')
     expect(locale.bind('conversation')('input.send')).toBe('إرسال الرسالة')
     expect(locale.bind('settings')('title')).toBe('الإعدادات')

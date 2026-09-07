@@ -72,6 +72,15 @@
       "path": "../ui-sidebar"
     },
     {
+      "path": "../ui-sidebar-files"
+    },
+    {
+      "path": "../ui-sidebar-right"
+    },
+    {
+      "path": "../ui-sidebar-textpreview"
+    },
+    {
       "path": "../ui-skill"
     },
     {

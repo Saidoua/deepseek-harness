@@ -44,6 +44,9 @@ import { ar as settingsPluginInventory } from './locales/settings-plugin-invento
 import { ar as settingsPlugins } from './locales/settings-plugins.ts'
 import { ar as settingsTheme } from './locales/settings-theme.ts'
 import { ar as sidebar } from './locales/sidebar.ts'
+import { ar as sidebarFiles } from './locales/sidebar-files.ts'
+import { ar as sidebarRight } from './locales/sidebar-right.ts'
+import { ar as sidebarTextpreview } from './locales/sidebar-textpreview.ts'
 import { ar as skill } from './locales/skill.ts'
 import { ar as slashMenu } from './locales/slash-menu.ts'
 import { ar as subagent } from './locales/subagent.ts'
@@ -88,6 +91,9 @@ const DICTIONARIES: Readonly<Record<string, Readonly<Record<string, string>>>> =
   'settings.plugins': settingsPlugins,
   'settings.theme': settingsTheme,
   'sidebar': sidebar,
+  'sidebarFiles': sidebarFiles,
+  'sidebarRight': sidebarRight,
+  'sidebarTextpreview': sidebarTextpreview,
   'skill': skill,
   'slash.menu': slashMenu,
   'subagent': subagent,

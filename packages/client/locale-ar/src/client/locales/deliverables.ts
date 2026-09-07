@@ -8,5 +8,4 @@ export const ar = {
   'produced.more': '+ {count} ملف',
   // {name} is the produced file's own name and renders verbatim.
   'produced.open': 'فتح {name}',
-  'produced.showInFolder': 'إظهار في المجلد',
 } satisfies Record<DeliverablesKey, string>

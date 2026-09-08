@@ -243,7 +243,7 @@ describe('dsh-tool-state step-boundary injection', () => {
         content: [{ type: 'text', text: `compaction ${String(round)}` }],
         source: { kind: 'plugin', plugin: 'test-compaction' },
       }), {
-        surfaceOp: { op: 'replace', start: shadowed, end: shadowed },
+        surfaceOp: { op: 'replace', startSeq: shadowed, endSeq: shadowed },
         sourceEventSeqs: [shadowed],
       })
       const restored = await fireStep(ctx, agent, 1, round + 2)

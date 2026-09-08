@@ -12,4 +12,10 @@ export const ar = {
   'overlay.aria': 'خيارات ‎/{command}‎',
   'listbox.aria': 'نتائج ‎/{command}‎',
   'notice.attachmentsUnsupported': 'لا يقبل ‎/{command}‎ مرفقات؛ أزلها أولًا',
+  'description.compact': 'ضغط سجل المحادثة الأقدم',
+  'description.export': 'تنزيل سجل هذه المحادثة كأرشيف ZIP',
+  'description.feedback': 'تسجيل ملاحظات حول هذه المحادثة',
+  'description.goal': 'تعيين هدف مهمة طويلة أو عرضه',
+  'description.permission': 'تبديل إعداد الأذونات المسبق (وضع الحماية وسياسة الموافقة)',
+  'description.plan': 'الدخول إلى وضع الخطة أو الخروج منه',
 } satisfies Record<CommandKey, string>

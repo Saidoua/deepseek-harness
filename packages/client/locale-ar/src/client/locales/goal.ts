@@ -4,6 +4,7 @@ import type { GoalKey } from '@deepseek-ai/dsh-client-ui-goal/src/client/locales
 /** Arabic dictionary, checked complete against the `goal` key set. */
 export const ar = {
   'phase.active': 'هدف جارٍ',
+  'phase.active.disarmed': 'هدف غير نشط',
   'phase.paused': 'هدف متوقف مؤقتًا',
   'phase.blocked': 'هدف متعثّر',
   'objective.aria': 'نص الهدف',

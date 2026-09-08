@@ -73,6 +73,7 @@ All settings are optional. The defaults start condensing at 80% of the routed mo
 | `maxOverflowRetries` | `1` | Maximum retries after a confirmed context-window overflow; `0` disables recovery only. |
 | `modelPolicies` | `[]` | Exact `{ provider, model, ...partialPolicy }` overrides for individual model routes. |
 | `auto` | `true` | Enable automatic condensation and overflow recovery; set `false` for manual-only operation. |
+| `spareSeedUserTurn` | `true` | Keep the first user turn out of automatic condensation so the task's seed survives verbatim; manual and overflow condensation never spare it. Set `false` when the seed itself must be condensable, such as a prompt whose images create the pressure. |
 
 Misconfiguration fails fast: an unknown setting, a duplicate per-model override, both retention forms together, or a ratio retention that is not below the threshold all reject the plugin at load. An absolute `retainTokens` budget — top-level or per-model — that is not below its threshold fails when that model is first used, because the comparison needs the model's context size.
 

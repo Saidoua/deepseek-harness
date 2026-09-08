@@ -449,6 +449,13 @@ export interface BasicCompactionConfig extends CompactionPolicyConfig {
   modelPolicies?: ModelCompactPolicyConfig[]
   /** Enable automatic step-boundary pressure and overflow-recovery listeners. Defaults to `true`. */
   auto?: boolean
+  /**
+   * Keep the first user turn on the surface during automatic pressure
+   * compaction so the task's seed survives verbatim; manual and overflow
+   * compaction never spare it. Defaults to `true`. Set `false` when the seed
+   * itself must be condensable, such as a prompt whose images create the pressure.
+   */
+  spareSeedUserTurn?: boolean
 }
 
 /** Policy fields shared by the default policy and exact model overrides. */

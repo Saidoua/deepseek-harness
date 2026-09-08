@@ -40,3 +40,6 @@
   name: '@deepseek-ai/dsh-compaction-basic'
   config:
     retainTokens: 100
+    # The seed user turn carries the images that create the pressure, so it
+    # must stay condensable here; the default sparing would leave no span.
+    spareSeedUserTurn: false

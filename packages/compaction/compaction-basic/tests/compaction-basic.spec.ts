@@ -341,6 +341,7 @@ describe('compact configuration and defaults', () => {
       maxOverflowRetries: 1,
       modelPolicies: [],
       auto: true,
+      spareSeedUserTurn: true,
     })
     expect(Object.isFrozen(resolved)).toBe(true)
   })
@@ -459,6 +460,7 @@ describe('compact configuration and defaults', () => {
       [{ compactionRetries: -1 }, /compactionRetries/],
       [{ maxOverflowRetries: -1 }, /maxOverflowRetries/],
       [{ auto: 'yes' }, /auto must be a boolean/],
+      [{ spareSeedUserTurn: 'yes' }, /spareSeedUserTurn must be a boolean/],
       [{ summarizationProvider: 1 }, /summarizationProvider must be a string/],
       [{ summarizationModel: 1 }, /summarizationModel must be a string/],
       [{ summarizationProvider: MODEL }, /must be set together/],
@@ -2174,6 +2176,16 @@ describe('route-priced image pressure', () => {
 })
 
 describe('seed user turn sparing (automatic compaction)', () => {
+  it('condenses the seed user turn when spareSeedUserTurn is false', async () => {
+    const compact = service({ auto: false, thresholdRatio: 0.5, retainTokens: 180, spareSeedUserTurn: false })
+    const session = conversation(4)
+    const seed = session.surface.nodes[0]!
+    const result = await compactIfNeeded(compact, session)
+    expect(result).not.toBeNull()
+    expect(result?.shadowedSeqs[0]).toBe(seed)
+    expect(session.surface.nodes[0]).not.toBe(seed)
+  })
+
   it('keeps the seed user message verbatim on the surface after pressure compaction', async () => {
     const ctx = createContext(4_000)
     const compact = new TestCompactionEngine(ctx, {

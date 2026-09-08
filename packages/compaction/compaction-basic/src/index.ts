@@ -115,6 +115,7 @@ export class BasicCompactionEngine extends CompactionEngine {
     maxOverflowRetries: maxOverflowRetriesSchema,
     modelPolicies: z.array(modelPolicy),
     auto: z.boolean(),
+    spareSeedUserTurn: z.boolean(),
   })
 
   /** Resolved and validated compaction configuration. */
@@ -287,7 +288,7 @@ export class BasicCompactionEngine extends CompactionEngine {
         measurement = meter.measure(agent.session)
       }
       // Overflow is the last resort: the request already failed to fit, and
-      // pressure compaction — which spares the seed user turn — did not keep
+      // pressure compaction — which spares the seed user turn by default — did not keep
       // it within the window. Reclaim the whole compactable span, seed
       // included; sparing here can leave a span too small to shrink (one
       // runtime-context message), and the shrink guard then preserves the
@@ -320,7 +321,9 @@ export class BasicCompactionEngine extends CompactionEngine {
 
     let result: CompactionResult | null = null
     for (let attempt = 0; attempt <= spec.compactionRetries; attempt += 1) {
-      const range = selectCompactableRange(agent.session, measurement, spec.retainTokens, { spareSeedUserTurn: true })
+      const range = selectCompactableRange(agent.session, measurement, spec.retainTokens, {
+        spareSeedUserTurn: this.config.spareSeedUserTurn,
+      })
       if (range === null) {
         /* v8 ignore else -- concrete replacement preserves a compactable checkpoint; subclass hooks cannot mutate it. */
         if (result === null) return null

@@ -39,6 +39,7 @@ const BASIC_COMPACT_CONFIG_KEYS: ReadonlySet<string> = new Set([
   ...POLICY_CONFIG_KEYS,
   'modelPolicies',
   'auto',
+  'spareSeedUserTurn',
 ])
 
 /** Complete exact-target override key set. */
@@ -70,6 +71,9 @@ export function resolveConfig(config: BasicCompactionConfig = {}): ResolvedConfi
   if (config.auto !== undefined && typeof config.auto !== 'boolean') {
     throw new Error('BasicCompactionConfig: auto must be a boolean')
   }
+  if (config.spareSeedUserTurn !== undefined && typeof config.spareSeedUserTurn !== 'boolean') {
+    throw new Error('BasicCompactionConfig: spareSeedUserTurn must be a boolean')
+  }
 
   const thresholdRatio = config.thresholdRatio ?? DEFAULT_THRESHOLD_RATIO
   const retention = resolveRetention(config, { retainRatio: DEFAULT_RETAIN_RATIO })
@@ -93,6 +97,7 @@ export function resolveConfig(config: BasicCompactionConfig = {}): ResolvedConfi
     maxOverflowRetries: config.maxOverflowRetries ?? 1,
     modelPolicies,
     auto: config.auto ?? true,
+    spareSeedUserTurn: config.spareSeedUserTurn ?? true,
   })
 }
 

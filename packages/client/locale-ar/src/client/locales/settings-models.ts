@@ -89,6 +89,7 @@ export const ar = {
   customApi: 'بروتوكول الواجهة البرمجية',
   customApiUnset: 'غير محدد',
   customNeedsBaseUrl: 'يحتاج المزوّد المخصص إلى عنوان أساسي.',
+  customBaseUrlInvalid: 'أدخل عنوان HTTP أو HTTPS صالحًا.',
   customNeedsModels: 'يحتاج المزوّد المخصص إلى نموذج واحد على الأقل.',
   // A literal example URL.
   customBaseUrlPlaceholder: 'https://gateway.example/v1',

@@ -4,11 +4,10 @@ import type { SidebarFilesKey } from '@deepseek-ai/dsh-client-ui-sidebar-files/s
 /** Arabic dictionary, checked complete against the `sidebarFiles` key set. */
 export const ar = {
   'type.label': 'الملفات',
-  'guide.title': 'الملفات',
-  'guide.description': 'استعرض ملفات مساحة عمل هذه المحادثة وافتح أيًّا منها.',
+  'guide.title': 'ملفات مساحة العمل',
   loading: 'جارٍ القراءة…',
   empty: 'مجلد فارغ',
-  truncated: 'المدخلات كثيرة جدًا؛ يُعرض بعضها فقط.',
+  truncated: 'المدخلات كثيرة جدًا، يُعرض بعضها فقط.',
   noWorkspace: 'لا يوجد مجلد مساحة عمل لهذه المحادثة.',
   reload: 'إعادة التحميل',
   'entry.other': 'ليس ملفًا ولا مجلدًا، لذا لا يمكن فتحه.',

@@ -41,7 +41,7 @@ describe('Arabic language pack', () => {
     expect(locale.bind('sidebar')('session.new')).toBe('محادثة جديدة')
     expect(locale.bind('sidebarFiles')('type.label')).toBe('الملفات')
     expect(locale.bind('sidebarRight')('tab.guide.title')).toBe('البداية')
-    expect(locale.bind('sidebarTextpreview')('wrap')).toBe('التفاف الأسطر')
+    expect(locale.bind('sidebarDocumentPreview')('wrap.aria')).toBe('التفاف الأسطر')
     expect(locale.bind('chat')('view.chat')).toBe('المحادثة')
     expect(locale.bind('conversation')('input.send')).toBe('إرسال الرسالة')
     expect(locale.bind('settings')('title')).toBe('الإعدادات')
@@ -49,7 +49,7 @@ describe('Arabic language pack', () => {
     expect(locale.bind('workspace')('section.sessions')).toBe('المحادثات')
     expect(locale.bind('trajectory')('view.trajectory')).toBe('المسار')
     expect(locale.bind('directory-browser')('browser.home')).toBe('المجلد الرئيسي')
-    expect(locale.bind('session-log-download')('header.action')).toBe('سجل المحادثة')
+    expect(locale.bind('session-log-download')('menu.download')).toBe('تنزيل سجل المحادثة')
   })
 
   it('leaves an untranslated key on the English fallback rather than the bare key', async () => {

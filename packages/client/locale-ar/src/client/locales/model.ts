@@ -6,6 +6,8 @@ export const ar = {
   'command.description': 'اختيار النموذج لهذه المحادثة',
   // {message} carries the provider's own diagnostic and renders verbatim.
   'option.loadError': 'تعذّر تحميل الفهرس: {message}',
+  'option.deepseekV4Flash.description': 'سريع وفعّال واقتصادي؛ يناسب المهام المحدّدة أو الروتينية أو المتوازية.',
+  'option.deepseekV4Pro.description': 'أقوى في البرمجة الوكيلة والمعرفة والاستدلال الصعب؛ يناسب المهام المعقّدة أو التي تتقدّم فيها الجودة، بتكلفة أعلى.',
   'trigger.fallback': 'اختيار نموذج',
   'trigger.loading': 'جارٍ تحميل النماذج…',
   'trigger.selectAria': 'اختيار نموذج',

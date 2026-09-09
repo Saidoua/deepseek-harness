@@ -27,7 +27,7 @@
       "path": "../ui-conversation"
     },
     {
-      "path": "../ui-deliverables"
+      "path": "../ui-deliverables/tsconfig.client.json"
     },
     {
       "path": "../ui-goal"
@@ -72,13 +72,13 @@
       "path": "../ui-sidebar"
     },
     {
+      "path": "../ui-sidebar-documentpreview"
+    },
+    {
       "path": "../ui-sidebar-files"
     },
     {
       "path": "../ui-sidebar-right"
-    },
-    {
-      "path": "../ui-sidebar-textpreview"
     },
     {
       "path": "../ui-skill"

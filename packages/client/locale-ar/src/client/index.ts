@@ -25,6 +25,8 @@ import { ar as conversation } from './locales/conversation.ts'
 import { ar as cordis } from './locales/cordis.ts'
 import { ar as deliverables } from './locales/deliverables.ts'
 import { ar as directoryBrowser } from './locales/directory-browser.ts'
+import { ar as documentHtml } from './locales/document-html.ts'
+import { ar as documentMarkdown } from './locales/document-markdown.ts'
 import { ar as feedback } from './locales/feedback.ts'
 import { ar as goal } from './locales/goal.ts'
 import { ar as job } from './locales/job.ts'
@@ -44,9 +46,12 @@ import { ar as settingsPluginInventory } from './locales/settings-plugin-invento
 import { ar as settingsPlugins } from './locales/settings-plugins.ts'
 import { ar as settingsTheme } from './locales/settings-theme.ts'
 import { ar as sidebar } from './locales/sidebar.ts'
+import { ar as sidebarCodePreview } from './locales/sidebar-codepreview.ts'
+import { ar as sidebarDocumentPreview } from './locales/sidebar-documentpreview.ts'
 import { ar as sidebarFiles } from './locales/sidebar-files.ts'
+import { ar as sidebarImage } from './locales/sidebar-image.ts'
+import { ar as sidebarPdf } from './locales/sidebar-pdf.ts'
 import { ar as sidebarRight } from './locales/sidebar-right.ts'
-import { ar as sidebarTextpreview } from './locales/sidebar-textpreview.ts'
 import { ar as skill } from './locales/skill.ts'
 import { ar as slashMenu } from './locales/slash-menu.ts'
 import { ar as subagent } from './locales/subagent.ts'
@@ -72,6 +77,8 @@ const DICTIONARIES: Readonly<Record<string, Readonly<Record<string, string>>>> =
   'cordis': cordis,
   'deliverables': deliverables,
   'directory-browser': directoryBrowser,
+  'documentHtml': documentHtml,
+  'documentMarkdown': documentMarkdown,
   'feedback': feedback,
   'goal': goal,
   'job': job,
@@ -91,9 +98,12 @@ const DICTIONARIES: Readonly<Record<string, Readonly<Record<string, string>>>> =
   'settings.plugins': settingsPlugins,
   'settings.theme': settingsTheme,
   'sidebar': sidebar,
+  'sidebarCodePreview': sidebarCodePreview,
+  'sidebarDocumentPreview': sidebarDocumentPreview,
   'sidebarFiles': sidebarFiles,
+  'sidebarImage': sidebarImage,
+  'sidebarPdf': sidebarPdf,
   'sidebarRight': sidebarRight,
-  'sidebarTextpreview': sidebarTextpreview,
   'skill': skill,
   'slash.menu': slashMenu,
   'subagent': subagent,

@@ -3,7 +3,8 @@ import type { SessionLogDownloadKey } from '@deepseek-ai/dsh-session-log-export/
 
 /** Arabic dictionary, checked complete against the `session-log-download` key set. */
 export const ar = {
-  'header.action': 'سجل المحادثة',
+  'header.more': 'مزيد من الإجراءات',
+  'menu.download': 'تنزيل سجل المحادثة',
   'dialog.preparingTitle': 'جارٍ تصدير المحادثة',
   // ZIP is the archive format's own name.
   'dialog.preparingDescription': 'جارٍ تحضير ملف ZIP يضم هذه المحادثة ومحادثاتها الفرعية ومرفقاتها.',

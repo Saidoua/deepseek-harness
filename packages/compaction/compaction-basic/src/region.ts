@@ -99,7 +99,8 @@ interface TransactionFailure {
  */
 function systemHead(session: Session, headSeq: SessionSeq): SessionEvent<'system/message'> | undefined {
   // Surface nodes are current log seqs, so the event exists.
-  // oxlint-disable-next-line typescript/no-non-null-assertion
+  // Existing Session history read; migration deferred.
+  // oxlint-disable-next-line typescript/no-non-null-assertion, typescript/no-deprecated
   const head = session.eventAt(headSeq)!
   return head.type === 'system/message' ? head : undefined
 }
@@ -164,6 +165,7 @@ export function selectCompactableRange(
   let startIdx = firstIdx
   const seedSeq = surfaceNodes[firstIdx]
   const seedEvent = options.spareSeedUserTurn === true && seedSeq !== undefined
+    // oxlint-disable-next-line typescript/no-deprecated -- Existing Session history read; migration deferred.
     ? session.eventAt(seedSeq)
     : undefined
   if (seedEvent?.type === 'user/message' && seedEvent.data.source.kind === 'user') {
@@ -177,7 +179,7 @@ export function selectCompactableRange(
   // seed and the retained tail hold everything else.
   let spanHasCompactableContent = false
   for (let index = startIdx; index < keepFromIdx; index += 1) {
-    // oxlint-disable-next-line typescript/no-non-null-assertion
+    // oxlint-disable-next-line typescript/no-non-null-assertion, typescript/no-deprecated
     const event = session.eventAt(surfaceNodes[index]!)
     if (event === undefined || event.type !== 'user/message'
       || !isCompactCheckpointSource(event.data.source)) {
@@ -577,7 +579,8 @@ function buildSummarizationInput(
   const system = head === undefined ? null : session.deriveEventMessage(head)
   const regionMessages = shadowedSeqs
     // shadowedSeqs are current surface seqs, so each is a valid log index.
-    // oxlint-disable-next-line typescript/no-non-null-assertion
+    // Existing Session history read; migration deferred.
+    // oxlint-disable-next-line typescript/no-non-null-assertion, typescript/no-deprecated
     .map(seq => session.deriveEventMessage(session.eventAt(seq)!))
     .filter((message): message is Message => message !== null)
   return {
@@ -594,7 +597,8 @@ function inspectCompactionEntryState(session: Session): CompactionEntryState {
   let compactionEntryStateKnown = false
   let latestEndSeedSeq: SessionSeq | undefined
   for (let seq = session.seq - 1; seq >= 0; seq -= 1) {
-    // oxlint-disable-next-line typescript/no-non-null-assertion
+    // Existing Session history read; migration deferred.
+    // oxlint-disable-next-line typescript/no-non-null-assertion, typescript/no-deprecated
     const event = session.eventAt(SessionSeq(seq))!
     if (latestEndSeedSeq === undefined && event.type === 'session/end-seed') {
       latestEndSeedSeq = event.seq

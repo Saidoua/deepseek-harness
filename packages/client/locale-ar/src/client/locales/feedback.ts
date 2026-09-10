@@ -14,7 +14,7 @@ export const ar = {
   'category.task-result': 'نتيجة المهمة',
   'category.instruction-following': 'فهم التعليمات واتّباعها',
   'category.product-interaction': 'ميزات المنتج والتفاعل معه',
-  'category.service-stability': 'استقرار الخدمة',
+  'category.service-stability': 'الاستقرار والسرعة',
   'category.resource-cost': 'استهلاك الموارد والتكلفة',
   'category.security-privacy-permission': 'الأمان والخصوصية والأذونات',
   'category.other': 'أخرى',

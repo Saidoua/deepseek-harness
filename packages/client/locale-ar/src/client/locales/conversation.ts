@@ -18,7 +18,8 @@ export const ar = {
   'placeholder.workspace': 'اختر مساحة عمل للبدء',
   // The key names are printed on the keyboard and stay Latin.
   'placeholder.steerQueue': 'Cmd/Ctrl+Enter يوجّه كل الرسائل في الطابور',
-  'input.commands': 'الأوامر',
+  'input.commands': 'إضافة ملفات أو تشغيل أوامر',
+  'input.file': 'ملف',
   'input.stop': 'إيقاف التوليد',
   'input.send': 'إرسال الرسالة',
   'input.send.queue': 'إرسال إلى الطابور',
@@ -51,7 +52,6 @@ export const ar = {
   'image.dimensionTooLarge': 'يجب ألا يتجاوز ضلع الصورة {size}px؛ صغّرها وأعد المحاولة',
   'image.modelUnsupported': 'النموذج الحالي لا يدعم الصور؛ بدّل إلى نموذج يدعمها',
   'image.sendFailed': 'أخفق إرسال الصور ({reason})؛ أعد إضافتها وحاول مجددًا',
-  'file.attach': 'إضافة مرفق',
   'file.pending': 'ملفات قيد الانتظار',
   'file.remove': 'إزالة الملف {name}',
   'file.uploading': 'جارٍ الرفع…',

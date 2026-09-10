@@ -1,7 +1,7 @@
 {
   "name": "@deepseek-ai/dsh-session-rules",
   "description": "Session-pinned standing rules: durable pins re-injected verbatim after compaction",
-  "version": "0.1.5-alpha.2",
+  "version": "0.1.5-rc.2",
   "publishConfig": {
     "access": "public"
   },

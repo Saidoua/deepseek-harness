@@ -5,6 +5,7 @@ import type { SidebarFilesKey } from '@deepseek-ai/dsh-client-ui-sidebar-files/s
 export const ar = {
   'type.label': 'الملفات',
   'guide.title': 'ملفات مساحة العمل',
+  'guide.description': 'استعرض ملفات مساحة عمل هذه المحادثة',
   loading: 'جارٍ القراءة…',
   empty: 'مجلد فارغ',
   truncated: 'المدخلات كثيرة جدًا، يُعرض بعضها فقط.',

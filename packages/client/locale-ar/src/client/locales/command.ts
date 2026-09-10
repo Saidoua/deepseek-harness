@@ -3,6 +3,21 @@ import type { CommandKey } from '@deepseek-ai/dsh-client-ui-commands/src/client/
 
 /** Arabic dictionary, checked complete against the `command` key set. */
 export const ar = {
+  'section.add': 'إضافة',
+  'section.commands': 'الأوامر',
+  'label.goal': 'الهدف',
+  'label.plan': 'الخطة',
+  'label.feedback': 'الملاحظات',
+  'label.compact': 'ضغط',
+  'label.permission': 'الأذونات',
+  'label.export': 'تصدير',
+  // Typed slash tokens stay Latin: they are what the user types.
+  'token.goal': 'goal',
+  'token.plan': 'plan',
+  'token.feedback': 'feedback',
+  'token.compact': 'compact',
+  'token.permission': 'permission',
+  'token.export': 'export',
   'search.placeholder': 'بحث…',
   'search.aria': 'تصفية الخيارات',
   'status.loading': 'جارٍ تحميل الخيارات…',

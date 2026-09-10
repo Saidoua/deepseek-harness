@@ -9,6 +9,7 @@ export const ar = {
   'number.groupSeparator': ',',
   'duration.compactSeconds': '{seconds} ث',
   'duration.compactMinutes': '{minutes} د {seconds} ث',
+  'duration.hours': '{hours} س {minutes} د {seconds} ث',
   'duration.milliseconds': '{milliseconds} م.ث',
   'stats.counts': '{turns} دور {steps} خطوة',
   'stats.dialog.title': 'إحصاءات المحادثة',

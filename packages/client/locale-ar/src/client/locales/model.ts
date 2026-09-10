@@ -3,6 +3,7 @@ import type { ModelKey } from '@deepseek-ai/dsh-client-ui-model-selection/src/cl
 
 /** Arabic dictionary, checked complete against the `model` key set. */
 export const ar = {
+  'command.label': 'النموذج',
   'command.description': 'اختيار النموذج لهذه المحادثة',
   // {message} carries the provider's own diagnostic and renders verbatim.
   'option.loadError': 'تعذّر تحميل الفهرس: {message}',

@@ -35,7 +35,8 @@ export const ar = {
   presetIdPlaceholder: 'my-agent',
   displayName: 'الاسم',
   displayNamePlaceholder: 'يظهر في القائمة؛ الافتراضي هو المعرّف',
-  inUse: 'قيد الاستخدام',
+  inUse: 'افتراضي المهام الجديدة',
+  selectionOffDefault: 'الافتراضي',
   builtInGroup: 'مدمج',
   customGroup: 'مخصص',
   noDescription: 'لا يوجد وصف.',
@@ -66,4 +67,10 @@ export const ar = {
     'يُحذف مجلد الإعداد المسبق. تستمر المحادثات العاملة به، ولا تستطيع المحادثات الجديدة اختياره.',
   deleteConfirm: 'حذف',
   deleting: 'جارٍ الحذف…',
+  showPicker: 'السماح بتبديل أوضاع الوكيل',
+  showPickerBeta: 'تجريبي',
+  showPickerDescription:
+    'عند التفعيل، يمكن للمهام الجديدة اختيار الوضع القياسي أو PTC أو المُنشئ أو الأدنى أو الأوضاع المخصصة. وعند التعطيل تستخدم كل المهام الجديدة الوضع الافتراضي (القياسي افتراضيًا، ويمكن تغييره). يؤثر ذلك في المهام الجديدة فقط.',
+  enablePickerToSetDefault: 'فعّل اختيار وضع الوكيل لتعيين الافتراضي',
+  enablePickerToCreate: 'فعّل اختيار وضع الوكيل لبدء وضع المُنشئ',
 } satisfies Record<AgentPresetSettingsKey, string>

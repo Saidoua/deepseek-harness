@@ -40,7 +40,6 @@ export const ar = {
   'row.error': 'أخفق التسليم',
   'row.stopped': 'أُوقف',
   'row.inspect': 'عرض الاستدعاء',
-  'presented.open': 'فتح {name} بالتطبيق الافتراضي',
   'produced.label': 'الملفات المتغيّرة',
   'produced.moreOne': '+ ملف واحد',
   'produced.more': '+ {count} ملف',

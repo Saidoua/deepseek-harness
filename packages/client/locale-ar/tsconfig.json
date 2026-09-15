@@ -69,6 +69,9 @@
       "path": "../ui-settings-plugins"
     },
     {
+      "path": "../ui-settings-unarchive-sessions"
+    },
+    {
       "path": "../ui-sidebar"
     },
     {
@@ -79,6 +82,9 @@
     },
     {
       "path": "../ui-sidebar-right"
+    },
+    {
+      "path": "../ui-sidebar-terminal"
     },
     {
       "path": "../ui-skill"

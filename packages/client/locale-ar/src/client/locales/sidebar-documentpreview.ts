@@ -19,9 +19,10 @@ export const ar = {
   'error.notFound': 'هذا الملف لم يعد موجودًا. ربما نُقل أو حُذف.',
   // {limit} is the formatted size cap and renders verbatim.
   'error.tooLarge': 'تتجاوز هذه الصفحة حد {limit}، لذا تعذّرت قراءتها.',
-  'error.notText': 'هذا ليس ملفًا نصيًا، لذا لا يمكن معاينته الآن.',
+  'error.notText': 'المعاينة غير متاحة لهذا النوع من الملفات بعد.',
   'error.notRegularFile': 'هذا ليس ملفًا عاديًا، لذا لا يحوي ما يُعرض.',
   // {message} carries the Host's own diagnostic and renders verbatim.
   'error.unavailable': 'أخفقت القراءة: {message}',
   retry: 'إعادة المحاولة',
+  unsupportedFile: 'المعاينة غير متاحة لهذا النوع من الملفات بعد.',
 } satisfies Record<SidebarDocumentPreviewKey, string>

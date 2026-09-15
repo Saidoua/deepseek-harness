@@ -24,7 +24,6 @@ export const ar = {
   'input.send': 'إرسال الرسالة',
   'input.send.queue': 'إرسال إلى الطابور',
   'input.send.steer': 'إرسال كتوجيه',
-  'input.accessMode': 'وضع الوصول، الحالي: {name}',
   'attachment.pending': 'مرفقات قيد الانتظار',
   // The two scroll controls name the reading direction of the strip, which
   // follows the zone, so they are worded as previous and next.
@@ -70,14 +69,6 @@ export const ar = {
   'settings.enter.description': 'ما يفعله Enter وزر الإرسال أثناء عمل الوكيل؛ ويستخدم Cmd/Ctrl+Enter السلوك الآخر',
   'settings.enter.queue': 'إضافة إلى الطابور',
   'settings.enter.steer': 'توجيه',
-  'access.preset.readOnly': 'قراءة فقط',
-  'access.preset.workspaceWrite': 'الكتابة في مساحة العمل',
-  'access.preset.fullAccess': 'وصول كامل',
-  'access.confirm.title': 'تفعيل الوصول الكامل؟',
-  'access.confirm.description': 'يقلل الوصول الكامل خطوات التأكيد ويتيح للوكيل تنفيذ إجراءات أكثر مباشرة، بما فيها العمليات الحساسة وتغيير الملفات والأوامر الخارجية. لا تستخدمه إلا إذا كنت تثق بالمهمة الحالية.',
-  'access.confirm.acknowledge': 'أفهم المخاطر وأريد المتابعة',
-  'access.confirm.cancel': 'إلغاء',
-  'access.confirm.enable': 'تفعيل الوصول الكامل',
   'hero.headline': 'نحو المجهول',
   'hero.preview': 'إصدار تجريبي',
   'hero.chooseWorkspace': 'اختيار مساحة عمل',
@@ -173,4 +164,7 @@ export const ar = {
   'terminal.sendInput': '(إرسال إدخال)',
   // {sessionId} is an opaque id and renders verbatim.
   'terminal.session': 'طرفية {sessionId}',
+  'tool.autoReviewRejected': 'رفضته المراجعة التلقائية',
+  'tool.autoReviewNotExecuted': 'لم تُنفَّذ الأداة. السبب: {reason}',
+  'tool.autoReviewReasonFallback': 'لم تسمح المراجعة التلقائية بهذا الإجراء',
 } satisfies Record<ConversationKey, string>

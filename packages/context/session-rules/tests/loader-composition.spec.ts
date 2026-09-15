@@ -6,7 +6,7 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
+import { Context, FiberState } from '@deepseek-ai/cordis'
 import Loader from '@deepseek-ai/cordis-plugin-loader'
 import Include from '@deepseek-ai/cordis-plugin-include'
 import { Session, SessionId } from '@deepseek-ai/dsh-session'
@@ -108,7 +108,12 @@ describe('session-rules real Loader composition through cordis.yml', () => {
     expect(second?.result.text).toContain('remove one first')
   }, 30_000)
 
-  it('fails loading when a bound is not a number', async () => {
-    await expect(boot(['    maxRules: "many"'])).rejects.toThrow()
+  it('leaves the entry failed and registers no command when a bound is not a number', async () => {
+    const ctx = await boot(['    maxRules: "many"'])
+    const entry = [...ctx.loader.entries()].find(candidate => candidate.options.name === '@deepseek-ai/dsh-session-rules')
+    expect(entry?.fiber?.state).toBe(FiberState.FAILED)
+    const owner = agent(ctx)
+    const execution = await ctx.commands.execute(owner, '/rule first rule', [], new AbortController().signal)
+    expect(execution?.result.kind).not.toBe('success')
   }, 30_000)
 })

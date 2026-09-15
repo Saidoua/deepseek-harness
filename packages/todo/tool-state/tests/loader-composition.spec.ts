@@ -6,7 +6,7 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
+import { Context, FiberState } from '@deepseek-ai/cordis'
 import Loader from '@deepseek-ai/cordis-plugin-loader'
 import Include from '@deepseek-ai/cordis-plugin-include'
 import { ToolCallId } from '@deepseek-ai/dsh-llm'
@@ -116,7 +116,10 @@ describe('tool-state real Loader composition through cordis.yml', () => {
     expect(owner.session.snapshotEvents().some(event => event.type === 'state/write')).toBe(false)
   }, 30_000)
 
-  it('fails loading when the budget is not a number', async () => {
-    await expect(boot(['    maxStateChars: "huge"'])).rejects.toThrow()
+  it('leaves the entry failed and registers no tool when the budget is not a number', async () => {
+    const ctx = await boot(['    maxStateChars: "huge"'])
+    const entry = [...ctx.loader.entries()].find(candidate => candidate.options.name === '@deepseek-ai/dsh-tool-state')
+    expect(entry?.fiber?.state).toBe(FiberState.FAILED)
+    expect(ctx.tools.schemas().map(schema => schema.name)).not.toContain('state_write')
   }, 30_000)
 })

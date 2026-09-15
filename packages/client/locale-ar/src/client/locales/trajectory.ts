@@ -182,4 +182,11 @@ export const ar = {
   'layout.toolsUpdated': 'حُدّثت الأدوات',
   'layout.systemPromptAndToolsUpdated': 'حُدّثت مطالبة النظام والأدوات',
   'layout.compactionInterrupted': 'قوطع ضغط السياق قبل اكتماله.',
+  'record.wrapLines': 'التفاف الأسطر',
+  'code.source': 'الشيفرة',
+  'code.output': 'المخرجات',
+  'code.copySource': 'نسخ الشيفرة',
+  'code.copyOutput': 'نسخ المخرجات',
+  'code.originalJson': 'JSON الأصلي',
+  'code.running': 'قيد التشغيل…',
 } satisfies Record<TrajectoryKey, string>

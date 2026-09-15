@@ -39,6 +39,7 @@ import { ar as scheduleCatalog } from './locales/schedule-catalog.ts'
 import { ar as sessionLogDownload } from './locales/session-log-download.ts'
 import { ar as settings } from './locales/settings.ts'
 import { ar as settingsAgentPreset } from './locales/settings-agent-preset.ts'
+import { ar as settingsArchivedSessions } from './locales/settings-archived-sessions.ts'
 import { ar as settingsLocale } from './locales/settings-locale.ts'
 import { ar as settingsModels } from './locales/settings-models.ts'
 import { ar as settingsPermission } from './locales/settings-permission.ts'
@@ -52,6 +53,7 @@ import { ar as sidebarFiles } from './locales/sidebar-files.ts'
 import { ar as sidebarImage } from './locales/sidebar-image.ts'
 import { ar as sidebarPdf } from './locales/sidebar-pdf.ts'
 import { ar as sidebarRight } from './locales/sidebar-right.ts'
+import { ar as sidebarTerminal } from './locales/sidebar-terminal.ts'
 import { ar as skill } from './locales/skill.ts'
 import { ar as slashMenu } from './locales/slash-menu.ts'
 import { ar as subagent } from './locales/subagent.ts'
@@ -91,6 +93,7 @@ const DICTIONARIES: Readonly<Record<string, Readonly<Record<string, string>>>> =
   'session-log-download': sessionLogDownload,
   'settings': settings,
   'settings.agentPreset': settingsAgentPreset,
+  'settings.archivedSessions': settingsArchivedSessions,
   'settings.locale': settingsLocale,
   'settings.models': settingsModels,
   'settings.permission': settingsPermission,
@@ -104,6 +107,7 @@ const DICTIONARIES: Readonly<Record<string, Readonly<Record<string, string>>>> =
   'sidebarImage': sidebarImage,
   'sidebarPdf': sidebarPdf,
   'sidebarRight': sidebarRight,
+  'sidebarTerminal': sidebarTerminal,
   'skill': skill,
   'slash.menu': slashMenu,
   'subagent': subagent,

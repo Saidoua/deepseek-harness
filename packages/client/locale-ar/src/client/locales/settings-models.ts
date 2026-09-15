@@ -110,4 +110,7 @@ export const ar = {
   onboardingSave: 'حفظ ومتابعة',
   onboardingSaving: 'جارٍ الحفظ…',
   keyRequired: 'أدخل مفتاح الواجهة البرمجية للمتابعة.',
+  deepSeekChatBaseUrl: 'https://api.deepseek.com',
+  deepSeekMessagesBaseUrl: 'https://api.deepseek.com/anthropic',
+  deepSeekEndpointHint: 'استخدم نقطة نهاية متوافقة مع الاتصال المضبوط.',
 } satisfies Record<ModelsKey, string>

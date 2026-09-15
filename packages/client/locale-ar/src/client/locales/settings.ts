@@ -10,9 +10,8 @@ export const ar = {
   'openDocument.error': 'تعذّر فتح ملف الإعدادات',
   'general.nav': 'عام',
   'connection.error': 'انقطع الاتصال',
-  'connection.retry': 'إعادة الاتصال الآن',
   'connection.connecting': 'جارٍ الاتصال',
   'connection.connected': 'متصل',
   'connection.reconnect': 'انقطع الاتصال، أعد الاتصال الآن',
-  'connection.restart': 'جارٍ الاتصال، أعد التشغيل الآن',
+  'connection.restart': 'جارٍ إعادة الاتصال، أعد الاتصال الآن',
 } satisfies Record<SettingsKey, string>

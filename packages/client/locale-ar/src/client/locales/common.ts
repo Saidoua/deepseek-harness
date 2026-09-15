@@ -37,8 +37,6 @@ export const ar = {
   'unknown': 'غير معروف',
   'none': 'لا شيء',
   'truncated': 'مقتطع',
-  'json.collapseNode': 'طي عقدة JSON',
-  'json.expandNode': 'توسيع عقدة JSON',
   'json.label': 'JSON',
   'markdown.footnotes': 'الحواشي',
   'markdown.truncatedCharacters': '… اقتُطع بعد {total} حرف',

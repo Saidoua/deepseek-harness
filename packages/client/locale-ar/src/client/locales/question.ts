@@ -12,7 +12,7 @@ export const ar = {
   'nav.cancel': 'تجاهل كل الأسئلة',
   'option.recommended': 'موصى به',
   'custom.placeholder': 'اكتب إجابتك',
-  'action.skip': 'تخطي هذا السؤال',
+  'action.skip': 'تخطٍّ',
   'action.next': 'التالي',
   'plan.header': 'مراجعة الخطة',
   'plan.approve': 'اعتماد',

@@ -175,7 +175,6 @@ export const ar = {
   'layout.compactionFailed': 'أخفق ضغط السياق',
   'layout.compacted': 'ضُغط السياق',
   'layout.toolCallOnly': 'استدعاء أداة فقط',
-  'layout.imageOnly': 'صور ×{count}',
   'layout.fileAttachments': 'ملفات ×{count}',
   'layout.initialSystemPrompt': 'مطالبة النظام الأولية',
   'layout.systemPromptUpdated': 'حُدّثت مطالبة النظام',
@@ -189,4 +188,7 @@ export const ar = {
   'code.copyOutput': 'نسخ المخرجات',
   'code.originalJson': 'JSON الأصلي',
   'code.running': 'قيد التشغيل…',
+  'attachment.list': 'المرفقات',
+  'attachment.imageName': 'صورة {index}',
+  'layout.imageCount': 'صور ×{count}',
 } satisfies Record<TrajectoryKey, string>

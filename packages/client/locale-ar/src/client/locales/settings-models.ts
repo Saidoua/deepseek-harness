@@ -65,8 +65,6 @@ export const ar = {
   advancedHint: 'توجد الحقول الأخرى في settings.yaml؛ حرّر ذلك القسم مباشرة.',
   modelCapacityInvalid: 'يجب أن تكون السعة رقمًا، ويمكن أن تنتهي بـ K أو M.',
   modelDuplicate: 'يظهر كل معرّف نموذج مرة واحدة فقط.',
-  modelContextWindow: 'نافذة السياق',
-  modelMaxTokens: 'الحد الأقصى لرموز الإخراج',
   fetchModels: 'جلب النماذج المتاحة',
   fetching: 'جارٍ الاستعلام من المزوّد…',
   fetchNeedsBaseUrl: 'أدخل العنوان الأساسي أولًا، ثم اجلب.',
@@ -113,4 +111,7 @@ export const ar = {
   deepSeekChatBaseUrl: 'https://api.deepseek.com',
   deepSeekMessagesBaseUrl: 'https://api.deepseek.com/anthropic',
   deepSeekEndpointHint: 'استخدم نقطة نهاية متوافقة مع الاتصال المضبوط.',
+  modelInputTypes: 'أنواع الإدخال',
+  modelInputText: 'نص',
+  modelInputImage: 'صورة',
 } satisfies Record<ModelsKey, string>

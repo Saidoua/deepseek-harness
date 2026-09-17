@@ -69,4 +69,5 @@ export const ar = {
   'time.months': '{n} ش',
   'time.years': '{n} سنة',
   'time.ago': 'قبل {t}',
+  'groupBy.workspaceTree': 'شجرة مساحات العمل',
 } satisfies Record<WorkspaceKey, string>

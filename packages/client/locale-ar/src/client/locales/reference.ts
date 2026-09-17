@@ -15,4 +15,5 @@ export const ar = {
   'time.days': '{n} ي',
   'time.months': '{n} ش',
   'time.years': '{n} سنة',
+  'section.subagents': 'الوكلاء الفرعيون',
 } satisfies Record<ReferenceKey, string>

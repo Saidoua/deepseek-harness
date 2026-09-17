@@ -25,6 +25,7 @@
     "@deepseek-ai/dsh-base": "workspace:^",
     "@deepseek-ai/dsh-bash-local": "workspace:^",
     "@deepseek-ai/dsh-brand": "workspace:^",
+    "@deepseek-ai/dsh-cmdline": "workspace:^",
     "@deepseek-ai/dsh-ptc-runtime": "workspace:^",
     "@deepseek-ai/dsh-ptc-runtime-node": "workspace:^",
     "@deepseek-ai/dsh-command-compact": "workspace:^",
@@ -140,6 +141,8 @@
     "@deepseek-ai/dsh-web-search-perplexity": "workspace:^",
     "@deepseek-ai/dsh-workflow": "workspace:^",
     "@deepseek-ai/dsh-workflow-ptc": "workspace:^",
-    "@deepseek-ai/schemastery": "workspace:^"
+    "@deepseek-ai/schemastery": "workspace:^",
+    "@deepseek-ai/dsh-plugin-manager": "workspace:^",
+    "@deepseek-ai/dsh-host-plugin-inventory": "workspace:^"
   }
 }

@@ -40,4 +40,7 @@ export const ar = {
   active: 'قيد التشغيل',
   failed: 'أخفق البدء',
   unloading: 'جارٍ التفريغ',
+  clientSyncing: 'جارٍ مزامنة الإضافات في هذه الصفحة…',
+  clientSyncFailed: 'تعذّرت مزامنة بعض الإضافات في هذه الصفحة. لم يتغيّر تفعيلها على المضيف.',
+  clientSyncRetry: 'إعادة المحاولة لهذه الصفحة',
 } satisfies Record<PluginInventoryLocaleKey, string>

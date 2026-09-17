@@ -72,10 +72,16 @@
       "path": "../ui-settings-unarchive-sessions"
     },
     {
+      "path": "../ui-plugin-manager"
+    },
+    {
       "path": "../ui-sidebar"
     },
     {
-      "path": "../ui-sidebar-documentpreview"
+      "path": "../ui-sidebar-browser"
+    },
+    {
+      "path": "../ui-sidebar-documentpreview/tsconfig.client.json"
     },
     {
       "path": "../ui-sidebar-files"

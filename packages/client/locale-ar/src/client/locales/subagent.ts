@@ -41,4 +41,6 @@ export const ar = {
   'readonly.title': 'هذا الوكيل الفرعي للقراءة فقط حاليًا',
   'readonly.oneShot.body': 'لا تقبل المهام لمرة واحدة رسائل متابعة؛ راجع سجل التنفيذ الكامل هنا.',
   'readonly.body': 'المحادثة الأم غير متصلة؛ أعد فتحها لمتابعة إرسال الرسائل.',
+  'open.sidebar': 'فتح {label} في الشريط الجانبي',
+  'sidebar.chat': 'المحادثة',
 } satisfies Record<SubagentKey, string>

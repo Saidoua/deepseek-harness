@@ -76,13 +76,15 @@ async function boot(configLines: readonly string[]): Promise<Context> {
     ['@deepseek-ai/dsh-session-projection', SessionProjectionRegistry],
     ['@deepseek-ai/dsh-session-rules', SessionRules],
   ])
-  ctx.loader.internal = {
+  type LoaderV2 = Extract<NonNullable<typeof ctx.loader.internal>, { version: 'v2' }>
+  const loaderStub: Partial<LoaderV2> = {
     version: 'v2',
     async import(specifier: string) {
       if (!modules.has(specifier)) throw new Error(`unexpected Loader import: ${specifier}`)
       return modules.get(specifier)
     },
-  } as NonNullable<typeof ctx.loader.internal>
+  }
+  ctx.loader.internal = loaderStub as LoaderV2
   await ctx.loader.create({ name: 'cordis:include', config: { path: pathToFileURL(configPath).href } })
   await ctx.loader.await()
   return ctx

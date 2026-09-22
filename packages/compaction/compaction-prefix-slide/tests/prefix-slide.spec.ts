@@ -48,9 +48,8 @@ function agent(session: Session): Agent {
     session,
     options: {},
     status: 'idle',
-    reserveTurnAdmission: () => () => undefined,
-    runMaintenance: (task: (signal: AbortSignal) => unknown) => task(new AbortController().signal),
-  } as Agent
+    runMaintenance: <T>(task: (signal: AbortSignal) => Promise<T>): Promise<T> => task(new AbortController().signal),
+  } satisfies Partial<Agent> as Agent
 }
 
 function conversation(turns = 3, text = 'fixture '.repeat(100)): Session {

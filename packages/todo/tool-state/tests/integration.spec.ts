@@ -72,7 +72,7 @@ describe('state_write through the agent loop', () => {
 
     // The write is durable and non-error.
     expect(findEvent(agent.session.snapshotEvents(), 'tool/call').data.name).toBe('state_write')
-    expect(findEvent(agent.session.snapshotEvents(), 'tool/result').data.message.content[0].isError).toBe(false)
+    expect(findEvent(agent.session.snapshotEvents(), 'tool/result').data.message.isError).toBe(false)
     expect(findEvent(agent.session.snapshotEvents(), 'state/write').data.state).toEqual({
       goal: 'Migrate auth to OAuth2',
       files_touched: ['src/auth.ts'],
@@ -122,7 +122,7 @@ describe('state_write through the agent loop', () => {
     agent.followup(createUserMessage({ content: [{ type: 'text', text: 'record this' }], source: { kind: 'user' } }))
     await waitForIdle(ctx, agent)
 
-    expect(findEvent(agent.session.snapshotEvents(), 'tool/result').data.message.content[0].isError).toBe(true)
+    expect(findEvent(agent.session.snapshotEvents(), 'tool/result').data.message.isError).toBe(true)
     expect(agent.session.snapshotEvents().some(event => event.type === 'state/write')).toBe(false)
     expect(requestText(adapter, 1)).not.toContain('<task_state>')
   })

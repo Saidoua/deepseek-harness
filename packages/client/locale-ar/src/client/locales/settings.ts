@@ -32,4 +32,8 @@ export const ar = {
   'desktop.update.stopFailed': 'تعذّر إيقاف المهام بأمان. لم يُثبَّت التحديث. أعد المحاولة لاحقًا.',
   'desktop.update.tasksChanged': 'بدأت مهام جديدة. راجع تأكيد التحديث مرة أخرى.',
   'desktop.update.tasksUnavailable': 'حالة المهام غير متاحة. أعد محاولة التحديث حين تصبح مساحة العمل جاهزة.',
+  'general.currentVersion': 'الإصدار الحالي: {version}',
+  'developerTools.title': 'أدوات المطوّرين',
+  'developerTools.error': 'تعذّر الحفظ. حاول مجددًا.',
+  'developerTools.description': 'عرض أدوات ومعلومات لتصحيح الأخطاء واستكشافها وإصلاحها',
 } satisfies Record<SettingsKey, string>

@@ -13,15 +13,6 @@ export const ar = {
   'presented.unavailable': 'لا يوجد سطح مكتب متاح على هذا المضيف لفتح الملفات أو المجلدات',
   'presented.retry': 'إعادة المحاولة',
   'presented.hostError': 'تعذّرت قراءة معلومات سطح مكتب المضيف',
-  'presented.directory': 'فتح المجلد الحاوي',
-  // File Explorer and Finder are the host file managers' own product names and
-  // keep the form the reader sees in their operating system.
-  'presented.explorer': 'العرض في File Explorer',
-  'presented.finder': 'العرض في Finder',
-  'presented.defaultApp': 'الفتح بالتطبيق الافتراضي',
-  // {name} is the presented file's own name and renders verbatim.
-  'presented.more': 'مزيد من إجراءات الملف {name}',
-  'presented.action': 'فتح',
   'presented.preview': 'معاينة في الشريط الجانبي',
   'presented.previewButton': 'فتح {name} في الشريط الجانبي',
   'presented.previewCard': 'معاينة {name} في الشريط الجانبي',
@@ -61,7 +52,6 @@ export const ar = {
   'review.wrapAria': 'التفاف الأسطر',
   'review.openFile': 'فتح الملف كاملًا في الشريط الجانبي',
   'review.openFileAria': 'فتح {name} في الشريط الجانبي',
-  'diff.openNativeAria': 'فتح {name} بالتطبيق الافتراضي',
   'diff.loading': 'جارٍ قراءة التغييرات…',
   'diff.missing': 'لم تعد محتويات تغييرات هذا الدور متاحة',
   'diff.error': 'تعذّرت قراءة التغييرات',
@@ -72,6 +62,4 @@ export const ar = {
   'diff.unchanged': 'يحمل الجانبان الأسطر نفسها',
   'diff.coarse': 'انتهت مهلة مقارنة الأسطر؛ يُعرض كاستبدال للملف كاملًا',
   'diff.truncated': 'عرض أول {count} سطرًا',
-  'diff.openNative': 'الفتح بالتطبيق الافتراضي',
-  'diff.openNativeError': 'تعذّر الفتح؛ انقر لإعادة المحاولة',
 } satisfies Record<DeliverablesKey, string>

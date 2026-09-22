@@ -3,6 +3,12 @@ import type { PdfLocaleKey } from '@deepseek-ai/dsh-client-ui-sidebar-documentpr
 
 /** Arabic dictionary, checked complete against the `sidebarPdf` key set. */
 export const ar = {
+  zoomControls: 'عناصر التحكم في التكبير',
+  zoomMenu: 'اختيار نسبة التكبير',
+  zoomOut: 'تصغير',
+  zoomIn: 'تكبير',
+  zoomFitWidth: 'ملاءمة العرض',
+  zoomValue: '{percent}%',
   // PDF is the format's own name and keeps its Latin form.
   title: 'PDF',
   // {page} is the page number and renders verbatim.

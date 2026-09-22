@@ -45,7 +45,6 @@ describe('Arabic language pack', () => {
     expect(locale.bind('sidebarBrowser')('type.label')).toBe('المتصفح')
     expect(locale.bind('sidebarOffice')('title')).toBe('مستند Office')
     expect(locale.bind('pluginManager')('title')).toBe('الإضافات')
-    expect(locale.bind('settings.archivedSessions')('nav')).toBe('المحادثات المؤرشفة')
     expect(locale.bind('sidebarDocumentPreview')('wrap.aria')).toBe('التفاف الأسطر')
     expect(locale.bind('chat')('view.chat')).toBe('المحادثة')
     expect(locale.bind('conversation')('input.send')).toBe('إرسال الرسالة')
@@ -55,6 +54,12 @@ describe('Arabic language pack', () => {
     expect(locale.bind('trajectory')('view.trajectory')).toBe('المسار')
     expect(locale.bind('directory-browser')('browser.home')).toBe('المجلد الرئيسي')
     expect(locale.bind('session-log-download')('menu.download')).toBe('تنزيل سجل المحادثة')
+    expect(locale.bind('settings.account')('nav')).toBe('الحساب')
+    expect(locale.bind('settings.agentLoop')('title')).toBe('حلقة الوكيل')
+    expect(locale.bind('settings.shell')('title')).toBe('سطر الأوامر')
+    expect(locale.bind('settings.subagent')('subagentTitle')).toBe('الوكيل الفرعي')
+    expect(locale.bind('settings.webSearch')('title')).toBe('البحث في الويب')
+    expect(locale.bind('sidebarExcel')('title')).toBe('جدول بيانات')
   })
 
   it('leaves an untranslated key on the English fallback rather than the bare key', async () => {

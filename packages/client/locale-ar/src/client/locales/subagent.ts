@@ -4,9 +4,6 @@ import type { SubagentKey } from '@deepseek-ai/dsh-client-ui-subagent/src/client
 // Count keys share one count-neutral wording; see the job namespace.
 /** Arabic dictionary, checked complete against the `subagent` key set. */
 export const ar = {
-  'diagnostic.corrupt': 'سجل محادثة تالف',
-  'diagnostic.unsupported': 'إصدار سجل وكيل فرعي غير مدعوم',
-  'diagnostic.unavailable': 'سجل المحادثة غير متاح مؤقتًا',
   'duration.seconds': '{seconds} ث',
   'duration.minutes': '{minutes} د {seconds} ث',
   'duration.hours': '{hours} س {minutes} د {seconds} ث',
@@ -22,12 +19,14 @@ export const ar = {
   'tokens.million': '{value} مليون',
   'tokens.total': '{value} رمز',
   'loading.label': 'جارٍ تحميل الوكلاء الفرعيين…',
-  'loading.aria': 'جارٍ تحميل الوكلاء الفرعيين',
   'load.error': 'تعذّر تحميل الوكلاء الفرعيين',
   'retry': 'إعادة المحاولة',
   'mode.oneShot': 'لمرة واحدة',
   'mode.continuable': 'قابل للمتابعة',
+  'mode.unknown': 'وضع غير معروف',
+  'readonly.unknown.body': 'اقرأ المحادثة الفرعية لتحديد ما إذا كان يمكن متابعتها.',
   'activity.running': 'قيد التشغيل',
+  'activity.completed': 'مكتمل',
   'activity.inactive': 'لا يعمل',
   'branch.collapse': 'طي فروع {label}',
   'branch.expand': 'توسيع فروع {label}',

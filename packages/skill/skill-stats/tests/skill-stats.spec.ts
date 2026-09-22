@@ -39,8 +39,8 @@ function appendSkillToolCall(
   session.append('tool/result', {
     turn: 1, step: 1,
     message: {
-      role: 'user', id: MessageId(`m-${call}`),
-      content: [{ type: 'tool-result', toolCallId: ToolCallId(call), content: [{ type: 'text', text: 'x' }], isError: options.error === true }],
+      role: 'tool', id: MessageId(`m-${call}`), toolCallId: ToolCallId(call),
+      content: [{ type: 'text', text: 'x' }], isError: options.error === true,
       source: { kind: 'tool', callId: ToolCallId(call) },
     },
     ...options.error === true ? { error: { name: 'Error', code: 'unknown' } } : {},
@@ -80,8 +80,8 @@ describe('dsh-skill-stats projection', () => {
     session.append('tool/result', {
       turn: 1, step: 1,
       message: {
-        role: 'user', id: MessageId('m3'),
-        content: [{ type: 'tool-result', toolCallId: ToolCallId('c3'), content: [{ type: 'text', text: 'x' }] }],
+        role: 'tool', id: MessageId('m3'), toolCallId: ToolCallId('c3'),
+        content: [{ type: 'text', text: 'x' }],
         source: { kind: 'tool', callId: ToolCallId('c3') },
       },
     }, APPEND)

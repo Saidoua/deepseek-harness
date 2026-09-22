@@ -3,6 +3,12 @@ import type { ImagePreviewKey } from '@deepseek-ai/dsh-client-ui-sidebar-documen
 
 /** Arabic dictionary, checked complete against the `sidebarImage` key set. */
 export const ar = {
+  zoomControls: 'عناصر التحكم في التكبير',
+  zoomMenu: 'اختيار نسبة التكبير',
+  zoomOut: 'تصغير',
+  zoomIn: 'تكبير',
+  zoomFitWidth: 'ملاءمة العرض',
+  zoomValue: '{percent}%',
   title: 'صورة',
   // {name} is the image file's own name and renders verbatim.
   preview: 'معاينة الصورة: {name}',

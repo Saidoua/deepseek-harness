@@ -71,7 +71,7 @@ describe('rule_pin through the agent loop', () => {
     agent.followup(createUserMessage({ content: [{ type: 'text', text: 'noted, never push to main' }], source: { kind: 'user' } }))
     await waitForIdle(ctx, agent)
 
-    expect(findEvent(agent.session.snapshotEvents(), 'tool/result').data.message.content[0].isError).toBe(false)
+    expect(findEvent(agent.session.snapshotEvents(), 'tool/result').data.message.isError).toBe(false)
     expect(findEvent(agent.session.snapshotEvents(), 'rule/pin').data).toEqual({
       text: 'Never push directly to main.',
       origin: 'model',

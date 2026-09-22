@@ -18,11 +18,15 @@ export const ar = {
   'sandbox.warning': 'قيود العزل معطّلة؛ يمكن للصفحة التنقل في التطبيق الرئيسي واستخدام التنزيلات ومربعات الحوار الشرطية وقفل الإدخال.',
   start: 'أدخل عنوان HTTP(S) لبدء التصفح',
   loading: 'جارٍ الفتح…',
+  'restore.previous': 'مفتوحة سابقًا',
+  'restore.action': 'استعادة الصفحة',
   'error.empty': 'أدخل عنوانًا.',
   'error.invalid': 'هذا العنوان غير صالح أو طويل جدًا.',
   'error.protocol': 'تُدعم عناوين HTTP وHTTPS فقط؛ استخدم معاينة المستندات للملفات المحلية.',
   'error.credentials': 'لا يمكن أن يتضمن العنوان اسم مستخدم أو كلمة مرور.',
   'error.application-origin': 'لا يمكن للمتصفح المضمّن فتح تطبيق DSH نفسه.',
-  'web.loadFailed': 'أبلغت الصفحة عن فشل التحميل أو قد تمنع التضمين؛ جرّب فتحها في متصفح النظام.',
-  'web.unknown': 'انتقلت الصفحة داخل الإطار؛ لا يستطيع وضع الويب قراءة عنوانها الحالي.',
+  'load.failed': 'تعذّر تحميل الصفحة؛ أعد التحميل أو افتحها في متصفح النظام.',
+  // {code} and {description} carry the browser engine's own diagnostic verbatim.
+  'load.failed.detail': 'فشل تحميل الصفحة ({code}): {description}',
+  'address.unknown': 'انتقلت الصفحة؛ لا يستطيع هذا العرض قراءة عنوانها الجديد.',
 } satisfies Record<SidebarBrowserKey, string>

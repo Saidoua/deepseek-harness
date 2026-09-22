@@ -6,10 +6,7 @@ export const ar = {
   title: 'مستند Office',
   loading: 'جارٍ القراءة…',
   retry: 'إعادة المحاولة',
-  // {fonts} is the list of font family names and renders verbatim.
-  missingFonts: 'الخطوط المستخدمة في هذا المستند غير متاحة: {fonts}. قد يختلف النص والتنسيق.',
-  showMore: 'عرض المزيد',
-  dismissNotice: 'إغلاق تنبيه الخطوط',
+  viewMissingFonts: 'الخطوط المفقودة: {count}. انقر للعرض.',
   missingFontsTitle: 'الخطوط المفقودة',
   missingFontsDescription: 'هذه الخطوط غير متاحة لهذه المعاينة. قد يختلف النص والتنسيق عن المستند الأصلي.',
   missingFontsCount: 'الخطوط: {count}',

@@ -17,6 +17,13 @@ export const ar = {
   deleteConfirm: 'حذف {provider}',
   deleting: 'جارٍ حذف {provider}…',
   add: 'إضافة مزوّد',
+  addMode: 'طريقة الإضافة',
+  addCatalog: 'مزوّد نماذج من جهة خارجية',
+  addCustom: 'واجهة برمجية مخصصة للنماذج',
+  addCatalogHint: 'اختر OpenAI أو Anthropic أو Kimi أو مزوّدًا آخر من الكتالوج المدمج وأدخل مفتاح واجهته البرمجية.',
+  addCustomHint: 'اربط مُرحِّلًا أو خادمًا مستضافًا ذاتيًا أو أي نقطة نهاية متوافقة مع OpenAI أو Anthropic عبر عنوانها الأساسي وبروتوكولها ونماذجها.',
+  addCatalogExhausted: 'كل مزوّدي الكتالوج مُعدّون بالفعل.',
+  addCustomUnavailable: 'لا يوجد بروتوكول واجهة برمجية متاح للإعلان عنه.',
   provider: 'المزوّد',
   close: 'إغلاق',
   cancel: 'إلغاء',
@@ -38,6 +45,8 @@ export const ar = {
   // A URL field label; the term is the one the provider's own docs use.
   baseUrl: 'العنوان الأساسي',
   baseUrlDefault: 'الافتراضي للمزوّد',
+  // The provider's literal endpoint URL.
+  deepSeekBaseUrl: 'https://api.deepseek.com/anthropic',
   models: 'النماذج',
   modelsInherited: 'يستخدم افتراضيات المحوّل',
   modelsCustomized: 'فهرس نماذج مخصص',
@@ -76,8 +85,6 @@ export const ar = {
   fetchSelectAll: 'تحديد الكل',
   fetchDeselectAll: 'إلغاء تحديد الكل',
   fetchAdopt: 'إضافة المحدد',
-  customAdd: 'إضافة مزوّد مخصص',
-  customTitle: 'مزوّد مخصص',
   customTag: 'مخصص',
   customRoute: 'معرّف المزوّد',
   customRouteHint: 'معرّف بحروف لاتينية صغيرة يبدأ بحرف، يميّز هذا المزوّد في الطلبات ويُستخدم اسمًا لبيانات اعتماده.',
@@ -108,10 +115,14 @@ export const ar = {
   onboardingSave: 'حفظ ومتابعة',
   onboardingSaving: 'جارٍ الحفظ…',
   keyRequired: 'أدخل مفتاح الواجهة البرمجية للمتابعة.',
-  deepSeekChatBaseUrl: 'https://api.deepseek.com',
-  deepSeekMessagesBaseUrl: 'https://api.deepseek.com/anthropic',
   deepSeekEndpointHint: 'استخدم نقطة نهاية متوافقة مع الاتصال المضبوط.',
   modelInputTypes: 'أنواع الإدخال',
   modelInputText: 'نص',
   modelInputImage: 'صورة',
+  // Protocol names are the providers' own API names and stay Latin.
+  protocolOpenAiCompletions: 'OpenAI Chat Completions',
+  protocolOpenAiResponses: 'OpenAI Responses',
+  protocolAnthropicMessages: 'Anthropic Messages',
+  // A literal example URL.
+  customAnthropicBaseUrlPlaceholder: 'https://gateway.example',
 } satisfies Record<ModelsKey, string>

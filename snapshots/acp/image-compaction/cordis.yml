@@ -39,6 +39,8 @@
 - id: compaction-basic
   name: '@deepseek-ai/dsh-compaction-basic'
   config:
+    headroomTokens: 0
+    maxTokens: 8192
     retainTokens: 100
     # The seed user turn carries the images that create the pressure, so it
     # must stay condensable here; the default sparing would leave no span.

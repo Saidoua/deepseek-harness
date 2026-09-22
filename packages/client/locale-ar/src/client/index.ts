@@ -39,18 +39,23 @@ import { ar as reference } from './locales/reference.ts'
 import { ar as scheduleCatalog } from './locales/schedule-catalog.ts'
 import { ar as sessionLogDownload } from './locales/session-log-download.ts'
 import { ar as settings } from './locales/settings.ts'
+import { ar as settingsAccount } from './locales/settings-account.ts'
+import { ar as settingsAgentLoop } from './locales/settings-agent-loop.ts'
 import { ar as settingsAgentPreset } from './locales/settings-agent-preset.ts'
-import { ar as settingsArchivedSessions } from './locales/settings-archived-sessions.ts'
 import { ar as settingsLocale } from './locales/settings-locale.ts'
 import { ar as settingsModels } from './locales/settings-models.ts'
 import { ar as settingsPermission } from './locales/settings-permission.ts'
 import { ar as settingsPluginInventory } from './locales/settings-plugin-inventory.ts'
 import { ar as settingsPlugins } from './locales/settings-plugins.ts'
+import { ar as settingsShell } from './locales/settings-shell.ts'
+import { ar as settingsSubagent } from './locales/settings-subagent.ts'
 import { ar as settingsTheme } from './locales/settings-theme.ts'
+import { ar as settingsWebSearch } from './locales/settings-web-search.ts'
 import { ar as sidebar } from './locales/sidebar.ts'
 import { ar as sidebarBrowser } from './locales/sidebar-browser.ts'
 import { ar as sidebarCodePreview } from './locales/sidebar-codepreview.ts'
 import { ar as sidebarDocumentPreview } from './locales/sidebar-documentpreview.ts'
+import { ar as sidebarExcel } from './locales/sidebar-excel.ts'
 import { ar as sidebarFiles } from './locales/sidebar-files.ts'
 import { ar as sidebarImage } from './locales/sidebar-image.ts'
 import { ar as sidebarOffice } from './locales/sidebar-office.ts'
@@ -96,18 +101,23 @@ const DICTIONARIES: Readonly<Record<string, Readonly<Record<string, string>>>> =
   'schedule.catalog': scheduleCatalog,
   'session-log-download': sessionLogDownload,
   'settings': settings,
+  'settings.account': settingsAccount,
+  'settings.agentLoop': settingsAgentLoop,
   'settings.agentPreset': settingsAgentPreset,
-  'settings.archivedSessions': settingsArchivedSessions,
   'settings.locale': settingsLocale,
   'settings.models': settingsModels,
   'settings.permission': settingsPermission,
   'settings.pluginInventory': settingsPluginInventory,
   'settings.plugins': settingsPlugins,
+  'settings.shell': settingsShell,
+  'settings.subagent': settingsSubagent,
   'settings.theme': settingsTheme,
+  'settings.webSearch': settingsWebSearch,
   'sidebar': sidebar,
   'sidebarBrowser': sidebarBrowser,
   'sidebarCodePreview': sidebarCodePreview,
   'sidebarDocumentPreview': sidebarDocumentPreview,
+  'sidebarExcel': sidebarExcel,
   'sidebarFiles': sidebarFiles,
   'sidebarImage': sidebarImage,
   'sidebarOffice': sidebarOffice,

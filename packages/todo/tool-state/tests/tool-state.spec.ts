@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from '@deepseek-ai/cordis'
-import { createUserMessage, ToolCallId } from '@deepseek-ai/dsh-llm'
+import { createUserMessage, ToolCallId, type ContextFormed } from '@deepseek-ai/dsh-llm'
 import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
 import ToolRuntime from '@deepseek-ai/dsh-tools'
 import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
@@ -9,6 +9,12 @@ import { unsupportedInbox } from '@deepseek-ai/dsh-agent-loop-testkit'
 import { Session, SessionId, SessionLogOffset, type SessionEvent, type UserMessage } from '@deepseek-ai/dsh-session'
 
 import * as toolState from '../src/index.ts'
+
+declare module '@deepseek-ai/dsh-llm' {
+  interface MessageSourceMap {
+    'test-compaction': { kind: 'test-compaction' } & ContextFormed
+  }
+}
 
 const testToolSignal = new AbortController().signal
 
@@ -43,7 +49,7 @@ function openSession(id = 'state'): { agent: Agent; session: Session } {
     cancel() {},
     runMaintenance: (task: (signal: AbortSignal) => unknown) => task(new AbortController().signal),
     whenIdle: () => Promise.resolve(),
-  } as unknown as Agent
+  } as Agent
   return { agent, session }
 }
 
@@ -241,7 +247,7 @@ describe('dsh-tool-state step-boundary injection', () => {
     for (let round = 0; round < 3; round += 1) {
       session.append('user/message', createUserMessage({
         content: [{ type: 'text', text: `compaction ${String(round)}` }],
-        source: { kind: 'plugin', plugin: 'test-compaction' },
+        source: { kind: 'test-compaction' },
       }), {
         surfaceOp: { op: 'replace', startSeq: shadowed, endSeq: shadowed },
         sourceEventSeqs: [shadowed],

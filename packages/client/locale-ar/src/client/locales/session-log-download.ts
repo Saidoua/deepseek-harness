@@ -5,6 +5,7 @@ import type { SessionLogDownloadKey } from '@deepseek-ai/dsh-session-log-export/
 export const ar = {
   'header.more': 'مزيد من الإجراءات',
   'menu.download': 'تنزيل سجل المحادثة',
+  'menu.feedback': 'الملاحظات',
   'dialog.preparingTitle': 'جارٍ تصدير المحادثة',
   // ZIP is the archive format's own name.
   'dialog.preparingDescription': 'جارٍ تحضير ملف ZIP يضم هذه المحادثة ومحادثاتها الفرعية ومرفقاتها.',

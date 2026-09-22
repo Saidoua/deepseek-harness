@@ -50,7 +50,7 @@ function agent(session: Session): Agent {
     status: 'idle',
     reserveTurnAdmission: () => () => undefined,
     runMaintenance: (task: (signal: AbortSignal) => unknown) => task(new AbortController().signal),
-  } as unknown as Agent
+  } as Agent
 }
 
 function conversation(turns = 3, text = 'fixture '.repeat(100)): Session {
@@ -94,6 +94,8 @@ describe('dsh-compaction-prefix-slide', () => {
     const streamSpy = vi.spyOn(ctx.llm, 'stream')
     const compact = new PrefixSlideCompactionEngine(ctx, {
       auto: false,
+      headroomTokens: 0,
+      maxTokens: 8192,
       thresholdRatio: 0.5,
       retainTokens: 120,
     })
@@ -120,6 +122,8 @@ describe('dsh-compaction-prefix-slide', () => {
     const ctx = createContext(4_000)
     const compact = new PrefixSlideCompactionEngine(ctx, {
       auto: false,
+      headroomTokens: 0,
+      maxTokens: 8192,
       thresholdRatio: 0.5,
       retainTokens: 200,
     })
@@ -134,9 +138,9 @@ describe('dsh-compaction-prefix-slide', () => {
     // The pairing invariant survives the eviction.
     const calls = new Set<string>()
     for (const message of session.deriveMessages()) {
+      if (message.role === 'tool') expect(calls.has(message.toolCallId)).toBe(true)
       for (const block of message.content) {
         if (block.type === 'tool-call') calls.add(block.id)
-        if (block.type === 'tool-result') expect(calls.has(block.toolCallId)).toBe(true)
       }
     }
   })
@@ -145,6 +149,8 @@ describe('dsh-compaction-prefix-slide', () => {
     const ctx = createContext(4_000)
     const compact = new PrefixSlideCompactionEngine(ctx, {
       auto: false,
+      headroomTokens: 0,
+      maxTokens: 8192,
       thresholdRatio: 0.9,
       retainTokens: 50,
     })

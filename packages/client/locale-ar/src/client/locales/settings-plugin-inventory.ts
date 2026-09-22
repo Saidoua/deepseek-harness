@@ -43,4 +43,6 @@ export const ar = {
   clientSyncing: 'جارٍ مزامنة الإضافات في هذه الصفحة…',
   clientSyncFailed: 'تعذّرت مزامنة بعض الإضافات في هذه الصفحة. لم يتغيّر تفعيلها على المضيف.',
   clientSyncRetry: 'إعادة المحاولة لهذه الصفحة',
+  // {error} carries the Host's own diagnostic and renders verbatim.
+  metadataError: 'خطأ في البيانات الوصفية للحزمة: {error}',
 } satisfies Record<PluginInventoryLocaleKey, string>

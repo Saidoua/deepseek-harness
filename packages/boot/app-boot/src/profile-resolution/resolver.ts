@@ -107,6 +107,7 @@ interface CompiledResolution {
   readonly profilePaths: readonly string[]
   readonly profile: readonly string[]
   readonly installationPaths: readonly string[]
+  readonly installedPackagePaths: readonly string[]
   readonly linkedPaths: readonly string[]
   readonly localPackageNames: ReadonlySet<string>
   readonly esmRoutes: ResolutionRoutes
@@ -175,6 +176,9 @@ function compileResolution(resolution: RuntimeResolution): CompiledResolution {
     installationPaths: [...new Set(resolution.entries
       .filter(entry => entry.scope === 'installation')
       .flatMap(entry => prefixes(entry.packageDir)))],
+    installedPackagePaths: [...new Set(resolution.entries
+      .filter(entry => entry.scope === 'installation' && entry.packageDir.includes(sep + 'node_modules' + sep))
+      .flatMap(entry => prefixes(entry.packageDir)))],
     linkedPaths: resolution.linkedRoots.flatMap(root => prefixes(root.realPath)),
     localPackageNames: new Set(resolution.localPackageNames),
     esmRoutes: new Map(),
@@ -196,13 +200,23 @@ function computeProfileLayer(dir: string, active: boolean): InterceptionLayer {
   }
 }
 
-/** The interception layer of a module path: from its profile directory inside a profiles tree, or its linked root. */
+/**
+ * The interception layer of a module path: from its profile directory inside a profiles tree, its linked root, or
+ * the installed package directory it sits in. An installation package unpacked into a `node_modules` directory
+ * carries its own copy of nothing: its declared peers belong to the running installation, and its own lookup would
+ * answer them from whichever copy Node reaches first — the built `lib/` output rather than the source modules a
+ * source launch runs. Routing it like a linked root applies its peer declarations at each ancestor position, so one
+ * module instance of each peer serves the whole process. First-party directories outside `node_modules` keep their
+ * native lookup.
+ */
 function findInterceptionLayer(path: string, resolution: CompiledResolution): InterceptionLayer | undefined {
   const treeRoot = resolution.profilePaths.find(prefix => path.startsWith(prefix))
   const activeProfile = resolution.profile.find(prefix => path.startsWith(prefix))
   const dir = treeRoot !== undefined ? profileChild(path, treeRoot) : activeProfile?.slice(0, -1)
   if (dir !== undefined) return computeProfileLayer(dir, activeProfile !== undefined)
-  if (!startsWithin(path, resolution.linkedPaths)) return undefined
+  if (!startsWithin(path, resolution.linkedPaths)) {
+    return startsWithin(path, resolution.installedPackagePaths) ? { kind: 'linked' } : undefined
+  }
   if (startsWithin(path, resolution.installationPaths)) return undefined
   return { kind: 'linked' }
 }

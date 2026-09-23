@@ -48,6 +48,7 @@ export const ar = {
   'render.failedAbdicated': 'أخفق العرض في {slot}؛ واستُعيدت الواجهة الافتراضية:',
   'render.failedHeld': 'أخفق العرض في {slot}:',
   'a11y.defining': 'جارٍ تعريف الإضافة',
+  'a11y.preparing': 'جارٍ تحضير استدعاء أداة Cordis',
   'a11y.failed': 'أخفق التعريف',
   'a11y.stopped': 'قوطع التعريف',
   'body.source': 'مصدر الإضافة',

@@ -184,4 +184,11 @@ export const ar = {
   reasonBundleInUse: 'لا تزال إعدادات أخرى تستخدم مكوّنات حزمة التجميع هذه؛ أوقفها أولًا.',
   reasonStaleApproval: 'تغيّرت موافقات النصوص المعلّقة؛ ثبّت مجددًا لتحديثها.',
   reasonOperationError: 'أبلغ المضيف عن خطأ.',
+  installGithubFailedTitle: 'تعذّر الوصول إلى GitHub',
+  installGithubTimeoutTitle: 'انتهت مهلة الاتصال بـ GitHub',
+  installGithubFailedDescription: 'جرّب مصدر تثبيت آخر.',
+  installUseGithubMirror: 'استخدام مرآة الصين',
+  installPackageLabel: 'اسم حزمة الإضافة',
+  reasonIncompatibleVersion: '{plugin} غير متوافقة مع DSH {runtime} (تتطلب {peers})؛ قد يؤدي تشغيلها إلى أعطال أو فقدان بيانات. ثبّت إصدارًا من الإضافة متوافقًا مع هذا الإصدار من DSH.',
+  reasonIncompatibleVersionUnnamed: 'هذه الإضافة غير متوافقة مع إصدار DSH قيد التشغيل؛ قد يؤدي تشغيلها إلى أعطال أو فقدان بيانات.',
 } satisfies Record<PluginManagerLocaleKey, string>

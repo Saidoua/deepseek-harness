@@ -370,10 +370,18 @@ describe('runtime resolution', { concurrent: false }, () => {
     // declares. Its own lookup would answer the peer from that copy, seating a second module instance beside
     // the one the installation runs; the peer belongs to the installation, so the route answers from there.
     const f = fixture()
-    const pluginDir = join(dirname(f.installed), 'installed-plugin')
+    // A source checkout: the workspace package is linked into node_modules from a directory outside it, while the
+    // published plugin is unpacked under node_modules and carries its own copy of the peer it declares.
+    const firstParty = join(f.root, 'checkout', 'packages', 'plugin')
+    pkg(firstParty, 'first-party-plugin', 9, {}, { '@deepseek-ai/dsh-core': '*' })
+    pkg(join(firstParty, 'node_modules', '@deepseek-ai', 'dsh-core'), '@deepseek-ai/dsh-core', 10)
+    symlinkSync(firstParty, join(dirname(dirname(f.installed)), 'first-party-plugin'), process.platform === 'win32' ? 'junction' : 'dir')
+    const pluginDir = join(dirname(dirname(f.installed)), 'installed-plugin')
     pkg(pluginDir, 'installed-plugin', 7, {}, { '@deepseek-ai/dsh-core': '*' })
     pkg(join(pluginDir, 'node_modules', '@deepseek-ai', 'dsh-core'), '@deepseek-ai/dsh-core', 8)
-    pkg(dirname(dirname(f.installed)), '@deepseek-ai/dsh', 0, { '@deepseek-ai/dsh-core': '*', 'installed-plugin': '*' })
+    pkg(dirname(f.installAnchor), '@deepseek-ai/dsh', 0, {
+      '@deepseek-ai/dsh-core': '*', 'installed-plugin': '*', 'first-party-plugin': '*',
+    })
     const registration = installRuntimeInterception(await resolutionOf(f))
     registrations.push(registration)
 
@@ -382,12 +390,24 @@ describe('runtime resolution', { concurrent: false }, () => {
     expect(await importFrom('@deepseek-ai/dsh-core', parent)).toMatchObject({ marker: 1 })
     expect(createRequire(join(pluginDir, 'index.cjs')).resolve('@deepseek-ai/dsh-core'))
       .toBe(join(f.installed, 'index.cjs'))
-    // A first-party installation directory outside node_modules keeps its own lookup.
-    const firstParty = join(f.root, 'checkout', 'packages', 'plugin')
-    pkg(firstParty, 'first-party-plugin', 9, {}, { '@deepseek-ai/dsh-core': '*' })
-    pkg(join(firstParty, 'node_modules', '@deepseek-ai', 'dsh-core'), '@deepseek-ai/dsh-core', 10)
+    // The first-party directory the link points at keeps its own lookup.
     expect(resolveFrom('@deepseek-ai/dsh-core', pathToFileURL(join(firstParty, 'index.js')).href))
       .toBe(pathToFileURL(join(firstParty, 'node_modules', '@deepseek-ai', 'dsh-core', 'index.js')).href)
+  })
+
+  it('keeps native lookup for an installation whose packages are all unpacked under node_modules', async () => {
+    // A packaged or npm-installed product: every package answers from the one copy installed beside it, so routing
+    // its ancestor positions would only add lookups — and in a read-only packaged filesystem, failing ones.
+    const f = fixture()
+    const pluginDir = join(dirname(dirname(f.installed)), 'installed-plugin')
+    pkg(pluginDir, 'installed-plugin', 7, {}, { '@deepseek-ai/dsh-core': '*' })
+    pkg(join(pluginDir, 'node_modules', '@deepseek-ai', 'dsh-core'), '@deepseek-ai/dsh-core', 8)
+    pkg(dirname(f.installAnchor), '@deepseek-ai/dsh', 0, { '@deepseek-ai/dsh-core': '*', 'installed-plugin': '*' })
+    const registration = installRuntimeInterception(await resolutionOf(f))
+    registrations.push(registration)
+
+    expect(resolveFrom('@deepseek-ai/dsh-core', pathToFileURL(join(pluginDir, 'index.js')).href))
+      .toBe(pathToFileURL(join(pluginDir, 'node_modules', '@deepseek-ai', 'dsh-core', 'index.js')).href)
   })
 
   it('routes a scoped CommonJS package through its containing node_modules directory', async () => {

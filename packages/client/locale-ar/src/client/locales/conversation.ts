@@ -360,4 +360,6 @@ export const ar = {
   'tool.autoReviewReasonFallback': 'لم تسمح المراجعة التلقائية بهذا الإجراء',
   'error.sessionInUse': 'هذه المحادثة قيد الاستخدام بالفعل، ربما من نسخة DSH أخرى قيد التشغيل (مثل dsh web أو تطبيق سطح المكتب). أغلق نسخ DSH الأخرى ثم أعد المحاولة.',
   'terminal.noExitCode': 'لا يوجد رمز خروج',
+  'tool.preparing.content': 'جارٍ تحضير المحتوى {kilobytes}KB',
+  'row.preparing': 'جارٍ تحضير استدعاء الأداة',
 } satisfies Record<ConversationKey, string>

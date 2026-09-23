@@ -166,6 +166,23 @@ function prefixes(path: string): readonly string[] {
   return canonical === configured ? [configured] : [configured, canonical]
 }
 
+/**
+ * Directories of installation packages unpacked under a `node_modules` directory, and only when the installation
+ * also runs first-party directories outside one. That mixture is a source checkout: its own modules answer through
+ * the launcher's source mapping while an unpacked package's identical request answers from built output, so the two
+ * reach different copies of one package. An installation whose every package sits under `node_modules` — a packaged
+ * or npm-installed product — already answers both from the same copy, so it keeps native lookup throughout.
+ * @param resolution - the generation being compiled.
+ * @returns prefix paths admitted to linked interception, empty when the installation is uniformly installed.
+ */
+function installedPackagePaths(resolution: RuntimeResolution): readonly string[] {
+  const installed = resolution.entries.filter(entry => entry.scope === 'installation')
+  // A workspace package linked into `node_modules` is first-party: the link's own path says nothing, its target does.
+  const unpacked = installed.filter(entry => canonicalPath(entry.packageDir).includes(sep + 'node_modules' + sep))
+  if (unpacked.length === installed.length) return []
+  return [...new Set(unpacked.flatMap(entry => prefixes(entry.packageDir)))]
+}
+
 function compileResolution(resolution: RuntimeResolution): CompiledResolution {
   return {
     entries: new Map(resolution.entries.map(entry => [entry.name, entry])),
@@ -176,9 +193,7 @@ function compileResolution(resolution: RuntimeResolution): CompiledResolution {
     installationPaths: [...new Set(resolution.entries
       .filter(entry => entry.scope === 'installation')
       .flatMap(entry => prefixes(entry.packageDir)))],
-    installedPackagePaths: [...new Set(resolution.entries
-      .filter(entry => entry.scope === 'installation' && entry.packageDir.includes(sep + 'node_modules' + sep))
-      .flatMap(entry => prefixes(entry.packageDir)))],
+    installedPackagePaths: installedPackagePaths(resolution),
     linkedPaths: resolution.linkedRoots.flatMap(root => prefixes(root.realPath)),
     localPackageNames: new Set(resolution.localPackageNames),
     esmRoutes: new Map(),

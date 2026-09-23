@@ -5,6 +5,7 @@ import type { SkillKey } from '@deepseek-ai/dsh-client-ui-skill/src/client/local
 export const ar = {
   'row.title': 'مهارة',
   'row.running': 'جارٍ تحميل المهارة',
+  'row.preparing': 'جارٍ التحضير لتحميل المهارة',
   'row.failed': 'تعذّر تحميل المهارة',
   'row.stopped': 'أُوقف تحميل المهارة',
   'row.instructions': 'التعليمات',

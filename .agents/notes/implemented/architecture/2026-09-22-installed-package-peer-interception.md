@@ -20,7 +20,9 @@ A first-party installation directory outside `node_modules` keeps its native loo
 
 The rule keys on the directory's shape rather than on the package's origin because the resolver has no reliable origin signal: a published dependency and a workspace package are both installation-scope entries. What distinguishes them is that the published one is unpacked into a `node_modules` directory, which is also exactly the condition under which its own lookup can reach a copy the installation does not run.
 
-A packaged installation keeps its behavior: its harness packages also sit under `node_modules`, so they route through the same entries, but every entry names the one physical copy already installed there, and the route answers with the file the native lookup would have selected.
+The rule applies only where the installation mixes both shapes. An installation whose every package sits under `node_modules` — a packaged single executable, an npm install of the product — is excluded outright, because there the two lookups already reach the same copy and routing only adds work. A workspace package linked into `node_modules` counts by its link target, not by the link's path, so a source checkout still reads as mixed.
+
+That exclusion is load-bearing rather than an optimization. Applied to a packaged runtime, the rule routes every harness package's ancestor positions, and each position probes for a physical candidate. The single-executable filesystem raises `ENOENT` from those probes instead of reporting absence, so 91 plugins failed to import and the runtime refused to start (`scripts/smoke-python-runtime.py --scenario all`, reproduced against a build with the rule ungated and green with it gated).
 
 ## Alternatives considered
 

@@ -27,6 +27,7 @@ export const ar = {
   'presented.file': 'ملف',
   'row.title': 'تسليم الملفات',
   'row.running': 'جارٍ التسليم',
+  'row.preparing': 'جارٍ تحضير التسليم',
   'row.ok': 'تم التسليم',
   'row.error': 'أخفق التسليم',
   'row.stopped': 'أُوقف',

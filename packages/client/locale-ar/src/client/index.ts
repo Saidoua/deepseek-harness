@@ -37,6 +37,7 @@ import { ar as pluginManager } from './locales/plugin-manager.ts'
 import { ar as question } from './locales/question.ts'
 import { ar as reference } from './locales/reference.ts'
 import { ar as scheduleCatalog } from './locales/schedule-catalog.ts'
+import { ar as scheduleManager } from './locales/schedule-manager.ts'
 import { ar as sessionLogDownload } from './locales/session-log-download.ts'
 import { ar as settings } from './locales/settings.ts'
 import { ar as settingsAccount } from './locales/settings-account.ts'
@@ -51,6 +52,8 @@ import { ar as settingsShell } from './locales/settings-shell.ts'
 import { ar as settingsSubagent } from './locales/settings-subagent.ts'
 import { ar as settingsTheme } from './locales/settings-theme.ts'
 import { ar as settingsWebSearch } from './locales/settings-web-search.ts'
+import { ar as shortcuts } from './locales/shortcuts.ts'
+import { ar as shortcutsLayout } from './locales/shortcuts-layout.ts'
 import { ar as sidebar } from './locales/sidebar.ts'
 import { ar as sidebarBrowser } from './locales/sidebar-browser.ts'
 import { ar as sidebarCodePreview } from './locales/sidebar-codepreview.ts'
@@ -99,6 +102,7 @@ const DICTIONARIES: Readonly<Record<string, Readonly<Record<string, string>>>> =
   'question': question,
   'reference': reference,
   'schedule.catalog': scheduleCatalog,
+  'schedule.manager': scheduleManager,
   'session-log-download': sessionLogDownload,
   'settings': settings,
   'settings.account': settingsAccount,
@@ -113,6 +117,8 @@ const DICTIONARIES: Readonly<Record<string, Readonly<Record<string, string>>>> =
   'settings.subagent': settingsSubagent,
   'settings.theme': settingsTheme,
   'settings.webSearch': settingsWebSearch,
+  'shortcuts': shortcuts,
+  'shortcuts.layout': shortcutsLayout,
   'sidebar': sidebar,
   'sidebarBrowser': sidebarBrowser,
   'sidebarCodePreview': sidebarCodePreview,

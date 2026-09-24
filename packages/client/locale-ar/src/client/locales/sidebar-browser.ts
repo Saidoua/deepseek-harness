@@ -6,6 +6,7 @@ export const ar = {
   'type.label': 'المتصفح',
   'guide.title': 'المتصفح',
   'guide.description': 'تصفّح صفحات HTTP(S)',
+  'shortcut.noSession': 'افتح محادثة أولًا',
   'address.placeholder': 'أدخل عنوان HTTP(S)',
   'address.changed': 'تغيّر عنوان URL',
   back: 'رجوع',

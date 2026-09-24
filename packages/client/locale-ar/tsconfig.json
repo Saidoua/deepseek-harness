@@ -39,6 +39,9 @@
       "path": "../ui-jobs"
     },
     {
+      "path": "../ui-layout"
+    },
+    {
       "path": "../ui-message-feedback"
     },
     {
@@ -85,6 +88,9 @@
     },
     {
       "path": "../ui-plugin-manager/tsconfig.client.json"
+    },
+    {
+      "path": "../ui-shortcuts"
     },
     {
       "path": "../ui-sidebar"

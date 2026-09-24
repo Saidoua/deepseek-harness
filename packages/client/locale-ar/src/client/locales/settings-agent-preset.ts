@@ -43,7 +43,6 @@ export const ar = {
   presetCordisDescription:
     'مُعدّ لإنشاء إعدادات وكيل مخصصة، بكل قدرات الوضع القياسي إضافة إلى فحص وقت التشغيل وتجارب الإضافات وإرشاد تأليف الإعدادات.',
   inUse: 'افتراضي المهام الجديدة',
-  selectionOffDefault: 'الافتراضي',
   builtInGroup: 'مدمج',
   customGroup: 'مخصص',
   noDescription: 'لا يوجد وصف.',
@@ -51,11 +50,7 @@ export const ar = {
   switchRefused: 'تعذّر التبديل إلى {name}: {reason}',
   close: 'إغلاق',
   creatorDraft: 'صُغ إعدادًا مخصصًا بوضع المُنشئ',
-  showPicker: 'السماح بتبديل أوضاع الوكيل',
-  showPickerBeta: 'تجريبي',
-  showPickerDescription:
-    'عند التفعيل، يمكن للمهام الجديدة اختيار الوضع القياسي أو PTC أو المُنشئ أو الأدنى أو الأوضاع المخصصة. وعند التعطيل تستخدم كل المهام الجديدة الوضع الافتراضي (القياسي افتراضيًا، ويمكن تغييره). يؤثر ذلك في المهام الجديدة فقط.',
-  enablePickerToSetDefault: 'فعّل اختيار وضع الوكيل لتعيين الافتراضي',
-  enablePickerToCreate: 'فعّل اختيار وضع الوكيل لبدء وضع المُنشئ',
   view: 'عرض الإعدادات',
+  enableDevToolsToSetDefault: 'فعّل «أدوات المطوّرين» في الإعدادات العامة لاختيار وضع افتراضي',
+  enableDevToolsToCreate: 'فعّل «أدوات المطوّرين» في الإعدادات العامة لبدء وضع المُنشئ',
 } satisfies Record<AgentPresetSettingsKey, string>

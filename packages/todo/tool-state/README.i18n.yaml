@@ -1,6 +1,52 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/todo/tool-state/README.md
-README.md: 8461538013c9d5570592ed2e3405f0f1b73f442e
-README.zh.md: 0560936653561649965bd6204840b5ee6ccfb627
+/:
+  en: a9ae29103e6e0c18
+  zh: a0265a770747fe4c
+/deepseek-ai-dsh-tool-state:
+  en: f25519bef4dd451c
+  zh: 8697215860908674
+/deepseek-ai-dsh-tool-state/summary:
+  en: 836d0964154316d1
+  zh: 5ebecc6d1f7bfdfe
+/deepseek-ai-dsh-tool-state/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: ffab54373e9e61f0
+/deepseek-ai-dsh-tool-state/use-this-package:
+  en: 54a5497481aca887
+  zh: 283cbfa4f2da84dd
+/deepseek-ai-dsh-tool-state/use-this-package/configuration:
+  en: a426de3c0fe735d1
+  zh: fa4a61734a15503b
+/deepseek-ai-dsh-tool-state/understand-the-implementation:
+  en: b32aa53a094f56a2
+  zh: 183f6fbc50b47fed
+/deepseek-ai-dsh-tool-state/understand-the-implementation/source-map:
+  en: 882c03eb25656a2f
+  zh: 676df26bdab8d58f
+/deepseek-ai-dsh-tool-state/further-exploration:
+  en: a42571c8476bd066
+  zh: 239241cba99d2742
+/deepseek-ai-dsh-tool-state/model-experience:
+  en: 215e7ba838619b7b
+  zh: a311da3843709f90
+/deepseek-ai-dsh-tool-state/model-experience/working-state-snapshot:
+  en: 792992c24bee7664
+  zh: 792992c24bee7664
+/deepseek-ai-dsh-tool-state/model-experience/working-state-snapshot/what-the-model-sees:
+  en: a69ebbe740656e35
+  zh: 822c55852ca6f7fb
+/deepseek-ai-dsh-tool-state/model-experience/working-state-snapshot/token-effect:
+  en: c9ca6baa0352610e
+  zh: b9b529de3b119273
+/deepseek-ai-dsh-tool-state/model-experience/working-state-snapshot/kv-cache-effect:
+  en: cee5cf06aded441e
+  zh: 11de64511ddcc0e4
+/deepseek-ai-dsh-tool-state/known-limitations-and-deferred-work:
+  en: f525cec13363a614
+  zh: 090bee620ec8583d
+/deepseek-ai-dsh-tool-state/known-limitations-and-deferred-work/dev-note:
+  en: c036b61fc3676d13
+  zh: a94580642dfa3bd2

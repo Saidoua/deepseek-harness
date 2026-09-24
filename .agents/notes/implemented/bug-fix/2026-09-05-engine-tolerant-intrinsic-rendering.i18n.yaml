@@ -1,6 +1,19 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-09-05-engine-tolerant-intrinsic-rendering.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/bug-fix/2026-09-05-engine-tolerant-intrinsic-rendering.md
-2026-09-05-engine-tolerant-intrinsic-rendering.md: b19b2929d5da04e5b08bd72bff8631f1c7d9bd8b
-2026-09-05-engine-tolerant-intrinsic-rendering.zh.md: efbcbeb59cabc23db7c4c64b544ca611091d3ed2
+/agent-note-engine-tolerant-native-function-rendering-in-the-realm-owned-intrinsic-test:
+  en: 8d1b34684fb7f124
+  zh: 548e5bd5d582043f
+/agent-note-engine-tolerant-native-function-rendering-in-the-realm-owned-intrinsic-test/problem:
+  en: 5d2dd81c573232e2
+  zh: 46e633032b2d5ba6
+/agent-note-engine-tolerant-native-function-rendering-in-the-realm-owned-intrinsic-test/decision:
+  en: d39bc866c8640694
+  zh: 5d4b045a10cd780a
+/agent-note-engine-tolerant-native-function-rendering-in-the-realm-owned-intrinsic-test/alternatives-considered:
+  en: c1a3fc625fb6aaca
+  zh: 824a1560da1972ab
+/agent-note-engine-tolerant-native-function-rendering-in-the-realm-owned-intrinsic-test/consequences:
+  en: 174f6cf7371867a8
+  zh: d4bbccd0c215ec62

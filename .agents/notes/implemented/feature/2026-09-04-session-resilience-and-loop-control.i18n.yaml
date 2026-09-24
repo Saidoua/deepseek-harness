@@ -1,6 +1,19 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-09-04-session-resilience-and-loop-control.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/feature/2026-09-04-session-resilience-and-loop-control.md
-2026-09-04-session-resilience-and-loop-control.md: 87a66fc0279a75567f43f5dd925c746bfda5d892
-2026-09-04-session-resilience-and-loop-control.zh.md: ca3ca37faa055b357551330cad8d9253b3fa14d1
+/agent-note-session-resilience-plugins:
+  en: 9a449bbe1505f02f
+  zh: e3888accc270a67f
+/agent-note-session-resilience-plugins/problem:
+  en: 5d7a9c6e3090c155
+  zh: a87c4a1cc837ba89
+/agent-note-session-resilience-plugins/decision:
+  en: ad3aaedca5f05923
+  zh: f1ef3b8dc1e83e96
+/agent-note-session-resilience-plugins/alternatives-considered:
+  en: 1310516e46bdb768
+  zh: 58b3bc58a5077221
+/agent-note-session-resilience-plugins/consequences:
+  en: e19ae692751fc8b8
+  zh: dc68b20aa6480c58

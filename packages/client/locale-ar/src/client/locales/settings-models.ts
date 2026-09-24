@@ -4,6 +4,7 @@ import type { ModelsKey } from '@deepseek-ai/dsh-client-ui-settings-models/src/c
 /** Arabic dictionary, checked complete against the `settings.models` key set. */
 export const ar = {
   nav: 'النماذج',
+  deepSeekAccount: 'حساب DeepSeek',
   title: 'النماذج',
   intro: 'أدخل مفاتيح الواجهة البرمجية لاستخدام نماذج المزوّدين التالين.',
   edit: 'تحرير',

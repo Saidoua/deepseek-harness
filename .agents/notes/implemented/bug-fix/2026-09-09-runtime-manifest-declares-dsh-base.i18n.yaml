@@ -1,6 +1,22 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-09-09-runtime-manifest-declares-dsh-base.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/bug-fix/2026-09-09-runtime-manifest-declares-dsh-base.md
-2026-09-09-runtime-manifest-declares-dsh-base.md: fbfa920c7540d383cbc2a2df24ef567a1bd78555
-2026-09-09-runtime-manifest-declares-dsh-base.zh.md: 1a72814fc9c848acc9ec16f03f41adf2e9a07cae
+/agent-note-the-python-runtime-manifest-declares-dsh-base-on-the-fork:
+  en: cc0330772c0fcc58
+  zh: 1b1a1c82ba9fc199
+/agent-note-the-python-runtime-manifest-declares-dsh-base-on-the-fork/problem:
+  en: 491904347f0546f7
+  zh: 141b17b91c4acf7d
+/agent-note-the-python-runtime-manifest-declares-dsh-base-on-the-fork/decision:
+  en: b87d634bb1251a28
+  zh: 4bd3f7db5dfdd9f6
+/agent-note-the-python-runtime-manifest-declares-dsh-base-on-the-fork/alternatives-considered:
+  en: d7f94ed23376f4cd
+  zh: 6fe768987d7458ec
+/agent-note-the-python-runtime-manifest-declares-dsh-base-on-the-fork/consequences:
+  en: 4fecaec8f7b43ba4
+  zh: 59140838f58edc24
+/agent-note-the-python-runtime-manifest-declares-dsh-base-on-the-fork/testing:
+  en: 66d70b675cc4caa0
+  zh: 74b7dd4d9a8ca80c

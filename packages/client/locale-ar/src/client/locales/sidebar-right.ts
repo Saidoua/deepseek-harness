@@ -3,6 +3,19 @@ import type { SidebarRightKey } from '@deepseek-ai/dsh-client-ui-sidebar-right/s
 
 /** Arabic dictionary, checked complete against the `sidebarRight` key set. */
 export const ar = {
+  'command.close': 'إغلاق الصفحة أو النافذة الحالية',
+  'command.refresh': 'تحديث الصفحة الحالية',
+  'command.noRefresh': 'لا يمكن تحديث هذه الصفحة',
+  'command.toggle': 'طي الشريط الجانبي الأيمن أو فتحه',
+  'command.fullscreen': 'تبديل ملء شاشة اللوحة',
+  'command.noSession': 'اختر محادثة أولًا',
+  'command.noFocus': 'ركّز على لوحة في الشريط الجانبي الأيمن أولًا',
+  'command.stale': 'تغيّرت الصفحة؛ ركّز عليها مجددًا',
+  'command.collapsed': 'افتح الشريط الجانبي الأيمن أولًا',
+  'command.float': 'هذا الإجراء غير متاح في لوحة عائمة',
+  'command.empty': 'افتح صفحة أولًا',
+  'command.budget': 'الحد الأقصى لوحتان',
+  'command.width': 'العرض لا يكفي للتقسيم، وسّع الشريط الجانبي',
   'chrome.expand': 'فتح الشريط الجانبي',
   // The layout does not mirror, so the sidebar stays on the right in Arabic
   // too; the aria labels name that side as the reader sees it.

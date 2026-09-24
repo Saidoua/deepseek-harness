@@ -7,6 +7,10 @@ const PLAN_NEXT_ACTION = 'صِف مهمتك لتوليد خطة'
 // Count keys share one count-neutral wording; see the job namespace.
 /** Arabic dictionary, checked complete against the `conversation` key set. */
 export const ar = {
+  'shortcut.newline': 'سطر جديد',
+  'shortcut.complementary': 'استخدام الإجراء المكمّل: الإرسال إلى الطابور أو التوجيه',
+  'shortcut.slash': 'فتح قائمة الأوامر',
+  'shortcut.mention': 'فتح قائمة المراجع',
   'hint.plan': PLAN_NEXT_ACTION,
   'hint.goal': 'صِف هدف مهمة طويلة الأمد',
   'hint.goal.active': 'هدف نشط — تحرير / إيقاف مؤقت / استئناف / مسح',
@@ -361,5 +365,17 @@ export const ar = {
   'error.sessionInUse': 'هذه المحادثة قيد الاستخدام بالفعل، ربما من نسخة DSH أخرى قيد التشغيل (مثل dsh web أو تطبيق سطح المكتب). أغلق نسخ DSH الأخرى ثم أعد المحاولة.',
   'terminal.noExitCode': 'لا يوجد رمز خروج',
   'tool.preparing.content': 'جارٍ تحضير المحتوى {kilobytes}KB',
+  'tool.title.updateSchedule': 'تحديث تذكير',
+  'detail.schedule.daily': 'كل يوم في {time} ({zone})',
+  'detail.schedule.weekly': 'أسبوعيًا يوم {days} في {time} ({zone})',
+  'detail.schedule.cron': 'Cron {expression} ({zone})',
+  'detail.weekday.1': 'إثن',
+  'detail.weekday.2': 'ثلا',
+  'detail.weekday.3': 'أرب',
+  'detail.weekday.4': 'خمي',
+  'detail.weekday.5': 'جمع',
+  'detail.weekday.6': 'سبت',
+  'detail.weekday.7': 'أحد',
+  'detail.weekday.join': '، ',
   'row.preparing': 'جارٍ تحضير استدعاء الأداة',
 } satisfies Record<ConversationKey, string>

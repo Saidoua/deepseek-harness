@@ -1,6 +1,52 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/context/session-rules/README.md
-README.md: b3a0bd052754a6f42901e78074eda087bd04b589
-README.zh.md: 1b7cd686778fe378d884a88b3b5220a246555167
+/:
+  en: d6ede791f81267aa
+  zh: 400824f1016b5249
+/deepseek-ai-dsh-session-rules:
+  en: b073e11f36e7b830
+  zh: 4086d7b52cd5a1d4
+/deepseek-ai-dsh-session-rules/summary:
+  en: cbf6ca4fd5d04b02
+  zh: 53d0f889461c5681
+/deepseek-ai-dsh-session-rules/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: ffab54373e9e61f0
+/deepseek-ai-dsh-session-rules/use-this-package:
+  en: c54be9f303e63ff8
+  zh: 217d205d81bb67e4
+/deepseek-ai-dsh-session-rules/use-this-package/configuration:
+  en: a4c54fb4e5646d52
+  zh: 695c919384c02b84
+/deepseek-ai-dsh-session-rules/understand-the-implementation:
+  en: 0eb16b636911beb3
+  zh: 88bd63340740eb7a
+/deepseek-ai-dsh-session-rules/understand-the-implementation/source-map:
+  en: 4cd7fea54af18adb
+  zh: 5c61f6a9896870f8
+/deepseek-ai-dsh-session-rules/further-exploration:
+  en: a42571c8476bd066
+  zh: 239241cba99d2742
+/deepseek-ai-dsh-session-rules/model-experience:
+  en: 215e7ba838619b7b
+  zh: a311da3843709f90
+/deepseek-ai-dsh-session-rules/model-experience/pinned-rules-message:
+  en: 53ddc36b11a71337
+  zh: 53ddc36b11a71337
+/deepseek-ai-dsh-session-rules/model-experience/pinned-rules-message/what-the-model-sees:
+  en: 498275ad9eeb8cff
+  zh: 339a1aa6d5a56cea
+/deepseek-ai-dsh-session-rules/model-experience/pinned-rules-message/token-effect:
+  en: 8060325283d7a605
+  zh: 3010c7a30fe96e33
+/deepseek-ai-dsh-session-rules/model-experience/pinned-rules-message/kv-cache-effect:
+  en: 82d2c65168813d0c
+  zh: 441155cdfaba2340
+/deepseek-ai-dsh-session-rules/known-limitations-and-deferred-work:
+  en: 69dc60dcdadaa834
+  zh: d440b904891e3757
+/deepseek-ai-dsh-session-rules/known-limitations-and-deferred-work/dev-note:
+  en: c036b61fc3676d13
+  zh: a94580642dfa3bd2

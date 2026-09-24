@@ -1,6 +1,19 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-09-05-v0-migration-shipped-descriptor-generations.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/bug-fix/2026-09-05-v0-migration-shipped-descriptor-generations.md
-2026-09-05-v0-migration-shipped-descriptor-generations.md: 354146db6cb4517bcd9b3f0fce70d99bd1b1046f
-2026-09-05-v0-migration-shipped-descriptor-generations.zh.md: e9b3658a2985e2ced7b790d1699e06675dd6b44c
+/agent-note-format-v0-migration-admits-the-descriptor-generations-v0-shipped:
+  en: 407755a60d5cd8f4
+  zh: fddefb7bf2db5cac
+/agent-note-format-v0-migration-admits-the-descriptor-generations-v0-shipped/problem:
+  en: 53858723424e4f99
+  zh: 60b72434301f7f16
+/agent-note-format-v0-migration-admits-the-descriptor-generations-v0-shipped/decision:
+  en: 9e3595f4a655d6a7
+  zh: bcddf5315e5c82f5
+/agent-note-format-v0-migration-admits-the-descriptor-generations-v0-shipped/alternatives-considered:
+  en: c5ae7374ac90db4f
+  zh: 6c6e849d87d0a0aa
+/agent-note-format-v0-migration-admits-the-descriptor-generations-v0-shipped/consequences:
+  en: f73671590982ff4a
+  zh: 0c26567184ccf6a5

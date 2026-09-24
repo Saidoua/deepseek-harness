@@ -70,6 +70,7 @@ export const ar = {
   registryToggle: 'سجل الحزم',
   registryLegend: 'سجل npm الذي تُنزَّل منه الإضافة',
   registryDefault: 'السجل الافتراضي',
+  registryOfficial: 'سجل npm الرسمي',
   registryNpmmirror: 'مرآة البر الرئيسي للصين',
   // {name} and {host} are the registry's own name and host name.
   registryWithHost: '{name} ({host})',
@@ -188,6 +189,7 @@ export const ar = {
   installGithubTimeoutTitle: 'انتهت مهلة الاتصال بـ GitHub',
   installGithubFailedDescription: 'جرّب مصدر تثبيت آخر.',
   installUseGithubMirror: 'استخدام مرآة الصين',
+  installTryAnotherWay: 'جرّب طريقة أخرى',
   installPackageLabel: 'اسم حزمة الإضافة',
   reasonIncompatibleVersion: '{plugin} غير متوافقة مع DSH {runtime} (تتطلب {peers})؛ قد يؤدي تشغيلها إلى أعطال أو فقدان بيانات. ثبّت إصدارًا من الإضافة متوافقًا مع هذا الإصدار من DSH.',
   reasonIncompatibleVersionUnnamed: 'هذه الإضافة غير متوافقة مع إصدار DSH قيد التشغيل؛ قد يؤدي تشغيلها إلى أعطال أو فقدان بيانات.',

@@ -1,6 +1,55 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/client/locale-ar/README.md
-README.md: da29c0c75a1593ac7f62ff8244bcff8ee54139bf
-README.zh.md: 6dd2407c37437a14ea5ff65e69456e3083ae28b8
+/:
+  en: 7ed4df07907f6525
+  zh: 8d43755a53881e99
+/deepseek-ai-dsh-client-locale-ar:
+  en: 9643835fd85c177e
+  zh: f421b5f779ce9ea3
+/deepseek-ai-dsh-client-locale-ar/summary:
+  en: 4b2d6b112990e90e
+  zh: c275686cf4e74e00
+/deepseek-ai-dsh-client-locale-ar/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/deepseek-ai-dsh-client-locale-ar/use-this-package:
+  en: 9dab4c744b660a27
+  zh: f946ae782ca4ed97
+/deepseek-ai-dsh-client-locale-ar/use-this-package/what-changes-when-arabic-is-active:
+  en: 8a5ff9d45c8fe67a
+  zh: 3627dece8655165c
+/deepseek-ai-dsh-client-locale-ar/use-this-package/reading-a-key-that-has-no-arabic-text:
+  en: 57aa5af5ce1ee41e
+  zh: 1a0cf523b758c93c
+/deepseek-ai-dsh-client-locale-ar/use-this-package/adding-a-language-of-your-own:
+  en: 4ada4c180d66e267
+  zh: e0667da54abc6cf9
+/deepseek-ai-dsh-client-locale-ar/understand-the-implementation:
+  en: 42b15ac6321706aa
+  zh: 61b07cf66ee50be0
+/deepseek-ai-dsh-client-locale-ar/understand-the-implementation/design-concept:
+  en: 336186abec4e049b
+  zh: c4e5ce4816fe49cf
+/deepseek-ai-dsh-client-locale-ar/understand-the-implementation/translation-decisions:
+  en: 77a0562ec7cfc1b6
+  zh: a65310b5b7a6267a
+/deepseek-ai-dsh-client-locale-ar/understand-the-implementation/source-map:
+  en: 29418642040f9004
+  zh: b17f3e3187c3acfa
+/deepseek-ai-dsh-client-locale-ar/further-exploration:
+  en: b84dcc209e2de9d0
+  zh: 841d2e35ae263d69
+/deepseek-ai-dsh-client-locale-ar/model-experience:
+  en: 60b9eb1b97b7fc39
+  zh: 54b938e8966dc106
+/deepseek-ai-dsh-client-locale-ar/model-experience/kv-cache-effect:
+  en: ca75c51c89c2c9b0
+  zh: 6c9e01d76d7ff3c7
+/deepseek-ai-dsh-client-locale-ar/known-limitations-and-deferred-work:
+  en: 237578fa6550fec0
+  zh: fa0093b63c0d5333
+/deepseek-ai-dsh-client-locale-ar/known-limitations-and-deferred-work/dev-note:
+  en: 75e24076b48f20d8
+  zh: 8e46b10beaea962e

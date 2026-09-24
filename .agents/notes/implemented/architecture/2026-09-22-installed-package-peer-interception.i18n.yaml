@@ -1,6 +1,19 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-09-22-installed-package-peer-interception.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-09-22-installed-package-peer-interception.md
-2026-09-22-installed-package-peer-interception.md: 8115e427101b235d5c1181b5c90f244a01f6a6aa
-2026-09-22-installed-package-peer-interception.zh.md: 80b9d22bd7525cd8333567c731013436c93aca2f
+/agent-note-installed-packages-resolve-harness-peers-from-the-running-installation:
+  en: 0aaae7084f7b7596
+  zh: 7853441ce9dc27db
+/agent-note-installed-packages-resolve-harness-peers-from-the-running-installation/problem:
+  en: 26802bc0e7d506a0
+  zh: bd6904c63c7e78b3
+/agent-note-installed-packages-resolve-harness-peers-from-the-running-installation/decision:
+  en: f5553ae5ede2c442
+  zh: a7892066618b479c
+/agent-note-installed-packages-resolve-harness-peers-from-the-running-installation/alternatives-considered:
+  en: 8ea90b1582348087
+  zh: c5867cd286ab2746
+/agent-note-installed-packages-resolve-harness-peers-from-the-running-installation/consequences:
+  en: bd2bc9af9510129f
+  zh: f64883d6e876a9fc

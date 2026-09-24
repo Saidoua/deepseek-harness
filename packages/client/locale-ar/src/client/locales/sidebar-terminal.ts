@@ -3,6 +3,7 @@ import type * as terminalLocales from '@deepseek-ai/dsh-client-ui-sidebar-termin
 
 /** Arabic dictionary, checked complete against the `sidebarTerminal` key set. */
 export const ar = {
+  'shortcut.noSession': 'اختر محادثة أولًا',
   recoveryFailed: 'أخفقت استعادة الطرفية: {message}',
   retryRecovery: 'إعادة محاولة استعادة الطرفية',
   shell: 'اختيار سطر الأوامر',

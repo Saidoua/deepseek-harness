@@ -1,6 +1,22 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-09-06-session-append-ignorable-writer.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/bug-fix/2026-09-06-session-append-ignorable-writer.md
-2026-09-06-session-append-ignorable-writer.md: 272ca97db0303d885076930b404e220783bb5b46
-2026-09-06-session-append-ignorable-writer.zh.md: 554dccdb7727f7df21bd67a7231bc92d81c33a0e
+/agent-note-session-append-writes-the-ignorable-marker:
+  en: 63b14b08812c0c68
+  zh: 20c3d3a95722795b
+/agent-note-session-append-writes-the-ignorable-marker/problem:
+  en: a49993e343f2ff6b
+  zh: 01c33a77a3e4cafe
+/agent-note-session-append-writes-the-ignorable-marker/decision:
+  en: 94851aa8252731eb
+  zh: 869479ad3d710db6
+/agent-note-session-append-writes-the-ignorable-marker/testing:
+  en: de515ce95549c5f5
+  zh: ae9e5ed11639b21c
+/agent-note-session-append-writes-the-ignorable-marker/alternatives-considered:
+  en: 400e00c2d7d04afa
+  zh: 72a2f8bc517e9edd
+/agent-note-session-append-writes-the-ignorable-marker/consequences:
+  en: 83bbeeb9c6c86f44
+  zh: a493405eca552cd2

@@ -1,6 +1,52 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/compaction/compaction-prefix-slide/README.md
-README.md: c882c28229dd602c1e5e52d1aeacbda099e9a067
-README.zh.md: c01f4ec7a9d97ea2f1a3b56fd39783b007c03d99
+/:
+  en: 65a183a73c181b1d
+  zh: 582d763b71cc5a18
+/deepseek-ai-dsh-compaction-prefix-slide:
+  en: 42bc6aa4eae2756a
+  zh: 2225ad2dc98641e0
+/deepseek-ai-dsh-compaction-prefix-slide/summary:
+  en: 02fa0488d2e82923
+  zh: 38d9e90ebce97880
+/deepseek-ai-dsh-compaction-prefix-slide/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: ffab54373e9e61f0
+/deepseek-ai-dsh-compaction-prefix-slide/use-this-package:
+  en: ef07117d1848e6c4
+  zh: e52afc29097a931f
+/deepseek-ai-dsh-compaction-prefix-slide/use-this-package/configuration:
+  en: db8ae16306d8de98
+  zh: 91ca131eee39f214
+/deepseek-ai-dsh-compaction-prefix-slide/understand-the-implementation:
+  en: 2697b190a6bb419b
+  zh: 3057c92e6b05fc8e
+/deepseek-ai-dsh-compaction-prefix-slide/understand-the-implementation/source-map:
+  en: 35cb013739a6b677
+  zh: 78f439c3ab66822d
+/deepseek-ai-dsh-compaction-prefix-slide/further-exploration:
+  en: a42571c8476bd066
+  zh: 239241cba99d2742
+/deepseek-ai-dsh-compaction-prefix-slide/model-experience:
+  en: 215e7ba838619b7b
+  zh: a311da3843709f90
+/deepseek-ai-dsh-compaction-prefix-slide/model-experience/eviction-marker:
+  en: 3f6eef1436974838
+  zh: 3f6eef1436974838
+/deepseek-ai-dsh-compaction-prefix-slide/model-experience/eviction-marker/what-the-model-sees:
+  en: 022bc0c7ca99dc49
+  zh: 948075b2597e2147
+/deepseek-ai-dsh-compaction-prefix-slide/model-experience/eviction-marker/token-effect:
+  en: 393d3bf11310afe3
+  zh: 6dc0b978a9c2ea11
+/deepseek-ai-dsh-compaction-prefix-slide/model-experience/eviction-marker/kv-cache-effect:
+  en: 3664427786b5b551
+  zh: 73040289178e9c31
+/deepseek-ai-dsh-compaction-prefix-slide/known-limitations-and-deferred-work:
+  en: 8f93d098da784aaa
+  zh: 4c0e543483627940
+/deepseek-ai-dsh-compaction-prefix-slide/known-limitations-and-deferred-work/dev-note:
+  en: c036b61fc3676d13
+  zh: a94580642dfa3bd2

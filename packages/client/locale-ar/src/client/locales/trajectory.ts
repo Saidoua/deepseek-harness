@@ -191,4 +191,12 @@ export const ar = {
   'attachment.list': 'المرفقات',
   'attachment.imageName': 'صورة {index}',
   'layout.imageCount': 'صور ×{count}',
+  'layout.toolAdded': 'أُضيفت أداة: {name}',
+  'layout.toolRemoved': 'أُزيلت أداة: {name}',
+  'layout.toolUpdateNotice': 'حُدِّثت الأدوات',
+  'layout.toolsAdded': 'أُضيفت: {names}',
+  'layout.toolsAddedCount': 'أُضيفت {count}',
+  'layout.toolsChanged': 'أُضيفت {added}، وأُزيلت {removed}',
+  'layout.toolsRemoved': 'أُزيلت: {names}',
+  'layout.toolsRemovedCount': 'أُزيلت {count}',
 } satisfies Record<TrajectoryKey, string>

@@ -33,6 +33,7 @@ export const ar = {
   'row.stopped': 'أُوقف',
   'row.inspect': 'عرض الاستدعاء',
   'changes.title': 'عُدِّل {count} ملفًا',
+  'changes.singleTitle': 'عُدِّل {name}',
   'changes.added': '+{count}',
   'changes.deleted': '-{count}',
   'changes.binary': 'ثنائي',

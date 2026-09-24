@@ -3,6 +3,7 @@ import type { ModelKey } from '@deepseek-ai/dsh-client-ui-model-selection/src/cl
 
 /** Arabic dictionary, checked complete against the `model` key set. */
 export const ar = {
+  'provider.account': 'حساب DeepSeek',
   'command.label': 'النموذج',
   'command.description': 'اختيار النموذج لهذه المحادثة',
   // {message} carries the provider's own diagnostic and renders verbatim.
@@ -24,7 +25,6 @@ export const ar = {
   'action.reload': 'إعادة التحميل',
   'warning.groupLoad': 'تعذّر تحميل {name}: {message}',
   'empty.models': 'لا تتوفر نماذج.',
-  'blocked.composer': 'هذا النموذج غير متاح — اختر نموذجًا للمتابعة',
   'empty.efforts': 'لا يوفر هذا النموذج مستويات الاستدلال.',
   'error.sessionInUse': 'هذه المحادثة قيد الاستخدام بالفعل، ربما من نسخة DSH أخرى قيد التشغيل (مثل dsh web أو تطبيق سطح المكتب). أغلق نسخ DSH الأخرى ثم أعد المحاولة.',
 } satisfies Record<ModelKey, string>

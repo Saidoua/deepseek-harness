@@ -37,6 +37,7 @@ export const ar = {
   // A build label, not a sentence: the product name stays Latin so it matches
   // the binary, the docs, and what a user types to launch it.
   'brand.localBuild': 'DSH Local Build',
+  'workspace.defaultName': 'مساحة العمل الافتراضية',
   'unknown': 'غير معروف',
   'none': 'لا شيء',
   'truncated': 'مقتطع',

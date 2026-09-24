@@ -3,6 +3,7 @@ import type { SidebarFilesKey } from '@deepseek-ai/dsh-client-ui-sidebar-files/s
 
 /** Arabic dictionary, checked complete against the `sidebarFiles` key set. */
 export const ar = {
+  'shortcut.noSession': 'اختر محادثة أولًا',
   'type.label': 'الملفات',
   'guide.title': 'ملفات مساحة العمل',
   'guide.description': 'استعرض ملفات مساحة عمل هذه المحادثة',

@@ -60,6 +60,9 @@ describe('Arabic language pack', () => {
     expect(locale.bind('settings.subagent')('subagentTitle')).toBe('الوكيل الفرعي')
     expect(locale.bind('settings.webSearch')('title')).toBe('البحث في الويب')
     expect(locale.bind('sidebarExcel')('title')).toBe('جدول بيانات')
+    expect(locale.bind('schedule.manager')('detail.label')).toBe('تفاصيل المهمة')
+    expect(locale.bind('shortcuts')('title')).toBe('اختصارات لوحة المفاتيح')
+    expect(locale.bind('shortcuts.layout')('toggle')).toBe('طي الشريط الجانبي الأيسر أو فتحه')
   })
 
   it('leaves an untranslated key on the English fallback rather than the bare key', async () => {

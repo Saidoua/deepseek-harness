@@ -1,6 +1,22 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-09-09-configurable-seed-turn-sparing.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/feature/2026-09-09-configurable-seed-turn-sparing.md
-2026-09-09-configurable-seed-turn-sparing.md: bb39668e9a920fe95512657b6cd24535475d2d00
-2026-09-09-configurable-seed-turn-sparing.zh.md: 90f4076ae6ce8b7e5c145d621334f44fcd2bfe43
+/agent-note-seed-user-turn-sparing-is-a-compaction-basic-setting:
+  en: 70068a064f187877
+  zh: 41db538cd192ec6c
+/agent-note-seed-user-turn-sparing-is-a-compaction-basic-setting/problem:
+  en: 2bee3de11ca2d451
+  zh: 3f7c69bb018a484e
+/agent-note-seed-user-turn-sparing-is-a-compaction-basic-setting/decision:
+  en: 520283a78ce4d5a8
+  zh: a1ddf7ec2fd863df
+/agent-note-seed-user-turn-sparing-is-a-compaction-basic-setting/alternatives-considered:
+  en: 51afaf2db8309b5d
+  zh: 174648210cddb883
+/agent-note-seed-user-turn-sparing-is-a-compaction-basic-setting/consequences:
+  en: 0c1661bf95b79333
+  zh: 73daab5ce97a5962
+/agent-note-seed-user-turn-sparing-is-a-compaction-basic-setting/testing:
+  en: 3ae79d26ab05e51a
+  zh: 9c870261f6ee2e42

@@ -11,7 +11,7 @@
   background: none;
   color: var(--dsw-alias-label-tertiary);
   cursor: pointer;
-  text-align: inherit;
+  text-align: left;
   transition: color 100ms ease;
 }
 
@@ -31,7 +31,7 @@
   flex: none;
   width: 14px;
   height: 14px;
-  margin-inline-start: 4px;
+  margin-left: 4px;
   color: var(--dsw-alias-label-caption);
   transition: transform 100ms ease;
 }

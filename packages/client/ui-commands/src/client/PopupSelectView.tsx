@@ -124,7 +124,6 @@ export function PopupSelectView({ popup, t }: PopupSelectViewProps) {
         <MenuSurface
           ref={cardRef}
           className={css.card}
-          data-dsh-text-zone
           style={{ maxHeight }}
           aria-label={t('overlay.aria', { command: String(state.command) })}
           onKeyDown={onKeyDown}

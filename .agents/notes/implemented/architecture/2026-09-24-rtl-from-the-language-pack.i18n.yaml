@@ -1,0 +1,22 @@
+# Bilingual-pair consistency record for 2026-09-24-rtl-from-the-language-pack.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-09-24-rtl-from-the-language-pack.md
+/agent-note-the-arabic-pack-owns-its-reading-order-and-styles-shipped-markup:
+  en: 2af97ea6654a3b25
+  zh: 0b09bfb47caefa1b
+/agent-note-the-arabic-pack-owns-its-reading-order-and-styles-shipped-markup/problem:
+  en: 1457e87458af0a11
+  zh: f2b492818932fcb7
+/agent-note-the-arabic-pack-owns-its-reading-order-and-styles-shipped-markup/decision:
+  en: f8f2437d26103fa1
+  zh: 153d6264867e6ae3
+/agent-note-the-arabic-pack-owns-its-reading-order-and-styles-shipped-markup/alternatives-considered:
+  en: a526a898d93985b7
+  zh: 376d0580a85c5ca6
+/agent-note-the-arabic-pack-owns-its-reading-order-and-styles-shipped-markup/testing:
+  en: f594fb1472c0259b
+  zh: 8ee6bbed8dd05bd3
+/agent-note-the-arabic-pack-owns-its-reading-order-and-styles-shipped-markup/consequences:
+  en: eeac8ffd34abda8a
+  zh: 3d076c02c97c33e3

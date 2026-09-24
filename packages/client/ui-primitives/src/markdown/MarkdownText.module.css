@@ -66,10 +66,12 @@
   position: relative;
   text-decoration: none;
   /* Transparent hit-area padding; literal zero-alpha only (no painted color). */
-  border-inline: 3px solid rgb(255 255 255 / 0);
+  border-left: 3px solid rgb(255 255 255 / 0);
+  border-right: 3px solid rgb(255 255 255 / 0);
   border-top: 2px solid rgb(255 255 255 / 0);
   border-bottom: 2px solid rgb(255 255 255 / 0);
-  margin-inline: -3px;
+  margin-left: -3px;
+  margin-right: -3px;
 }
 
 .markdown a:hover,
@@ -94,12 +96,12 @@
   width: 1.1em;
   height: 1.1em;
   vertical-align: -0.25em;
-  margin-inline-end: 5px;
+  margin-right: 5px;
 }
 
 .markdown :where(ul, ol) {
   margin: 16px 0;
-  padding-inline-start: 18px;
+  padding-left: 18px;
 }
 
 .markdown li:not(:first-child) {
@@ -118,7 +120,7 @@
 /* Nested ol under ul/ol: markers inside (models sometimes emit this shape). */
 .markdown :where(ul, ol) ol {
   list-style-position: inside;
-  padding-inline-start: 0;
+  padding-left: 0;
 }
 
 .markdown :where(ul, ol) ol li p {
@@ -147,9 +149,9 @@
 }
 
 .markdown blockquote {
-  border-inline-start: 2px solid var(--dsw-alias-label-caption);
+  border-left: 2px solid var(--dsw-alias-label-caption);
   margin: 16px 0 0;
-  padding-inline-start: 14px;
+  padding-left: 14px;
 }
 
 .markdown pre {
@@ -261,11 +263,11 @@
 
 .tableScroll th:first-child,
 .tableScroll td:first-child {
-  padding-inline-start: 0;
+  padding-left: 0;
 }
 
 .tableScroll td:last-child {
-  padding-inline-end: 0;
+  padding-right: 0;
 }
 
 .tableScroll table code {
@@ -358,7 +360,7 @@
 }
 
 .compact blockquote {
-  padding-inline-start: 8px;
+  padding-left: 8px;
 }
 
 .compact hr {
@@ -409,7 +411,7 @@
   width: 100%;
   max-width: 100%;
   margin: 4px 0;
-  padding-inline-start: 0;
+  padding-left: 0;
 }
 
 .markdown.compact .tableScroll > table {

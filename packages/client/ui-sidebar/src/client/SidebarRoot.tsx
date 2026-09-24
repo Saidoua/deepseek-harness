@@ -296,7 +296,7 @@ export function SidebarRoot({
 
       {/* The browsing region fills the column between the controls and the
           foot in both states; its rail icon column rides the same slot. */}
-      <div className={css.regionArea} data-dsh-text-zone>
+      <div className={css.regionArea}>
         {renderSlot('sidebar.workspaces', {
           wide,
           expandSidebar: () => { if (collapsed) toggleSidebar() },
@@ -304,7 +304,7 @@ export function SidebarRoot({
       </div>
 
       {/* Footer actions stack above Settings in both sidebar widths. */}
-      <div className={css.footArea} data-dsh-text-zone>
+      <div className={css.footArea}>
         <div className={css.footerActions}>
           {renderSlot('sidebar.footer.action', { wide })}
         </div>

@@ -142,8 +142,7 @@
   align-items: center;
   gap: 8px;
   height: 40px;
-  padding-block: 9px;
-  padding-inline: 12px 16px;
+  padding: 9px 16px 9px 12px;
   box-sizing: border-box;
   border: none;
   border-radius: var(--dsw-radius-md);
@@ -154,7 +153,7 @@
   line-height: 22px;
   font-weight: 400;
   color: var(--dsw-alias-label-primary);
-  text-align: inherit;
+  text-align: left;
 }
 
 .navCell:hover {
@@ -203,7 +202,7 @@
   align-items: center;
   justify-content: flex-end;
   gap: 8px;
-  margin-inline-start: auto;
+  margin-left: auto;
 }
 
 /* Compact close control. */

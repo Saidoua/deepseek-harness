@@ -2,6 +2,8 @@
 
 Status: implemented
 
+Superseded in part by [The Arabic pack owns its reading order](../architecture/2026-09-24-rtl-from-the-language-pack.md): the pack now writes the root attribute and ships the stylesheet, and the locale `direction` field, the `ui-theme` sheet and spec, the component markers, and the logical-property migration are removed. The frame-does-not-mirror decision below still holds.
+
 English | [中文](2026-09-05-arabic-rtl-language-pack.zh.md)
 
 ## Problem
@@ -18,7 +20,7 @@ Arabic ships as one in-tree client plugin package, [`@deepseek-ai/dsh-client-loc
 
 ### Logical layout inside zones, gated
 
-Stylesheets of components that render inside a marked zone use logical inline-axis properties rather than physical ones: `margin-inline-start` over `margin-left`, `inset-inline-start` over `left`, `text-align: start` over `left`, and `border-start-start-radius` and siblings for corners. Chrome stylesheets outside zones keep their physical properties. [`text-direction-styles.client.spec.ts`](../../../../packages/client/ui-theme/tests/text-direction-styles.client.spec.ts), built on the existing [stylesheet scanner](../../../../packages/client/ui-theme/tests/stylesheet-scan.ts) like the corner-shape and elevation specs, pins the zone rule to exactly `text-align: right`, rejects the `direction` property in every package stylesheet, and rejects a physical inline-axis declaration in a zone package outside its allowlist. Logical properties render identically left-to-right, so the `en-US` replay goldens are the regression proof for the migration.
+Stylesheets of components that render inside a marked zone use logical inline-axis properties rather than physical ones: `margin-inline-start` over `margin-left`, `inset-inline-start` over `left`, `text-align: start` over `left`, and `border-start-start-radius` and siblings for corners. Chrome stylesheets outside zones keep their physical properties. `text-direction-styles.client.spec.ts`, built on the existing [stylesheet scanner](../../../../packages/client/ui-theme/tests/stylesheet-scan.ts) like the corner-shape and elevation specs, pins the zone rule to exactly `text-align: right`, rejects the `direction` property in every package stylesheet, and rejects a physical inline-axis declaration in a zone package outside its allowlist. Logical properties render identically left-to-right, so the `en-US` replay goldens are the regression proof for the migration.
 
 ### Text primitives
 
@@ -44,7 +46,7 @@ The package holds 34 dictionary files under `src/client/locales/`, about 1060 ke
 
 ## Testing
 
-The pack's unit spec covers registration and fallback; [`text-direction-styles.client.spec.ts`](../../../../packages/client/ui-theme/tests/text-direction-styles.client.spec.ts) pins the alignment rule, the absent `direction` property, and the logical-property migration; [`arabic-language-pack.e2e.ts`](../../../../apps/web/tests/arabic-language-pack.e2e.ts) drives the language switch in a browser beside the existing [settings language switch](../../../../apps/web/tests/settings-chrome.e2e.ts). Existing `en-US` replay goldens and browser scenarios pass unchanged, which is what proves the migration moved nothing left-to-right.
+The pack's unit spec covers registration and fallback; `text-direction-styles.client.spec.ts` pins the alignment rule, the absent `direction` property, and the logical-property migration; [`arabic-language-pack.e2e.ts`](../../../../apps/web/tests/arabic-language-pack.e2e.ts) drives the language switch in a browser beside the existing [settings language switch](../../../../apps/web/tests/settings-chrome.e2e.ts). Existing `en-US` replay goldens and browser scenarios pass unchanged, which is what proves the migration moved nothing left-to-right.
 
 ## Consequences
 

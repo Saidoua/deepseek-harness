@@ -50,14 +50,6 @@ declare module '@deepseek-ai/dsh-client-ui-slots' {
 /** Locale dictionary: flat key to template string ({name} placeholders). */
 export type LocaleDict = Record<string, string>
 
-/**
- * Reading order of a language's text. The document itself never changes
- * direction: the active value reaches the root as `data-dsh-text-direction`,
- * and only elements marked `data-dsh-text-zone` follow it through the
- * ui-theme zone rule; the frame, sidebar, and chrome keep `ltr` layout.
- */
-export type TextDirection = 'ltr' | 'rtl'
-
 /** Input accepted when a language-pack plugin adds a selectable language. */
 export interface LanguageRegistration {
   /** Stable BCP 47-style id stored as the locale preference. */
@@ -66,8 +58,6 @@ export interface LanguageRegistration {
   label: string
   /** Registered language consulted when this language lacks a dictionary key. */
   fallback: LocaleId
-  /** Reading order of the language's text; absent means `ltr`. */
-  direction?: TextDirection
 }
 
 /** One normalized selectable locale published in snapshots. */
@@ -78,8 +68,6 @@ export interface LocaleDefinition {
   readonly label: string
   /** Next language in the per-key fallback chain; absent only for English. */
   readonly fallback?: LocaleId
-  /** Reading order of the language's text; absent means `ltr`. */
-  readonly direction?: TextDirection
 }
 
 /** Immutable locale state published on every change. */
@@ -149,40 +137,19 @@ function normalizeLanguage(input: LanguageRegistration): Readonly<LanguageRegist
   if (!LOCALE_ID_PATTERN.test(input.fallback)) {
     throw new Error(`locale fallback "${input.fallback}" is not a BCP 47-style tag`)
   }
-  return Object.freeze({
-    id: input.id,
-    label: input.label,
-    fallback: input.fallback,
-    ...(input.direction === undefined ? {} : { direction: input.direction }),
-  })
+  return Object.freeze({ id: input.id, label: input.label, fallback: input.fallback })
 }
 
 /**
- * Root attribute carrying the active language's {@link TextDirection}. The
- * ui-theme zone rule reads it; `html[dir]` is deliberately never written so
- * the application frame keeps its left-to-right placement in every language.
- */
-const TEXT_DIRECTION_ATTRIBUTE = 'data-dsh-text-direction'
-
-/**
- * Point `<html lang>` and the root text-direction attribute at the active
- * locale, keeping the served document in sync with locale snapshot changes.
+ * Point `<html lang>` at the active locale, keeping the served document in
+ * sync with locale snapshot changes.
  * @param snapshot - current locale state, including the active definition.
  */
 function syncDocumentLanguage(snapshot: LocaleSnapshot): void {
   // Non-browser runs (node boots of the client tree) have no document.
   if (typeof document === 'undefined') return
-  const root = document.documentElement
   const language = snapshot.active === 'zh' ? 'zh-CN' : snapshot.active
-  if (root.lang !== language) root.lang = language
-  const active = snapshot.locales.find(locale => locale.id === snapshot.active)
-  root.setAttribute(TEXT_DIRECTION_ATTRIBUTE, active?.direction ?? 'ltr')
-}
-
-/** Retract the root text-direction attribute when the locale plugin unloads. */
-function clearDocumentDirection(): void {
-  if (typeof document === 'undefined') return
-  document.documentElement.removeAttribute(TEXT_DIRECTION_ATTRIBUTE)
+  if (document.documentElement.lang !== language) document.documentElement.lang = language
 }
 
 /**
@@ -635,13 +602,7 @@ export async function apply(ctx: ClientContext): Promise<void> {
   // The served markup declares one language; the resolved locale may differ
   // (browser detection, or a stored preference adopted after activation), so
   // state it once at activation rather than waiting for the first change.
-  // Only the direction attribute is retracted on unload: `<html lang>` keeps
-  // describing the last active language, while a stale `rtl` would leave
-  // every text zone mirrored with no plugin to correct it.
-  ctx.effect(() => {
-    sync()
-    return clearDocumentDirection
-  }, 'locale: document text direction')
+  sync()
   const injected = (actions: BoundActions<typeof store>): LanguageRowInjected => {
     bound = actions
     // Re-sync from the getter so no event is lost between registration and

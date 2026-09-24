@@ -8,7 +8,7 @@ import { afterAll, beforeAll, describe, expect, it, onTestFailed } from 'vitest'
 import { launchWebScaffold, watchConsole, type WebScaffold } from './scaffold.ts'
 import { newEnglishPage, saveFailureShot } from './support.ts'
 
-/** Root attribute the locale plugin writes for the active language. */
+/** Root attribute the Arabic pack writes while Arabic is active. */
 const DIRECTION_ATTRIBUTE = 'data-dsh-text-direction'
 /** The language's own name, as the pack registers it in the catalog. */
 const ARABIC_LABEL = 'العربية'
@@ -43,7 +43,7 @@ describe('web e2e: Arabic language pack', () => {
       document.querySelector('[role="dialog"]')?.closest('[role="presentation"]')?.remove()
     })
     const sidebarBefore = await page.locator('[class*="sidebarCol"]').first().boundingBox()
-    expect(await page.getAttribute('html', DIRECTION_ATTRIBUTE)).toBe('ltr')
+    expect(await page.getAttribute('html', DIRECTION_ATTRIBUTE)).toBeNull()
 
     // The pack registers the language into the shared catalog, so it reaches
     // the product's own Settings row with no wiring of its own.

@@ -126,7 +126,7 @@ export function ReadBlock({
     [line, highlighted?.[index]])
 
   return (
-    <div ref={rootRef} className={clsx(cardCss.card, css.block, className)} data-read="" data-code-wrap={wrapped} style={gutterStyle} dir="ltr">
+    <div ref={rootRef} className={clsx(cardCss.card, css.block, className)} data-read="" data-code-wrap={wrapped} style={gutterStyle}>
       <CodeToolbar
         lang={lang} title={label} status={windowed ? labels.window(lines.length, totalLines) : undefined}
         labels={labels} copyLabel={labels.copy} copiedLabel={labels.copied} copied={copied} wrapped={wrapped}

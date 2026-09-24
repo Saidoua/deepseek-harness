@@ -1,15 +1,15 @@
 // Keyless assembled-browser coverage for zone-scoped text alignment over the
-// shipped Web bundles. The locale plugin's own specs pin that a right-to-left
-// language reaches the root attribute; this scenario pins what that attribute
-// does to the rendered page, which only a real browser resolves: marked text
-// moves to the right while every box stays exactly where the design put it.
+// shipped Web bundles. The Arabic pack's own specs pin that it writes the root
+// attribute; this scenario pins what the pack's stylesheet does with it on the
+// rendered page, which only a real browser resolves: zone text moves to the
+// right while every box stays exactly where the design put it.
 import type { Browser, Page } from 'playwright'
 import { chromium } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it, onTestFailed } from 'vitest'
 import { launchWebScaffold, watchConsole, type WebScaffold } from './scaffold.ts'
 import { newEnglishPage, saveFailureShot } from './support.ts'
 
-/** Root attribute the locale plugin writes for a right-to-left language. */
+/** Root attribute the Arabic pack writes while Arabic is active. */
 const DIRECTION_ATTRIBUTE = 'data-dsh-text-direction'
 /** Arabic sample: first-strong right-to-left, so bidi resolution is observable. */
 const ARABIC = 'اكتب اختبارًا للواجهة'
@@ -28,11 +28,23 @@ async function box(page: Page, selector: string) {
   })
 }
 
-/** Apply or retract the root attribute exactly as the locale plugin does. */
+/** Apply or retract the root attribute exactly as the Arabic pack does. */
 async function setDirection(page: Page, value: 'ltr' | 'rtl'): Promise<void> {
   await page.evaluate(([attribute, next]) => {
-    document.documentElement.setAttribute(attribute, next)
+    if (next === 'rtl') document.documentElement.setAttribute(attribute, next)
+    else document.documentElement.removeAttribute(attribute)
   }, [DIRECTION_ATTRIBUTE, value])
+}
+
+/** Which edge of its block a paragraph's text sits against, from the rendered glyph box. */
+async function textEdge(page: Page, selector: string): Promise<'left' | 'right'> {
+  return await page.locator(selector).first().evaluate((node) => {
+    const block = node.getBoundingClientRect()
+    const range = document.createRange()
+    range.selectNodeContents(node)
+    const text = range.getBoundingClientRect()
+    return text.left - block.left < block.right - text.right ? 'left' : 'right'
+  })
 }
 
 describe('web e2e: zone-scoped text direction', () => {
@@ -72,9 +84,9 @@ describe('web e2e: zone-scoped text direction', () => {
     await page.locator(composer).first().click({ force: true })
     await page.keyboard.type(ARABIC)
 
-    // The served page opens left-to-right, so this is the baseline every
-    // assertion below is a delta from.
-    expect(await page.getAttribute('html', DIRECTION_ATTRIBUTE)).toBe('ltr')
+    // The served page opens in English, where the pack claims nothing on the
+    // root, so this is the baseline every assertion below is a delta from.
+    expect(await page.getAttribute('html', DIRECTION_ATTRIBUTE)).toBeNull()
     const frameBefore = await box(page, '[class*="sidebarCol"]')
     const composerBefore = await box(page, composer)
     expect(composerBefore.textAlign).toBe('start')
@@ -82,7 +94,7 @@ describe('web e2e: zone-scoped text direction', () => {
     // is typed rather than the interface language; the zone around it carries
     // product copy and is what the language moves.
     const zone = '[class*="regionArea"]'
-    expect((await box(page, zone)).textAlign).toBe('start')
+    const zoneBefore = await box(page, zone)
 
     await setDirection(page, 'rtl')
     const frameAfter = await box(page, '[class*="sidebarCol"]')
@@ -103,8 +115,39 @@ describe('web e2e: zone-scoped text direction', () => {
     expect(composerAfter.width).toBe(composerBefore.width)
 
     await setDirection(page, 'ltr')
-    expect((await box(page, zone)).textAlign).toBe('start')
+    expect((await box(page, zone)).textAlign).toBe(zoneBefore.textAlign)
     expect(tripwire.warnings).toEqual([])
+    expect(tripwire.pageErrors).toEqual([])
+  })
+
+  it('lets every paragraph of authored text follow its own words', async () => {
+    onTestFailed(() => saveFailureShot(page, 'web-e2e-text-direction-authored'))
+    // A reply that opens in English and continues in Arabic, a message the
+    // reader wrote, and a code block, under class names spelled the way the
+    // client bundler spells the shipped components' (`<hash>_markdown`).
+    await page.evaluate((arabic) => {
+      const flow = document.createElement('div')
+      flow.dataset.chatFlow = ''
+      flow.id = 'authored-probe'
+      flow.style.width = '600px'
+      flow.innerHTML = '<div class="Pr0be_markdown"><p id="p-en">An English opening line</p>'
+        + `<p id="p-ar">${arabic}</p><pre id="p-code">const x = 1</pre></div>`
+        + `<div class="Pr0be_bubble" id="p-bubble">${arabic}</div>`
+      document.body.appendChild(flow)
+    }, ARABIC)
+    for (const value of ['ltr', 'rtl'] as const) {
+      await setDirection(page, value)
+      // Each paragraph resolves its own reading order, so the Arabic one sits
+      // on the right even after an English opening, in either interface.
+      expect(await textEdge(page, '#p-en')).toBe('left')
+      expect(await textEdge(page, '#p-ar')).toBe('right')
+      expect(await textEdge(page, '#p-bubble')).toBe('right')
+      // Code keeps its column order inside a right-aligned zone.
+      expect(await textEdge(page, '#p-code')).toBe('left')
+      expect((await box(page, '#p-ar')).direction).toBe('ltr')
+    }
+    await setDirection(page, 'ltr')
+    await page.evaluate(() => { document.getElementById('authored-probe')?.remove() })
     expect(tripwire.pageErrors).toEqual([])
   })
 })

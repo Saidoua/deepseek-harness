@@ -194,6 +194,6 @@ export const MarkdownText = memo(function MarkdownText({
     }
     return streamRef.current.render(text)
   }, [text, streaming, labels, fileMentions, pathImages])
-  return <div className={clsx(css.markdown, variant === 'compact' && css.compact)} dir="auto" data-dsh-text-auto
+  return <div className={clsx(css.markdown, variant === 'compact' && css.compact)}
     data-markdown-variant={variant === 'compact' ? variant : undefined}>{children}</div>
 })

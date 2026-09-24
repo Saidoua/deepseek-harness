@@ -99,7 +99,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-inline-end: 6px;
+  margin-right: 6px;
   color: var(--dsw-alias-label-tertiary);
 }
 

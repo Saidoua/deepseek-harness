@@ -34,7 +34,7 @@ export function DraftEditor({
 }: DraftEditorProps): ReactNode {
   return (
     <div ref={scrollRef} className={css.scroll} data-input-scroll>
-      <div className={css.grow} data-dsh-text-zone>
+      <div className={css.grow}>
         <ComposerContentEditable
           editor={workspaceTrigger ? null : editor}
           editable={editable}

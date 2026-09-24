@@ -137,10 +137,10 @@ export function GoalBar({ goal, activation, onEdit, onPause, onResume, onClear, 
     || (goal.phase === 'active' && activation === 'disarmed')
   return (
     <div className={css.dock} data-goal-bar>
-      <div className={css.bar} title={title} data-dsh-text-zone>
+      <div className={css.bar} title={title}>
         <span className={css.goalGlyph}><IconGoalOutlineRegular size={14} /></span>
         <span className={css.label}>{label}</span>
-        <span className={css.objective} dir="auto" data-dsh-text-auto>{goal.objective}</span>
+        <span className={css.objective}>{goal.objective}</span>
         {actionError !== null && <span className={css.error} role="alert">{actionError}</span>}
         <div className={css.actions}>
           {goal.phase === 'active' && activation === 'armed' && (

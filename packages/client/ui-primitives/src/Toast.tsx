@@ -84,7 +84,7 @@ export function Toast({ text, icon, tone, anchor, holdMs = HOLD_MS, actions, onD
       {tone === 'success'
         ? <span className={`${css.icon} ${css.success}`} aria-hidden><IconCheckCircleOutlineRegular /></span>
         : icon !== undefined && <span className={css.icon} aria-hidden>{icon}</span>}
-      <span className={css.text} data-dsh-text-zone>
+      <span className={css.text}>
         {text}
         {actions?.map(action => (
           <Fragment key={action.label}>

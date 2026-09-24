@@ -188,7 +188,6 @@ export function Tooltip({ label, shortcutKeys, side = 'right', align = 'center',
       style={{ left: pos.x, top: y, visibility: 'hidden', ...maxWidth === undefined ? {} : { maxWidth } }}
       role="tooltip"
       aria-label={shortcutKeys?.length ? [resolvedLabel, shortcutKeys.join(' ')].filter(Boolean).join(' ') : undefined}
-      data-dsh-text-zone
     >
       {resolvedLabel && <span className={css.label}>{resolvedLabel}</span>}
       {shortcutKeys !== undefined && shortcutKeys.length > 0 && <ShortcutKeys keys={shortcutKeys} variant="tooltip" />}

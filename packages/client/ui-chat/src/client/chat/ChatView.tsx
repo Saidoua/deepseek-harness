@@ -231,7 +231,7 @@ export function ChatView({
       )}
       <div className={css.root} data-chat-following-tail={scroll.followingTail ? '' : undefined}>
         <div ref={scroll.listRef} className={css.scroll}>
-          <div ref={scroll.columnRef} className={css.column} data-chat-flow="" data-dsh-text-zone>
+          <div ref={scroll.columnRef} className={css.column} data-chat-flow="">
             {openState === 'loading' && <div className={css.hint}>{t('chat.loadingHistory')}</div>}
             {openState === 'error' && openError !== null && (
               <div className={css.openError}>

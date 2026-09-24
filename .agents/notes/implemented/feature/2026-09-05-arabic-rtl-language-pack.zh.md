@@ -2,6 +2,8 @@
 
 Status: implemented
 
+本记录的一部分已被[阿拉伯语语言包自行持有阅读顺序](../architecture/2026-09-24-rtl-from-the-language-pack.zh.md)取代：现在由语言包写入根属性并随附样式表，locale 的 `direction` 字段、`ui-theme` 的样式表与规范、组件标记以及逻辑属性迁移均已移除。下文“框架不镜像”的决策依然有效。
+
 [English](2026-09-05-arabic-rtl-language-pack.md) | 中文
 
 ## 问题
@@ -18,7 +20,7 @@ Web GUI 内置 `zh` 与 `en`，[`dsh-client-locale`](../../../../packages/client
 
 ### 区域内的逻辑布局，并设门禁
 
-在标记区域内渲染的组件，其样式表使用逻辑行内轴属性而非物理属性：以 `margin-inline-start` 取代 `margin-left`，以 `inset-inline-start` 取代 `left`，以 `text-align: start` 取代 `left`，圆角使用 `border-start-start-radius` 及其同族。区域之外的外框样式表保留物理属性。[`text-direction-styles.client.spec.ts`](../../../../packages/client/ui-theme/tests/text-direction-styles.client.spec.ts) 基于既有[样式表扫描器](../../../../packages/client/ui-theme/tests/stylesheet-scan.ts)、与 corner-shape 和 elevation 规范同类，将区域规则钉死为恰好 `text-align: right`，在所有包样式表中拒绝 `direction` 属性，并拒绝区域包中豁免清单之外的物理行内轴声明。逻辑属性在从左到右下渲染结果完全一致，因此 `en-US` 回放基准就是该迁移的回归证据。
+在标记区域内渲染的组件，其样式表使用逻辑行内轴属性而非物理属性：以 `margin-inline-start` 取代 `margin-left`，以 `inset-inline-start` 取代 `left`，以 `text-align: start` 取代 `left`，圆角使用 `border-start-start-radius` 及其同族。区域之外的外框样式表保留物理属性。`text-direction-styles.client.spec.ts` 基于既有[样式表扫描器](../../../../packages/client/ui-theme/tests/stylesheet-scan.ts)、与 corner-shape 和 elevation 规范同类，将区域规则钉死为恰好 `text-align: right`，在所有包样式表中拒绝 `direction` 属性，并拒绝区域包中豁免清单之外的物理行内轴声明。逻辑属性在从左到右下渲染结果完全一致，因此 `en-US` 回放基准就是该迁移的回归证据。
 
 ### 文本基础组件
 
@@ -44,7 +46,7 @@ Web GUI 内置 `zh` 与 `en`，[`dsh-client-locale`](../../../../packages/client
 
 ## 测试
 
-该包的单元规范覆盖注册与回退；[`text-direction-styles.client.spec.ts`](../../../../packages/client/ui-theme/tests/text-direction-styles.client.spec.ts) 钉住对齐规则、缺席的 `direction` 属性与逻辑属性迁移；[`arabic-language-pack.e2e.ts`](../../../../apps/web/tests/arabic-language-pack.e2e.ts) 在浏览器中驱动语言切换，紧邻既有的[设置语言切换](../../../../apps/web/tests/settings-chrome.e2e.ts)。既有 `en-US` 回放基准与浏览器场景原样通过，这正是该迁移在从左到右下未移动任何元素的证明。
+该包的单元规范覆盖注册与回退；`text-direction-styles.client.spec.ts` 钉住对齐规则、缺席的 `direction` 属性与逻辑属性迁移；[`arabic-language-pack.e2e.ts`](../../../../apps/web/tests/arabic-language-pack.e2e.ts) 在浏览器中驱动语言切换，紧邻既有的[设置语言切换](../../../../apps/web/tests/settings-chrome.e2e.ts)。既有 `en-US` 回放基准与浏览器场景原样通过，这正是该迁移在从左到右下未移动任何元素的证明。
 
 ## 后果
 

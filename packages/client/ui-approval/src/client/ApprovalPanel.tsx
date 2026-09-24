@@ -62,7 +62,7 @@ function ApprovalFlow({ pending, reason, detail, t }: {
       onKeyUpCapture={() => { compositionEnded.current = false }}
       onCompositionStartCapture={() => { composing.current = true }}
       onCompositionEndCapture={() => { composing.current = false; compositionEnded.current = true }}>
-      <div className={css.card} data-dsh-text-zone>
+      <div className={css.card}>
         <div className={css.strip}><StateDot state={answered ? 'ongoing' : 'warning'} />{t('waiting')}</div>
         <div
           className={css.body}

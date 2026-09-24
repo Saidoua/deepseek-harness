@@ -1,0 +1,82 @@
+/* Arabic changes wording and alignment, never layout.
+ *
+ * The pack publishes `data-dsh-text-direction="rtl"` on the root while Arabic
+ * is active and never writes `html[dir]`. This sheet deliberately does not set
+ * the `direction` property either: `direction` reorders flex and grid children,
+ * which would move the settings navigation, the row controls, and every icon
+ * beside a label. A bilingual reader meets the same layout in every language,
+ * so only text moves to the reading edge.
+ *
+ * Every selector targets something the shipped components already render — a
+ * `data-*` attribute, an ARIA role, a global class, or the local name inside a
+ * CSS-module class — so the pack marks nothing in the components it styles. A
+ * module class is matched as a whole token in both spellings the toolchain
+ * produces: `<hash>_<local>` from the client bundler, `_<local>_<hash>` from
+ * Vite under test. When a component renames one of these, this sheet
+ * stops matching it; the Web end-to-end suite pins each surface it relies on. */
+
+/* Zones carry product copy and align to the reading edge. */
+:root[data-dsh-text-direction='rtl'] :is(
+  [data-chat-flow],
+  [data-approval-key] > div,
+  [data-question-key] > section,
+  [data-input-scroll] > div,
+  [data-goal-bar] > div,
+  [data-trigger-menu],
+  [data-menu-material],
+  [role='menu'],
+  [role='dialog'],
+  [role='tooltip'],
+  body > [role='alert'],
+  :is([class$='_regionArea'], [class*='_regionArea '], [class*='_regionArea_']),
+  :is([class$='_footArea'], [class*='_footArea '], [class*='_footArea_'])
+) {
+  text-align: right;
+}
+
+/* Rows and list controls inside a zone set their own left alignment; they
+   follow the zone instead. A control sized to its label shows no change. */
+:root[data-dsh-text-direction='rtl'] :is(
+  [data-chat-flow],
+  [data-trigger-menu],
+  [data-menu-material],
+  [role='menu'],
+  [role='dialog'],
+  :is([class$='_regionArea'], [class*='_regionArea '], [class*='_regionArea_']),
+  :is([class$='_footArea'], [class*='_footArea '], [class*='_footArea_'])
+) :is(button, [role='option'], [role='menuitem'], [role='menuitemradio'], [role='treeitem']) {
+  text-align: right;
+}
+
+/* Source text, command output, diffs, file content and structured data keep
+   their column order: the left edge is part of what they mean. */
+:root[data-dsh-text-direction='rtl'] :is(
+  pre,
+  .md-code-block,
+  [data-diff],
+  [data-read],
+  [data-terminal],
+  [role='tree']:has([data-json-expander], [data-json-copy-button])
+) {
+  text-align: left;
+}
+
+/* Authored text — replies, the messages a reader writes, the draft being
+   typed, goals and file names — follows its own words, paragraph by paragraph.
+   `plaintext` resolves each paragraph from its first strong character and does
+   not inherit, so it is applied to every block that holds a paragraph; `start`
+   then lands an Arabic paragraph on the right and an English one on the left
+   inside the same message. Applies in every language, as mixed-script text
+   exists outside Arabic too. */
+:is([class$='_markdown'], [class*='_markdown '], [class*='_markdown_']),
+:is([class$='_markdown'], [class*='_markdown '], [class*='_markdown_']) :is(p, li, h1, h2, h3, h4, h5, h6, blockquote, dt, dd, td, th, figcaption),
+[data-chat-flow] :is([class$='_bubble'], [class*='_bubble '], [class*='_bubble_']),
+[data-composer-input],
+[data-composer-input] > *,
+[data-goal-bar] > div > span:nth-of-type(3),
+[data-trigger-menu] nav button,
+[data-trigger-menu] [role='presentation']:not([data-source]),
+[data-trigger-menu] [role='option'] > span:not([aria-hidden]) {
+  unicode-bidi: plaintext;
+  text-align: start;
+}

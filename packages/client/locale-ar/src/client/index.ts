@@ -4,9 +4,10 @@
  * unloading it removes the language and its copy together.
  *
  * The pack contributes translations and the language's reading order; it does
- * not decide layout. `direction: 'rtl'` reaches the document through the
- * locale runtime's root attribute, and the theme's single rule applies it to
- * the marked text zones ([decision](../../../../.agents/notes/implemented/feature/2026-09-05-arabic-rtl-language-pack.md)).
+ * not decide layout. While Arabic is active it writes the root text-direction
+ * attribute and mounts its own stylesheet, which aligns text on surfaces the
+ * shipped components already expose, so no component carries a marker for it
+ * ([decision](../../../../.agents/notes/implemented/architecture/2026-09-24-rtl-from-the-language-pack.md)).
  *
  * Every dictionary is checked against its namespace's key union at compile
  * time, so a key added upstream without an Arabic counterpart fails this
@@ -71,6 +72,7 @@ import { ar as subagent } from './locales/subagent.ts'
 import { ar as trajectory } from './locales/trajectory.ts'
 import { ar as workflowRun } from './locales/workflow-run.ts'
 import { ar as workspace } from './locales/workspace.ts'
+import { installTextDirection } from './text-direction.ts'
 
 /** The locale id this pack contributes, and the id stored as the preference. */
 export const AR = 'ar'
@@ -142,7 +144,8 @@ const DICTIONARIES: Readonly<Record<string, Readonly<Record<string, string>>>> =
 export const inject = ['locale']
 
 /**
- * Client plugin body: add the language, then its dictionaries.
+ * Client plugin body: add the language, then its dictionaries, then the
+ * reading-order stylesheet and root attribute.
  *
  * The order does not matter to the registry, but the language is added first
  * so a dictionary failure leaves a selectable language falling back to
@@ -154,7 +157,7 @@ export function apply(ctx: ClientContext): void {
     () => ctx.locale.addLanguage({
       // The label is written in the language it names, so a reader who cannot
       // read the current interface language still finds their own.
-      id: AR, label: 'العربية', fallback: 'en', direction: 'rtl',
+      id: AR, label: 'العربية', fallback: 'en',
     }),
     'locale-ar: language',
   )
@@ -164,4 +167,5 @@ export function apply(ctx: ClientContext): void {
       `locale-ar: ${namespace} dictionary`,
     )
   }
+  installTextDirection(ctx, AR)
 }

@@ -50,24 +50,20 @@ export const inject = ['locale']
 
 export function apply(ctx) {
   ctx.effect(
-    () => ctx.locale.addLanguage({ id: 'ar', label: 'العربية', fallback: 'en', direction: 'rtl' }),
+    () => ctx.locale.addLanguage({ id: 'ja', label: '日本語', fallback: 'en' }),
     'my-locale: language',
   )
   ctx.effect(
-    () => ctx.locale.register('common', 'ar', {
-      cancel: 'إلغاء',
-      close: 'إغلاق',
+    () => ctx.locale.register('common', 'ja', {
+      cancel: 'キャンセル',
+      close: '閉じる',
     }),
     'my-locale: common dictionary',
   )
 }
 ```
 
-An external id is a non-empty ASCII BCP 47-style tag. `direction` names the language's reading order and defaults to `ltr`. Its fallback must already be registered, and the chain must terminate at `en`; unknown targets, duplicate ids, and cycles fail at registration. Lookup walks the fallback chain in the requested namespace, repeats it in `common`, then displays the key. Unloading a definition removes it from the selector and returns an active selection to the available browser/default locale.
-
-### Text direction
-
-The active language's `direction` reaches the document as `data-dsh-text-direction` on the root element. `html[dir]` is never written, so the application frame, sidebar, and chrome keep left-to-right placement in every language. Only elements a component marks with `data-dsh-text-zone` follow the language, through the single rule ui-theme owns in `text-direction.css`: their text aligns to the reading edge. The rule changes alignment and nothing else — it never sets the `direction` property, which would reorder flex and grid children and move the design. User- and model-authored text does not follow the interface language: it carries `dir="auto"`, and each of its paragraphs resolves from its own first strong character, so an English reply inside an Arabic interface stays left-to-right. A component that must stay left-to-right regardless of language — code, terminal output, diffs, paths — pins `dir="ltr"` on its own element. Unloading the locale plugin retracts the root attribute, so no zone is left aligned to a reading edge the interface no longer uses.
+An external id is a non-empty ASCII BCP 47-style tag. Its fallback must already be registered, and the chain must terminate at `en`; unknown targets, duplicate ids, and cycles fail at registration. Lookup walks the fallback chain in the requested namespace, repeats it in `common`, then displays the key. Unloading a definition removes it from the selector and returns an active selection to the available browser/default locale.
 
 ### What the Host half does
 
@@ -139,7 +135,7 @@ None; this package neither assembles nor sends a provider request.
 These limits define where localization is incomplete or frozen at registration time. They are current package constraints, not a task backlog.
 
 - **Registry-held text reads its translation once** — copy captured at registration time outside the slot render path (e.g. the `/model` command description in the command registry) keeps the language it was registered under until re-registration; slot-rendered copy follows switches live.
-- **Language packs own language-specific behavior** — the registry supplies selection, persistence, browser matching, key fallback, `<html lang>`, and the root text-direction attribute; it does not add plural rules, and a zone follows the reading order only where a component marks one.
+- **Language packs own language-specific behavior** — the registry supplies selection, persistence, browser matching, key fallback, and `<html lang>`; it does not add plural rules or bidirectional layout.
 
 <a id="dev-note"></a>
 ### Dev Note

@@ -177,13 +177,12 @@
      intrinsic height, and centered content then paints outside the row box —
      over the title and the next row. Overflow belongs to .options. */
   flex-shrink: 0;
-  padding-block: 8px;
-  padding-inline: 8px 12px;
+  padding: 8px 12px 8px 8px;
   border: 1px solid transparent;
   border-radius: var(--dsw-radius-md);
   background: transparent;
   color: inherit;
-  text-align: inherit;
+  text-align: left;
   cursor: pointer;
   transition: background-color 120ms ease, border-color 120ms ease;
 }
@@ -307,8 +306,7 @@
   /* Same reason as .option: the custom row is scroll content, and shrinking
      it pushes the inline input past the footer. */
   flex-shrink: 0;
-  padding-block: 8px;
-  padding-inline: 8px 12px;
+  padding: 8px 12px 8px 8px;
   border: 1px solid transparent;
   border-radius: var(--dsw-radius-md);
   transition: background-color 120ms ease, border-color 120ms ease;
@@ -418,7 +416,7 @@
   color: var(--dsw-alias-state-error-primary);
   font-size: 11px;
   line-height: 16px;
-  text-align: end;
+  text-align: right;
 }
 
 @media (max-width: 720px) {

@@ -49,7 +49,7 @@ export function PlanChip({ useProjection, locked, exitPlanMode, t }: PlanChipPro
   }
 
   return (
-    <span className={css.wrap} data-dsh-text-zone>
+    <span className={css.wrap}>
       <button
         type="button"
         className={css.chip}

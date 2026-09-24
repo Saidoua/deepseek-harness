@@ -196,7 +196,7 @@ export function DiffBlock({ diffs, labels, maxLines = DEFAULT_DIFF_MAX_LINES, cl
   const tail = capped ? rows.slice(rows.length - tailLines) : []
 
   return (
-    <div className={clsx(cardCss.card, css.block, className)} data-diff="" data-code-wrap={wrapped} dir="ltr">
+    <div className={clsx(cardCss.card, css.block, className)} data-diff="" data-code-wrap={wrapped}>
       <CodeToolbar lang={language} labels={labels} copyLabel={labels.copy} copiedLabel={labels.copied}
         copied={copied} wrapped={wrapped} onCopy={onCopy} onWrap={() => { setWrapped(value => !value) }} />
       <div className={css.body}>

@@ -106,7 +106,7 @@
   font-size: 13px;
   line-height: 20px;
   color: var(--dsw-alias-label-primary);
-  text-align: inherit;
+  text-align: left;
 }
 
 .item:hover:not(:disabled) {

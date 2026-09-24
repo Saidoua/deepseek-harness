@@ -3,8 +3,8 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/feature/2026-09-05-arabic-rtl-language-pack.md
 /agent-note-arabic-language-pack-and-zone-scoped-right-to-left-text:
-  en: 569ef1b2e4c9ede5
-  zh: d935262d9356893f
+  en: 862121f6e11f70b6
+  zh: ec0aa9d5c6e47f6a
 /agent-note-arabic-language-pack-and-zone-scoped-right-to-left-text/problem:
   en: 31ed25f498e7eef7
   zh: fe91077fd1e8cac5
@@ -15,8 +15,8 @@
   en: f03d75e0e850662d
   zh: 313e16a919e52097
 /agent-note-arabic-language-pack-and-zone-scoped-right-to-left-text/decision/logical-layout-inside-zones-gated:
-  en: 343019dd1372c55d
-  zh: 0476aa65ab5cebab
+  en: 276bb001ae95d160
+  zh: f74906b5a82ea3eb
 /agent-note-arabic-language-pack-and-zone-scoped-right-to-left-text/decision/text-primitives:
   en: 169ac8968db1d3b2
   zh: 4e7119584869ed1a
@@ -27,8 +27,8 @@
   en: 0f3b3472f5a0375a
   zh: 6973ea1c30aae172
 /agent-note-arabic-language-pack-and-zone-scoped-right-to-left-text/testing:
-  en: b4ff8b1bbe6798c8
-  zh: c0df0beea402547a
+  en: 5b098817eff7e4e8
+  zh: 6f3bb522172fbaaf
 /agent-note-arabic-language-pack-and-zone-scoped-right-to-left-text/consequences:
   en: f2634af131397c8b
   zh: b42865e18145549e

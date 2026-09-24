@@ -829,7 +829,7 @@ export function JsonTree({
           </div>
         )
         : (
-          <div aria-label={label} className={css.container} role="tree" dir="ltr">
+          <div aria-label={label} className={css.container} role="tree">
             <JsonTreeNode
               collapsedStringLines={collapsedStringLines}
               stringWrapping={stringWrapping}

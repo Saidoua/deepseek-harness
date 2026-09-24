@@ -131,9 +131,9 @@
    anchors them to its frame; the shared host supplies the sticky scrollport. */
 .toBottomSlot {
   position: absolute;
-  inset-inline-end: 0;
+  right: 0;
   bottom: 16px;
-  inset-inline-start: 0;
+  left: 0;
   /* Above the sticky composer (z-index 7) so the control stays clickable and
      visible over the input card. Exception: while an @/slash menu is open the
      seat lifts to 9 (ui-conversation ConversationRoot) so the menu is never

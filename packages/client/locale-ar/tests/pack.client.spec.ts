@@ -7,13 +7,22 @@
  * checks is the namespace *id* each dictionary registers under — a typo there
  * registers Arabic copy that nothing ever reads, and the UI silently falls
  * back to English. This spec pins those ids against the namespaces the shipped
- * packages register, and pins that the language reaches the catalog with the
- * reading order the document attribute is driven from.
+ * packages register, and pins the reading-order attribute and stylesheet the
+ * pack owns for exactly its lifetime.
  */
 import { Context } from '@deepseek-ai/cordis'
-import { describe, expect, it } from 'vitest'
+import { afterEach, describe, expect, it } from 'vitest'
 import { LocaleRuntime } from '@deepseek-ai/dsh-client-locale/client'
 import { AR, apply, inject } from '../src/client/index.ts'
+import { STYLESHEET_ID, TEXT_DIRECTION_ATTRIBUTE } from '../src/client/text-direction.ts'
+
+const fibers: { dispose(): unknown }[] = []
+
+afterEach(async () => {
+  // Every case boots its own pack over the one jsdom document; disposing them
+  // keeps a sheet or root subscription from one case out of the next.
+  for (const fiber of fibers.splice(0)) await fiber.dispose()
+})
 
 /** Boot the pack over a bare locale runtime with no Host settings scope. */
 async function bench() {
@@ -21,15 +30,37 @@ async function bench() {
   const locale = new LocaleRuntime(ctx)
   ctx.provide('locale', locale)
   const fiber = ctx.plugin({ inject: [...inject], apply })
+  fibers.push(fiber)
   await fiber.await()
   return { locale, fiber }
 }
 
 describe('Arabic language pack', () => {
-  it('adds a right-to-left language that falls back to English', async () => {
+  it('adds a language that falls back to English', async () => {
     const { locale } = await bench()
     const definition = locale.getLocale().locales.find(entry => entry.id === AR)
-    expect(definition).toEqual({ id: AR, label: 'العربية', fallback: 'en', direction: 'rtl' })
+    expect(definition).toEqual({ id: AR, label: 'العربية', fallback: 'en' })
+  })
+
+  it('marks the root right-to-left only while Arabic is active', async () => {
+    const { locale } = await bench()
+    const direction = () => document.documentElement.getAttribute(TEXT_DIRECTION_ATTRIBUTE)
+    // Loading the pack does not claim the root for a language nobody chose.
+    expect(direction()).toBeNull()
+    locale.setLocale(AR)
+    expect(direction()).toBe('rtl')
+    locale.setLocale('en')
+    expect(direction()).toBeNull()
+  })
+
+  it('mounts its stylesheet and releases the root on unload', async () => {
+    const { locale, fiber } = await bench()
+    const sheet = () => document.head.querySelector(`style[data-plugin-css="${STYLESHEET_ID}"]`)
+    expect(sheet()).not.toBeNull()
+    locale.setLocale(AR)
+    await fiber.dispose()
+    expect(sheet()).toBeNull()
+    expect(document.documentElement.hasAttribute(TEXT_DIRECTION_ATTRIBUTE)).toBe(false)
   })
 
   it('translates through every namespace it registers', async () => {

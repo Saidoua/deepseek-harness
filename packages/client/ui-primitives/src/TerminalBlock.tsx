@@ -224,7 +224,6 @@ export function TerminalBlock({
       data-terminal=""
       data-running={running ? '' : undefined}
       data-body={body ? '' : undefined}
-      dir="ltr"
     >
       <div className={css.header}>
         <div className={css.prompt}>

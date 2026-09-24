@@ -278,7 +278,6 @@ function QuestionFlow({ pending, t, useStore, actions }: QuestionFlowProps) {
     <div className={css.frame} data-question-key={pending.key}>
       <section
         className={clsx(css.card, minimized && css.cardMinimized)}
-        data-dsh-text-zone
         aria-labelledby={`question-${pending.key}-${String(index)}`}
       >
         <header className={css.header}>

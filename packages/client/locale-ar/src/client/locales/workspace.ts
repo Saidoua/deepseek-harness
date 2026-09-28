@@ -7,6 +7,7 @@ export const ar = {
   'defaultWorkspace.failed': 'تعذّر إنشاء مساحة العمل الافتراضية. استخدم «اختيار مساحة عمل» لتحديد مجلد.',
   'group.ungrouped': 'بلا مجموعة',
   'session.new': 'محادثة جديدة',
+  'session.untitled': 'بلا عنوان',
   'shortcut.noSession': 'اختر محادثة أولًا',
   'shortcut.noPicker': 'محدّد المجلدات غير متاح',
   'shortcut.directoryBusy': 'جارٍ اختيار مساحة عمل أو إضافتها',

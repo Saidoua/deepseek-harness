@@ -65,7 +65,6 @@ export const ar = {
   backToHarness: 'العودة إلى DeepSeek Harness',
   settings: 'الإعدادات',
   contactUs: 'الملاحظات',
-  contactUsSignedOut: 'تواصل معنا',
   menu: 'قائمة الحساب',
   nav: 'الحساب',
   signedIn: 'مسجّل الدخول إلى DeepSeek',

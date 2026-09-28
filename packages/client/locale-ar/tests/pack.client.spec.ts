@@ -87,6 +87,7 @@ describe('Arabic language pack', () => {
     expect(locale.bind('session-log-download')('menu.download')).toBe('تنزيل سجل المحادثة')
     expect(locale.bind('settings.account')('nav')).toBe('الحساب')
     expect(locale.bind('settings.agentLoop')('title')).toBe('حلقة الوكيل')
+    expect(locale.bind('settings.sessionLog')('saved')).toBe('حُفظ التفضيل')
     expect(locale.bind('settings.shell')('title')).toBe('سطر الأوامر')
     expect(locale.bind('settings.subagent')('subagentTitle')).toBe('الوكيل الفرعي')
     expect(locale.bind('settings.webSearch')('title')).toBe('البحث في الويب')

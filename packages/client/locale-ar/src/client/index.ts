@@ -49,6 +49,7 @@ import { ar as settingsModels } from './locales/settings-models.ts'
 import { ar as settingsPermission } from './locales/settings-permission.ts'
 import { ar as settingsPluginInventory } from './locales/settings-plugin-inventory.ts'
 import { ar as settingsPlugins } from './locales/settings-plugins.ts'
+import { ar as settingsSessionLog } from './locales/settings-session-log.ts'
 import { ar as settingsShell } from './locales/settings-shell.ts'
 import { ar as settingsSubagent } from './locales/settings-subagent.ts'
 import { ar as settingsTheme } from './locales/settings-theme.ts'
@@ -115,6 +116,7 @@ const DICTIONARIES: Readonly<Record<string, Readonly<Record<string, string>>>> =
   'settings.permission': settingsPermission,
   'settings.pluginInventory': settingsPluginInventory,
   'settings.plugins': settingsPlugins,
+  'settings.sessionLog': settingsSessionLog,
   'settings.shell': settingsShell,
   'settings.subagent': settingsSubagent,
   'settings.theme': settingsTheme,

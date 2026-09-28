@@ -2,6 +2,8 @@
 
 Status: implemented
 
+本记录已被上游 `dsh-v0.2.0-rc.1` 版本取代：`dsh-util-values` 现在将每个构造器的渲染与当前引擎自身对 `Object` 或 `Array` 的渲染比较，无需折叠空白即可接受任何引擎的格式。本 fork 在 `dsh-tools` 与 `dsh-cordis-host-runner` 中采用同一表达式，并撤回对 PTC Node 运行时的修改，因为它只在 V8 下运行。下文的决策描述的是被取代的空白折叠。
+
 [English](2026-09-05-engine-tolerant-intrinsic-rendering.md) | 中文
 
 ## 问题
@@ -26,4 +28,4 @@ Status: implemented
 
 Firefox 与 Zen 能加载历史并渲染回复；V8 行为逐字节相同，因为其渲染本就不含空白序列。代价是每次内建判定多一次空白折叠，以及 worker 模块中十五行的辅助函数。
 
-`packages/util/values/tests/intrinsic-rendering.spec.ts` 固定 SpiderMonkey、V8 以及制表符加回车的渲染，并固定对非原生源码、注释或字符串字面量中的 `[native code]`、以及不同名称原生函数的拒绝。`worker-json-engine-rendering.spec.ts` 在 worker 模块捕获 `Function.prototype.toString` 之前打桩引擎渲染，这是针对防篡改模块覆盖该路径的唯一方式。没有测试通道运行 SpiderMonkey；多行渲染取自报告者的实测与 MDN。
+上游的 `packages/core/session/tests/json.spec.ts` 针对替代后的比较固定了多行渲染，本 fork 为空白折叠编写的规范随之移除。没有测试通道运行 SpiderMonkey；多行渲染取自报告者的实测与 MDN。

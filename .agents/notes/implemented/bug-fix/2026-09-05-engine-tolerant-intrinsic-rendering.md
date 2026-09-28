@@ -2,6 +2,8 @@
 
 Status: implemented
 
+Superseded by upstream release `dsh-v0.2.0-rc.1`: `dsh-util-values` now compares each constructor's rendering with this engine's own rendering of `Object` or `Array`, which accepts any engine's format without collapsing whitespace. The fork applies the same expression in `dsh-tools` and `dsh-cordis-host-runner`, and drops its edit to the PTC Node runtime, which runs only under V8. The decision below describes the replaced whitespace collapse.
+
 English | [中文](2026-09-05-engine-tolerant-intrinsic-rendering.zh.md)
 
 ## Problem
@@ -26,4 +28,4 @@ The collapse does not widen the check. `function Object() { [native code] }` is 
 
 Firefox and Zen load history and render replies; V8 behavior is byte-identical because its rendering already contains no whitespace runs. The cost is one whitespace collapse per intrinsic test and a fifteen-line helper in the worker module.
 
-`packages/util/values/tests/intrinsic-rendering.spec.ts` pins the SpiderMonkey, V8, and tab-and-carriage-return renderings and the rejection of a non-native source, of `[native code]` inside a comment or string literal, and of a differently named native. `worker-json-engine-rendering.spec.ts` stubs the engine rendering before the worker module captures `Function.prototype.toString`, which is the only way to exercise that path against a tamper-resistant module. No test lane runs SpiderMonkey; the multiline rendering is taken from the reporters' measurements and MDN.
+Upstream's `packages/core/session/tests/json.spec.ts` pins the multi-line rendering against the replacing comparison, and the fork's specs for the whitespace collapse were removed with it. No test lane runs SpiderMonkey; the multiline rendering is taken from the reporters' measurements and MDN.

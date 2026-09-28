@@ -78,6 +78,9 @@
       "path": "../ui-settings-agent-loop"
     },
     {
+      "path": "../ui-settings-session-log"
+    },
+    {
       "path": "../ui-settings-shell"
     },
     {

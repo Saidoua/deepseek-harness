@@ -3,8 +3,8 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/bug-fix/2026-09-05-engine-tolerant-intrinsic-rendering.md
 /agent-note-engine-tolerant-native-function-rendering-in-the-realm-owned-intrinsic-test:
-  en: 8d1b34684fb7f124
-  zh: 548e5bd5d582043f
+  en: 29ada2aea4d9edc5
+  zh: 382c17a069bb374e
 /agent-note-engine-tolerant-native-function-rendering-in-the-realm-owned-intrinsic-test/problem:
   en: 5d2dd81c573232e2
   zh: 46e633032b2d5ba6
@@ -15,5 +15,5 @@
   en: c1a3fc625fb6aaca
   zh: 824a1560da1972ab
 /agent-note-engine-tolerant-native-function-rendering-in-the-realm-owned-intrinsic-test/consequences:
-  en: 174f6cf7371867a8
-  zh: d4bbccd0c215ec62
+  en: b0620f947d178e51
+  zh: 0bc21a5d09e9813c

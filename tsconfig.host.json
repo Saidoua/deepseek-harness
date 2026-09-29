@@ -365,6 +365,8 @@
     { "path": "./packages/ptc-runtime/ptc-runtime" },
     { "path": "./packages/experimental/ptc-runtime-python" },
     { "path": "./packages/experimental/schedule-bundle" },
+    { "path": "./packages/bundle/extras" },
+    { "path": "./packages/bundle/extras-web" },
     { "path": "./packages/ptc-runtime/ptc-runtime-node" },
     { "path": "./packages/llm/llm-deepseek" },
     { "path": "./packages/llm/llm-deepseek-api-key" },

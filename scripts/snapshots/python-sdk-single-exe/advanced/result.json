@@ -203,10 +203,8 @@
             "job_kill",
             "job_list",
             "job_output",
-            "rule_pin",
             "run_code",
             "snapshot_double",
-            "state_write",
             "subagent",
             "workflow"
           ]
@@ -301,10 +299,8 @@
             "job_kill",
             "job_list",
             "job_output",
-            "rule_pin",
             "run_code",
             "snapshot_double",
-            "state_write",
             "subagent",
             "workflow"
           ]
@@ -1912,10 +1908,8 @@
                 "job_kill",
                 "job_list",
                 "job_output",
-                "rule_pin",
                 "run_code",
                 "snapshot_double",
-                "state_write",
                 "subagent",
                 "workflow"
               ]
@@ -2040,10 +2034,8 @@
                 "job_kill",
                 "job_list",
                 "job_output",
-                "rule_pin",
                 "run_code",
                 "snapshot_double",
-                "state_write",
                 "subagent",
                 "workflow"
               ]
@@ -3324,10 +3316,8 @@
                 "job_kill",
                 "job_list",
                 "job_output",
-                "rule_pin",
                 "run_code",
                 "snapshot_double",
-                "state_write",
                 "subagent",
                 "workflow"
               ]
@@ -4135,10 +4125,8 @@
                 "job_kill",
                 "job_list",
                 "job_output",
-                "rule_pin",
                 "run_code",
                 "snapshot_double",
-                "state_write",
                 "subagent",
                 "workflow"
               ]

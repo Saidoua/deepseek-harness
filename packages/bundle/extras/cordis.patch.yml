@@ -1,0 +1,44 @@
+# The fork's plugins over dsh-base, for terminal profiles (headless, sdk, acp).
+# Every inserted row is switched off when dsh-web-app is running: the Web
+# surface keeps agent rows behind presets, and dsh-extras-web carries
+# the same plugins there.
+
+# The in-process search backend replaces the in-box row. A patch cannot change
+# a row's package, so the in-box row is disabled and a new id is inserted.
+- id: tool-fs-search
+  disabled: true
+
+- insert:
+    # Registers `glob` and `grep` against the dsh-rs addon, reusing the in-box
+    # package's parsers, formatters, and presenters, so the model-facing tools
+    # are unchanged. `whenAddonMissing: spawn` registers the in-box
+    # spawn-backed tools where no prebuilt binary exists or under `DSH_NATIVE=0`.
+    - id: tool-fs-search-native
+      name: '@saidouahdachi/dsh-tool-fs-search-native'
+      disabled: !!js "ctx.get('profileContext')?.startedBundles.includes('@deepseek-ai/dsh-web-app') ?? false"
+      config:
+        sampleOverCapGlobResults: false
+        whenAddonMissing: spawn
+
+    # Session-pinned standing rules (`/rule`, the rule_pin tool): the verbatim
+    # <pinned_rules> message is republished after every compaction.
+    - id: session-rules
+      name: '@deepseek-ai/dsh-session-rules'
+      disabled: !!js "ctx.get('profileContext')?.startedBundles.includes('@deepseek-ai/dsh-web-app') ?? false"
+      config:
+        maxRules: 20
+        maxRuleChars: 500
+
+    # Skill usage projection: tool loads and /name gestures, with errors.
+    - id: skill-stats
+      name: '@deepseek-ai/dsh-skill-stats'
+      disabled: !!js "ctx.get('profileContext')?.startedBundles.includes('@deepseek-ai/dsh-web-app') ?? false"
+
+    # Typed working state: state_write maintains one replacing <task_state>
+    # snapshot that survives compaction.
+    - id: tool-state
+      name: '@deepseek-ai/dsh-tool-state'
+      disabled: !!js "ctx.get('profileContext')?.startedBundles.includes('@deepseek-ai/dsh-web-app') ?? false"
+      config:
+        maxStateChars: 4000
+        maxKeys: 50

@@ -1,0 +1,20 @@
+# The fork's plugins over the Web composition (dsh-base + dsh-web-app). Agent
+# rows live behind presets on this surface, so the pinned rules, typed working
+# state, and in-process search arrive through the Standard + preset
+# (presets/standard-plus.patch.yml), which new sessions use by default. The
+# shipped presets stay selectable and unchanged.
+
+- insert:
+    # Skill usage projection: tool loads and /name gestures, with errors. A
+    # host-plane projection, so it serves every preset.
+    - id: skill-stats
+      name: '@deepseek-ai/dsh-skill-stats'
+
+    # Arabic language pack: adds the language, its dictionaries, and its
+    # reading-order stylesheet through the locale service.
+    - id: locale-ar
+      name: '@deepseek-ai/dsh-client-locale-ar'
+
+- id: agent-preset-registry
+  config:
+    default: standard-plus

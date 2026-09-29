@@ -15,7 +15,7 @@ Read an existing file before overwriting it with write (the default fs-observati
 
 Read a file before editing it (the default fs-observation-policy requires it), unless you just created or edited it in this session.
 
-Use the glob tool — not shell find — to discover files by path pattern. A pattern with no "/" matches basenames at any depth, so "*" matches every file in the tree rather than its top level. Results are files only, never directories, and include hidden and ignored files: a result that fits comes back in modification-time order, while a larger one keeps the modification-time-ordered head.
+Use the glob tool — not shell find — to discover files by path pattern.
 
 Use the grep tool — not shell grep or rg — to search file contents. Use read on a matched file when you need surrounding context.
 
@@ -96,14 +96,14 @@ interface ToolArgsMap {
   } & Record<string, JsonValue>;
   /** Read the current session goal, including the id and revision that update_goal requires. */
   get_goal: Record<string, JsonValue>;
-  /** Find files whose paths match a glob pattern. Returns matching file paths — never directories — including hidden and ignored files (VCS metadata directories are excluded). Up to 100 paths come back in modification-time order; a larger result returns the first 100 paths in modification-time order, says so, and reports where the complete sorted list was saved. This tool does not enumerate directory entries. */
+  /** Find files, not directories, whose paths match a glob pattern, including hidden and ignored files. Returns up to 100 paths in modification-time order; a larger result keeps the first paths and reports where the complete list was saved. */
   glob: {
     /** Glob pattern to match file paths against (e.g. "**\/*.ts", "src/**\/*.test.js"). A pattern with no "/" matches the basename at any depth, so "*" and "*.ts" both search the whole tree; include a separator to anchor the depth. */
     pattern: string;
     /** Directory to search in. Defaults to the session workspace; a relative path resolves against it. */
     path?: string;
   } & Record<string, JsonValue>;
-  /** Search file contents with a ripgrep regular expression. Returns matching lines with line numbers, grouped by file. Returns the first 250 matches inline; a capped result reports where the complete match list was saved. Use read on a matched file for surrounding context. */
+  /** Search file contents with a ripgrep regular expression. Returns matching lines with line numbers, grouped by file. Returns up to 250 matches; a larger result reports where the complete match list was saved. */
   grep: {
     /** Regular expression to search for (ripgrep syntax). */
     pattern: string;
@@ -154,11 +154,6 @@ interface ToolArgsMap {
     /** Path to the image file, resolved by the filesystem backend. */
     file_path: string;
   } & Record<string, JsonValue>;
-  /** Pin one standing rule the user stated in this conversation (a constraint, standard, or preference that must hold for the rest of the session), so it survives context compaction verbatim. Pin the rule exactly as the user worded it — do not paraphrase. Only the user can remove a pinned rule (/rule remove); this tool cannot unpin. */
-  rule_pin: {
-    /** The rule text, exactly as the user stated it (trimmed, non-empty). */
-    text: string;
-  } & Record<string, JsonValue>;
   /** Send a message to an agent. A working agent receives it at its next step; an idle agent starts a new turn with it. Returns delivery confirmation, not the agent's answer. */
   send_message: {
     /** The agent id of your direct continuable child, or your direct parent when you are a resident continuable child. */
@@ -170,11 +165,6 @@ interface ToolArgsMap {
   skill: {
     /** The exact skill name from the available skills list. */
     name: string;
-  } & Record<string, JsonValue>;
-  /** Maintain the working state for the current task: a small typed key/value record that survives context compaction as ONE replacing snapshot — it does not grow the conversation. Typical keys: goal, decisions, files_touched, blockers, next_steps (free keys allowed). Patch semantics: a string or array of strings sets the key, null DELETES the key. Use it for durable facts and decisions of the ongoing work; todo_write is the step checklist and the goal tools own a long-running objective's lifecycle. Update it whenever the state materially changes; the visible snapshot is replaced, not appended to. */
-  state_write: {
-    /** Keys to set or delete. A string or array of strings sets the key; null deletes it. Example: {"goal": "migrate auth", "files_touched": ["src/auth.ts"], "blockers": null} */
-    patch: Record<string, JsonValue>;
   } & Record<string, JsonValue>;
   /** Delegate a self-contained task to a subagent (a separate agent that works in its own context) to offload focused, independent work — research, a scoped implementation, an analysis — so it does not consume this conversation's context. The subagent returns its result, not its intermediate steps. It runs in the background by default and returns a subagent id you can continue with `send_message`; you are notified when the run settles. */
   subagent: {
@@ -430,11 +420,6 @@ interface ToolOutputMap {
       };
     };
   };
-  rule_pin: {
-    pinned: string;
-    rules: string[];
-    count: number;
-  };
   send_message: {
     messageId: string;
   };
@@ -453,11 +438,6 @@ interface ToolOutputMap {
       description: string;
     };
     content: string;
-  };
-  state_write: {
-    state?: null | Record<string, JsonValue>;
-    keys: number;
-    stateChars: number;
   };
   subagent: {
     kind: "background";

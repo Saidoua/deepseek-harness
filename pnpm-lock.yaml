@@ -253,6 +253,12 @@ importers:
       '@deepseek-ai/dsh-experimental-voice-input-bundle':
         specifier: workspace:*
         version: link:../../packages/experimental/voice-input-bundle
+      '@deepseek-ai/dsh-extras':
+        specifier: workspace:*
+        version: link:../../packages/bundle/extras
+      '@deepseek-ai/dsh-extras-web':
+        specifier: workspace:*
+        version: link:../../packages/bundle/extras-web
       '@deepseek-ai/dsh-fs-local':
         specifier: workspace:*
         version: link:../../packages/fs/fs-local
@@ -2046,9 +2052,6 @@ importers:
       '@deepseek-ai/dsh-session-query-sqlite':
         specifier: workspace:*
         version: link:../../session-query/session-query-sqlite
-      '@deepseek-ai/dsh-session-rules':
-        specifier: workspace:*
-        version: link:../../context/session-rules
       '@deepseek-ai/dsh-session-telemetry-otel':
         specifier: workspace:*
         version: link:../../session/session-telemetry-otel
@@ -2073,9 +2076,6 @@ importers:
       '@deepseek-ai/dsh-skill-filesystem':
         specifier: workspace:*
         version: link:../../skill/skill-filesystem
-      '@deepseek-ai/dsh-skill-stats':
-        specifier: workspace:*
-        version: link:../../skill/skill-stats
       '@deepseek-ai/dsh-spill-local':
         specifier: workspace:*
         version: link:../../spill/spill-local
@@ -2139,9 +2139,6 @@ importers:
       '@deepseek-ai/dsh-tool-skill':
         specifier: workspace:*
         version: link:../../skill/tool-skill
-      '@deepseek-ai/dsh-tool-state':
-        specifier: workspace:*
-        version: link:../../todo/tool-state
       '@deepseek-ai/dsh-tool-subagent':
         specifier: workspace:*
         version: link:../../subagent/tool-subagent
@@ -2184,16 +2181,144 @@ importers:
       '@deepseek-ai/dsh-workflow-ptc':
         specifier: workspace:*
         version: link:../../workflow/workflow-ptc
+    devDependencies:
+      '@deepseek-ai/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
+
+  packages/bundle/extras:
+    dependencies:
+      '@deepseek-ai/dsh-session-rules':
+        specifier: workspace:*
+        version: link:../../context/session-rules
+      '@deepseek-ai/dsh-skill-stats':
+        specifier: workspace:*
+        version: link:../../skill/skill-stats
+      '@deepseek-ai/dsh-tool-state':
+        specifier: workspace:*
+        version: link:../../todo/tool-state
       '@deepseek-ai/schemastery':
         specifier: link:../../../vendor/schemastery
         version: link:../../../vendor/schemastery
       '@saidouahdachi/dsh-tool-fs-search-native':
         specifier: 0.1.1
-        version: 0.1.1(@deepseek-ai/cordis@vendor+cordis)(@deepseek-ai/dsh-system-prompt@packages+core+system-prompt)(@deepseek-ai/dsh-tool-fs-search@packages+fs+tool-fs-search)(@deepseek-ai/dsh-tools@packages+core+tools)(@deepseek-ai/schemastery@vendor+schemastery)
+        version: 0.1.1(@deepseek-ai/cordis@vendor+cordis)(@deepseek-ai/schemastery@vendor+schemastery)
     devDependencies:
       '@deepseek-ai/cordis':
         specifier: workspace:~
         version: link:../../../vendor/cordis
+      '@deepseek-ai/cordis-plugin-include':
+        specifier: workspace:~
+        version: link:../../../vendor/include
+      js-yaml:
+        specifier: ^4.2.0
+        version: 4.3.1
+
+  packages/bundle/extras-web:
+    dependencies:
+      '@deepseek-ai/dsh-agent-instructions':
+        specifier: workspace:*
+        version: link:../../context/agent-instructions
+      '@deepseek-ai/dsh-agent-preset':
+        specifier: workspace:*
+        version: link:../../preset/agent-preset
+      '@deepseek-ai/dsh-client-locale-ar':
+        specifier: workspace:*
+        version: link:../../client/locale-ar
+      '@deepseek-ai/dsh-command-compact':
+        specifier: workspace:*
+        version: link:../../compaction/command-compact
+      '@deepseek-ai/dsh-command-goal':
+        specifier: workspace:*
+        version: link:../../goal/command-goal
+      '@deepseek-ai/dsh-compaction-basic':
+        specifier: workspace:*
+        version: link:../../compaction/compaction-basic
+      '@deepseek-ai/dsh-compaction-tool-result-pruner':
+        specifier: workspace:*
+        version: link:../../compaction/compaction-tool-result-pruner
+      '@deepseek-ai/dsh-persona':
+        specifier: workspace:*
+        version: link:../../preset/persona
+      '@deepseek-ai/dsh-plan-mode':
+        specifier: workspace:*
+        version: link:../../plan/plan-mode
+      '@deepseek-ai/dsh-plugin-manager':
+        specifier: workspace:*
+        version: link:../../boot/plugin-manager
+      '@deepseek-ai/dsh-session-rules':
+        specifier: workspace:*
+        version: link:../../context/session-rules
+      '@deepseek-ai/dsh-skill-filesystem':
+        specifier: workspace:*
+        version: link:../../skill/skill-filesystem
+      '@deepseek-ai/dsh-skill-stats':
+        specifier: workspace:*
+        version: link:../../skill/skill-stats
+      '@deepseek-ai/dsh-tool-ask-user':
+        specifier: workspace:*
+        version: link:../../interaction/tool-ask-user
+      '@deepseek-ai/dsh-tool-bash':
+        specifier: workspace:*
+        version: link:../../shell/tool-bash
+      '@deepseek-ai/dsh-tool-fs':
+        specifier: workspace:*
+        version: link:../../fs/tool-fs
+      '@deepseek-ai/dsh-tool-goal':
+        specifier: workspace:*
+        version: link:../../goal/tool-goal
+      '@deepseek-ai/dsh-tool-jobs':
+        specifier: workspace:*
+        version: link:../../jobs/tool-jobs
+      '@deepseek-ai/dsh-tool-present':
+        specifier: workspace:*
+        version: link:../../deliverables/tool-present
+      '@deepseek-ai/dsh-tool-pwsh':
+        specifier: workspace:*
+        version: link:../../shell/tool-pwsh
+      '@deepseek-ai/dsh-tool-ralph':
+        specifier: workspace:*
+        version: link:../../workflow/tool-ralph
+      '@deepseek-ai/dsh-tool-skill':
+        specifier: workspace:*
+        version: link:../../skill/tool-skill
+      '@deepseek-ai/dsh-tool-state':
+        specifier: workspace:*
+        version: link:../../todo/tool-state
+      '@deepseek-ai/dsh-tool-subagent':
+        specifier: workspace:*
+        version: link:../../subagent/tool-subagent
+      '@deepseek-ai/dsh-tool-subagent-control':
+        specifier: workspace:*
+        version: link:../../subagent/tool-subagent-control
+      '@deepseek-ai/dsh-tool-todo':
+        specifier: workspace:*
+        version: link:../../todo/tool-todo
+      '@deepseek-ai/dsh-tool-web':
+        specifier: workspace:*
+        version: link:../../web/tool-web
+      '@deepseek-ai/dsh-tool-workflow':
+        specifier: workspace:*
+        version: link:../../workflow/tool-workflow
+      '@deepseek-ai/dsh-workflow-ptc':
+        specifier: workspace:*
+        version: link:../../workflow/workflow-ptc
+      '@deepseek-ai/schemastery':
+        specifier: link:../../../vendor/schemastery
+        version: link:../../../vendor/schemastery
+      '@saidouahdachi/dsh-tool-fs-search-native':
+        specifier: 0.1.1
+        version: 0.1.1(@deepseek-ai/cordis@vendor+cordis)(@deepseek-ai/schemastery@vendor+schemastery)
+    devDependencies:
+      '@deepseek-ai/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
+      '@deepseek-ai/cordis-plugin-include':
+        specifier: workspace:~
+        version: link:../../../vendor/include
+      js-yaml:
+        specifier: ^4.2.0
+        version: 4.3.1
 
   packages/bundle/headless:
     dependencies:
@@ -2416,9 +2541,6 @@ importers:
       '@deepseek-ai/dsh-client-locale':
         specifier: workspace:*
         version: link:../../client/locale
-      '@deepseek-ai/dsh-client-locale-ar':
-        specifier: workspace:*
-        version: link:../../client/locale-ar
       '@deepseek-ai/dsh-client-modules':
         specifier: workspace:*
         version: link:../../client/modules
@@ -2656,9 +2778,6 @@ importers:
       '@deepseek-ai/dsh-session-reference':
         specifier: workspace:*
         version: link:../../context/session-reference
-      '@deepseek-ai/dsh-session-rules':
-        specifier: workspace:*
-        version: link:../../context/session-rules
       '@deepseek-ai/dsh-session-stats':
         specifier: workspace:*
         version: link:../../session/session-stats
@@ -2716,9 +2835,6 @@ importers:
       '@deepseek-ai/dsh-tool-skill':
         specifier: workspace:*
         version: link:../../skill/tool-skill
-      '@deepseek-ai/dsh-tool-state':
-        specifier: workspace:*
-        version: link:../../todo/tool-state
       '@deepseek-ai/dsh-tool-subagent':
         specifier: workspace:*
         version: link:../../subagent/tool-subagent
@@ -14544,9 +14660,6 @@ importers:
       '@deepseek-ai/dsh-session-reference':
         specifier: workspace:*
         version: link:../../packages/context/session-reference
-      '@deepseek-ai/dsh-session-rules':
-        specifier: workspace:*
-        version: link:../../packages/context/session-rules
       '@deepseek-ai/dsh-session-telemetry':
         specifier: workspace:*
         version: link:../../packages/session/session-telemetry
@@ -14661,9 +14774,6 @@ importers:
       '@deepseek-ai/dsh-tool-skill':
         specifier: workspace:*
         version: link:../../packages/skill/tool-skill
-      '@deepseek-ai/dsh-tool-state':
-        specifier: workspace:*
-        version: link:../../packages/todo/tool-state
       '@deepseek-ai/dsh-tool-str-replace-editor':
         specifier: workspace:*
         version: link:../../packages/fs/tool-str-replace-editor
@@ -24517,12 +24627,9 @@ snapshots:
       '@saidouahdachi/dsh-native-win32-x64-msvc': 0.1.0
     optional: true
 
-  '@saidouahdachi/dsh-tool-fs-search-native@0.1.1(@deepseek-ai/cordis@vendor+cordis)(@deepseek-ai/dsh-system-prompt@packages+core+system-prompt)(@deepseek-ai/dsh-tool-fs-search@packages+fs+tool-fs-search)(@deepseek-ai/dsh-tools@packages+core+tools)(@deepseek-ai/schemastery@vendor+schemastery)':
+  '@saidouahdachi/dsh-tool-fs-search-native@0.1.1(@deepseek-ai/cordis@vendor+cordis)(@deepseek-ai/schemastery@vendor+schemastery)':
     optionalDependencies:
       '@deepseek-ai/cordis': link:vendor/cordis
-      '@deepseek-ai/dsh-system-prompt': link:packages/core/system-prompt
-      '@deepseek-ai/dsh-tool-fs-search': link:packages/fs/tool-fs-search
-      '@deepseek-ai/dsh-tools': link:packages/core/tools
       '@deepseek-ai/schemastery': link:vendor/schemastery
       '@saidouahdachi/dsh-native': 0.1.0
 

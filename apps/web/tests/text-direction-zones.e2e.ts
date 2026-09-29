@@ -54,7 +54,8 @@ describe('web e2e: zone-scoped text direction', () => {
   let tripwire: ReturnType<typeof watchConsole>
 
   beforeAll(async () => {
-    scaffold = await launchWebScaffold()
+    // The Arabic pack ships in the fork's optional Web extras bundle.
+    scaffold = await launchWebScaffold({ profile: { packages: [], bundles: ['@deepseek-ai/dsh-extras-web'] } })
     browser = await chromium.launch()
     page = await newEnglishPage(browser)
     tripwire = watchConsole(page)

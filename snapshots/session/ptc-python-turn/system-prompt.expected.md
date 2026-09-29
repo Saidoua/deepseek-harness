@@ -15,7 +15,7 @@ Read an existing file before overwriting it with write (the default fs-observati
 
 Read a file before editing it (the default fs-observation-policy requires it), unless you just created or edited it in this session.
 
-Use the glob tool — not shell find — to discover files by path pattern. A pattern with no "/" matches basenames at any depth, so "*" matches every file in the tree rather than its top level. Results are files only, never directories, and include hidden and ignored files: a result that fits comes back in modification-time order, while a larger one keeps the modification-time-ordered head.
+Use the glob tool — not shell find — to discover files by path pattern.
 
 Use the grep tool — not shell grep or rg — to search file contents. Use read on a matched file when you need surrounding context.
 
@@ -324,16 +324,6 @@ class ReadImageOutput(TypedDict):
     path: str
     image: ReadImageOutputImage
 
-class RulePinArgs(TypedDict):
-    # The rule text, exactly as the user stated it (trimmed, non-empty).
-    text: str
-    # Additional keys beyond those declared are allowed.
-
-class RulePinOutput(TypedDict):
-    pinned: str
-    rules: list[str]
-    count: int
-
 class SendMessageArgs(TypedDict):
     # The agent id of your direct continuable child, or your direct parent when you are a resident continuable child.
     agent_id: str
@@ -367,16 +357,6 @@ class SkillOutput(TypedDict):
     trusted: NotRequired[bool]
     resourceBase: NotRequired[SkillOutputResourceBase1 | SkillOutputResourceBase2 | SkillOutputResourceBase3]
     content: str
-
-class StateWriteArgs(TypedDict):
-    # Keys to set or delete. A string or array of strings sets the key; null deletes it. Example: {"goal": "migrate auth", "files_touched": ["src/auth.ts"], "blockers": null}
-    patch: dict[str, Any]
-    # Additional keys beyond those declared are allowed.
-
-class StateWriteOutput(TypedDict):
-    state: NotRequired[None | dict[str, Any]]
-    keys: int
-    stateChars: int
 
 class SubagentArgs(TypedDict):
     # A short (3-5 word) description of the delegated task, for display.
@@ -543,9 +523,9 @@ class Tools(Protocol):
     async def get_goal(self, args: dict[str, Any]) -> GetGoalOutput1 | GetGoalOutput2:
         """Read the current session goal, including the id and revision that update_goal requires."""
     async def glob(self, args: GlobArgs) -> GlobOutput:
-        """Find files whose paths match a glob pattern. Returns matching file paths — never directories — including hidden and ignored files (VCS metadata directories are excluded). Up to 100 paths come back in modification-time order; a larger result returns the first 100 paths in modification-time order, says so, and reports where the complete sorted list was saved. This tool does not enumerate directory entries."""
+        """Find files, not directories, whose paths match a glob pattern, including hidden and ignored files. Returns up to 100 paths in modification-time order; a larger result keeps the first paths and reports where the complete list was saved."""
     async def grep(self, args: GrepArgs) -> GrepOutput:
-        """Search file contents with a ripgrep regular expression. Returns matching lines with line numbers, grouped by file. Returns the first 250 matches inline; a capped result reports where the complete match list was saved. Use read on a matched file for surrounding context."""
+        """Search file contents with a ripgrep regular expression. Returns matching lines with line numbers, grouped by file. Returns up to 250 matches; a larger result reports where the complete match list was saved."""
     async def interrupt_agent(self, args: InterruptAgentArgs) -> InterruptAgentOutput:
         """Ask a subagent to stop its current work. This call returns without waiting for it to stop. You can continue a direct child's conversation later with send_message. Subagents it started will keep running."""
     async def job_kill(self, args: JobKillArgs) -> JobKillOutput:
@@ -560,14 +540,10 @@ class Tools(Protocol):
         """Read a UTF-8 text file and return line-numbered content."""
     async def read_image(self, args: ReadImageArgs) -> ReadImageOutput:
         """Read a PNG/JPEG/WebP/GIF file and return the image itself. Large images are downscaled automatically; do not install image libraries or create thumbnails to inspect an image."""
-    async def rule_pin(self, args: RulePinArgs) -> RulePinOutput:
-        """Pin one standing rule the user stated in this conversation (a constraint, standard, or preference that must hold for the rest of the session), so it survives context compaction verbatim. Pin the rule exactly as the user worded it — do not paraphrase. Only the user can remove a pinned rule (/rule remove); this tool cannot unpin."""
     async def send_message(self, args: SendMessageArgs) -> SendMessageOutput:
         """Send a message to an agent. A working agent receives it at its next step; an idle agent starts a new turn with it. Returns delivery confirmation, not the agent's answer."""
     async def skill(self, args: SkillArgs) -> SkillOutput:
         """Load the full instructions for a skill. Call it before acting on a task that names or clearly matches a skill in the session skill catalog."""
-    async def state_write(self, args: StateWriteArgs) -> StateWriteOutput:
-        """Maintain the working state for the current task: a small typed key/value record that survives context compaction as ONE replacing snapshot — it does not grow the conversation. Typical keys: goal, decisions, files_touched, blockers, next_steps (free keys allowed). Patch semantics: a string or array of strings sets the key, null DELETES the key. Use it for durable facts and decisions of the ongoing work; todo_write is the step checklist and the goal tools own a long-running objective's lifecycle. Update it whenever the state materially changes; the visible snapshot is replaced, not appended to."""
     async def subagent(self, args: SubagentArgs) -> SubagentOutput1 | SubagentOutput2 | SubagentOutput3:
         """Delegate a self-contained task to a subagent (a separate agent that works in its own context) to offload focused, independent work — research, a scoped implementation, an analysis — so it does not consume this conversation's context. The subagent returns its result, not its intermediate steps. It runs in the background by default and returns a subagent id you can continue with `send_message`; you are notified when the run settles."""
     async def subagent_fork(self, args: SubagentForkArgs) -> SubagentForkOutput1 | SubagentForkOutput2 | SubagentForkOutput3:

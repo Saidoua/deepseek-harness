@@ -97,5 +97,4 @@ export const ar = {
   quotaDescription: 'لا يستطيع DeepSeek Harness بدء مهمة جديدة بهذا الحساب ما دام لا يوجد رصيد متاح. هل تريد شحن الرصيد؟ يمكنك أيضًا شحنه لاحقًا من «الإعدادات» ثم «الحساب».',
   quotaTopUp: 'شحن الرصيد',
   bonusNoticeTitle: 'أُضيف رصيد المكافأة',
-  bonusEmpty: 'لا يوجد رصيد مكافأة',
 } satisfies Record<AccountKey, string>

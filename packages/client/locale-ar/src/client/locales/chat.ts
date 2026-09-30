@@ -75,7 +75,6 @@ export const ar = {
   'number.groupSeparator': ',',
   'duration.compactSeconds': '{seconds} ث',
   'duration.compactMinutes': '{minutes} د {seconds} ث',
-  'duration.hours': '{hours} س {minutes} د {seconds} ث',
   'duration.milliseconds': '{milliseconds} م.ث',
   'stats.counts': '{turns} دور {steps} خطوة',
   'stats.dialog.title': 'إحصاءات المحادثة',
@@ -185,8 +184,6 @@ export const ar = {
   'message.turnUsage.output': 'الإخراج',
   'message.turnUsage.reasoning': ' ({tokens} للاستدلال)',
   'message.turnUsage.count': '{count} رمز',
-  'duration.seconds': '{seconds} ث',
-  'duration.minutes': '{minutes} د {seconds} ث',
   'command.running': 'قيد التشغيل…',
   'command.failed': 'أخفق الأمر',
   'command.done': 'مكتمل',
@@ -197,4 +194,7 @@ export const ar = {
   // Numeric date templates the renderer fills.
   'clock.md': '{m}/{d}',
   'clock.ymd': '{y}-{m}-{d}',
+  'duration.secondUnit': ' ث',
+  'duration.minuteUnit': ' د ',
+  'duration.hourUnit': ' س ',
 } satisfies Record<ChatKey, string>

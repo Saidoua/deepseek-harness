@@ -378,4 +378,10 @@ export const ar = {
   'detail.weekday.7': 'أحد',
   'detail.weekday.join': '، ',
   'row.preparing': 'جارٍ تحضير استدعاء الأداة',
+  'ask.pending': 'استمر العمل؛ لا تزال الإجابة متاحة',
+  'ask.pendingDetail': 'لا يزال بالإمكان الإجابة عن هذه الأسئلة المعلّقة من حقل الرسالة.',
+  'ask.reopen': 'إجابة',
+  'ask.review': 'عرض الإجابات',
+  'ask.closed': 'مغلق',
+  'ask.closedDetail': 'هذا السؤال مغلق؛ نتيجته في المحادثة أدناه.',
 } satisfies Record<ConversationKey, string>

@@ -51,6 +51,4 @@ export const ar = {
   close: 'إغلاق',
   creatorDraft: 'صُغ إعدادًا مخصصًا بوضع المُنشئ',
   view: 'عرض الإعدادات',
-  enableDevToolsToSetDefault: 'فعّل «أدوات المطوّرين» في الإعدادات العامة لاختيار وضع افتراضي',
-  enableDevToolsToCreate: 'فعّل «أدوات المطوّرين» في الإعدادات العامة لبدء وضع المُنشئ',
 } satisfies Record<AgentPresetSettingsKey, string>

@@ -120,4 +120,6 @@ export const ar = {
   'status.compact.approval': 'موافقة',
   'status.compact.planReview': 'مراجعة الخطة',
   'status.compact.answer': 'إجابة',
+  'draft.workspaceRequired': 'اختر مساحة عمل أولًا.',
+  'draft.initializationFailed': 'تعذّر ملء المسودة. يرجى المحاولة مجددًا بعد قليل.',
 } satisfies Record<WorkspaceKey, string>

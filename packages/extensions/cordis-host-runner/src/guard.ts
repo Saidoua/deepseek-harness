@@ -39,7 +39,7 @@ function isPlainRecord(value: unknown): value is Record<string, unknown> {
 }
 
 /* jscpd:ignore-start -- this VM boundary mirrors the session-owned realm-safe intrinsic test */
-/** Whether a realm-owned intrinsic prototype has a native constructor matching this engine's representation. */
+/** Whether a realm-owned intrinsic prototype is backed by its native constructor. */
 function hasIntrinsicConstructor(prototype: object, name: 'Array' | 'Object'): boolean {
   const descriptor = Object.getOwnPropertyDescriptor(prototype, 'constructor')
   const constructor: unknown = descriptor?.value
@@ -47,7 +47,7 @@ function hasIntrinsicConstructor(prototype: object, name: 'Array' | 'Object'): b
   try {
     return constructor.name === name
       && constructor.prototype === prototype
-      && Function.prototype.toString.call(constructor) === Function.prototype.toString.call(name === 'Array' ? Array : Object)
+      && Function.prototype.toString.call(constructor) === `function ${name}() { [native code] }`
   } catch {
     return false
   }

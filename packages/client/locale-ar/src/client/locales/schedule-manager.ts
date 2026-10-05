@@ -192,4 +192,5 @@ export const ar = {
   'card.openLabel': 'فتح تفاصيل المهمة: {title}',
   'card.deleted': 'محذوفة',
   'tool.invoked': 'استُدعيت {name}',
+  'timing.subagentSession': 'تعود هذه المحادثة إلى وكيل فرعي، ولا تصله التذكيرات المُرسلة أبدًا.',
 } satisfies Record<TaskManagerKey, string>

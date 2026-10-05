@@ -196,4 +196,12 @@ export const ar = {
   installProblemShipped: 'تُشحن هذه الإضافة مع DSH؛ وترقية DSH تُحدّثها',
   reasonIncompatibleInstall: 'ثبّت إصدارًا من الإضافة متوافقًا مع DSH هذا.',
   reasonIncompatibleInstalled: 'ألغِ تثبيتها وثبّت إصدارًا متوافقًا مع DSH هذا.',
+  chooseAddMethod: 'اختر طريقة إضافة الإضافة',
+  installExisting: 'تثبيت إضافة من جهة خارجية',
+  installExistingDescription: 'تدعم حزم npm ومستودعات Git والمجلدات المحلية',
+  sourceTitle: 'المصدر',
+  sourceSpec: 'مصدر الشيفرة',
+  sourceBuiltIn: 'مدمج',
+  sourceVersion: 'الإصدار الحالي',
+  installDoneOtherVersion: 'وفق سياسة أمان سلسلة التوريد في pnpm (minimumReleaseAge)، لا تُثبَّت تلقائيًا الإصدارات التي نُشرت منذ مدة أقل من المطلوبة، لذا ثُبّت {installed} بدلًا من أحدث إصدار {version}. لم يُكمل الإصدار المنشور حديثًا فترة الانتظار هذه، وقد يحتوي على شيفرة خبيثة أو عيوب لم تُكتشف بعد. إن احتجت إلى {version}، فألغِ تثبيت الإصدار الحالي ثم ثبّت {exact} لطلب هذا الإصدار.',
 } satisfies Record<PluginManagerLocaleKey, string>

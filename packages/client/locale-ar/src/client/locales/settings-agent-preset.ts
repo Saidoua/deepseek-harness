@@ -51,4 +51,10 @@ export const ar = {
   close: 'إغلاق',
   creatorDraft: 'صُغ إعدادًا مخصصًا بوضع المُنشئ',
   view: 'عرض الإعدادات',
+  standardUnavailable: 'الوضع القياسي غير متاح. استعده أو اختر وضعًا آخر متاحًا.',
+  createPlugin: 'دع الوكيل يُنشئ إضافة',
+  createPluginDescription: 'ادخل وضع المُنشئ واصنع إضافة DSH خاصة بك',
+  createPluginChecking: 'جارٍ التحقق من توفر وضع المُنشئ',
+  createPluginUnavailable: 'غير متاح مؤقتًا. أعد فتح هذه القائمة لإعادة المحاولة',
+  createPluginMissing: 'وضع المُنشئ غير مضمّن في هذا الإعداد',
 } satisfies Record<AgentPresetSettingsKey, string>

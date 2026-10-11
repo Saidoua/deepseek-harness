@@ -102,6 +102,9 @@ const GENERIC_SKIPS: readonly GenericSkip[] = [
   // the Schedule preset rows, their docs, and the creator-plugin menu.
   { file: 'apps/web/tests/agent-preset-selection.e2e.ts', upstream: ['cordis'] },
   { file: 'apps/web/tests/developer-tools-settings.e2e.ts', upstream: ['cordis'] },
+  // The web profile's `cordis.yml`/`cordis.patch.yml` files and the `cordis`
+  // agent-preset id it stages: product data, not package references.
+  { file: 'apps/cli/tests/optional-bundle-transitions.e2e.ts', upstream: ['cordis'] },
   { file: 'docs/subsystems/schedule.md', upstream: ['cordis'] },
   { file: 'docs/subsystems/schedule.zh.md', upstream: ['cordis'] },
   { file: 'docs/upgrade-guide/v0.2.0-rc.2/schedule-bundle-retired/guide.md', upstream: ['cordis'] },

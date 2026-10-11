@@ -25,3 +25,7 @@ Status: implemented
 在模型调用层失败的进程内子代理，现在会在委派工具的结果中报告原因，操作者无需打开子代理日志。进程外行为不受影响。以其他方式结束的运行该字段仍然缺席，因此已完成或已取消的结果读起来与此前完全一致。
 
 一项测试断言结果的 diagnostic 等于子代理自身 `turn/end` 所记录的失败，而非某个字面字符串，使措辞继续归属于循环。该测试在原行为下失败。报告于讨论 #5754。
+
+## 更新（dsh-v0.2.1-alpha.2）
+
+上游统一激活生命周期后解散了 `subagent-in-process-driver`；本修复现位于 `packages/subagent/subagent/src/activation.ts` 的 `captureLocalResult`，读取与 `epochStopReason` 折叠的同一 `turn/end` 原因。`limitSubagentDiagnostic` 仍是唯一的字节上限实现，从 `packages/subagent/subagent/src/out-of-process.ts` 导出。断言移至 `packages/subagent/subagent/tests/parent-result.spec.ts`，仍断言同一记录的失败。

@@ -38,6 +38,7 @@ export const ar = {
   'terminal.running': 'قيد التشغيل',
   'terminal.failed': 'فشل',
   'terminal.done': 'انتهى',
+  'terminal.commandLine': 'سطر الأمر {n}',
   'terminal.copy': 'نسخ',
   'terminal.copied': 'تم النسخ',
   'terminal.noOutput': '(لا توجد مخرجات)',

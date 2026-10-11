@@ -157,7 +157,7 @@ export const ar = {
   'details.error': 'خطأ',
   'details.failure.auth': 'مفتاح الواجهة البرمجية غير صالح',
   'details.retry': 'إعادة المحاولة',
-  'details.scheduled': 'مجدول',
+  'details.lastAttemptError': 'خطأ المحاولة الأخيرة',
   'details.retryDelay': 'مهلة إعادة المحاولة',
   'details.result': 'النتيجة',
   'details.compacted': 'مضغوط',

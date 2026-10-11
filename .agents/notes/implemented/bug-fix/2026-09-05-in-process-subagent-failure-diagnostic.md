@@ -25,3 +25,7 @@ English | [中文](2026-09-05-in-process-subagent-failure-diagnostic.zh.md)
 An in-process child that fails at the model-call level now reports why, in the delegating tool's result, without the operator opening the child's log. Out-of-process behavior is untouched. The field stays absent for a run that ends any other way, so a completed or cancelled result reads exactly as before.
 
 A test asserts the result's diagnostic equals the failure the child's own `turn/end` recorded, rather than a literal string, so the wording continues to belong to the loop. It fails on the previous behavior. Reported in discussion #5754.
+
+## Update (dsh-v0.2.1-alpha.2)
+
+Upstream's unified activation lifecycle dissolved `subagent-in-process-driver`; the fix now lives in `captureLocalResult` in `packages/subagent/subagent/src/activation.ts`, reading the same committed `turn/end` reason `epochStopReason` folds. `limitSubagentDiagnostic` stays the one byte-limit implementation, exported from `packages/subagent/subagent/src/out-of-process.ts`. The assertion moved to `packages/subagent/subagent/tests/parent-result.spec.ts` and asserts the same recorded failure.

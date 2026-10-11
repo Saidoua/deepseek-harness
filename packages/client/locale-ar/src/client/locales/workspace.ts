@@ -112,6 +112,8 @@ export const ar = {
   'toast.unpinFailed': 'فشل إلغاء التثبيت. حاول لاحقًا.',
   // {message} carries the Host's own diagnostic and renders verbatim.
   'toast.createFailed': 'فشل إنشاء محادثة جديدة: {message}',
+  'toast.forkRequiresOpen': 'افتح المحادثة الأصلية لإكمال الترحيل قبل تفريع المحادثة.',
+  'toast.openForkSource': 'افتح المحادثة الأصلية',
   'actions.archive': 'أرشفة',
   'actions.unarchive': 'إلغاء الأرشفة',
   'actions.pin': 'تثبيت',

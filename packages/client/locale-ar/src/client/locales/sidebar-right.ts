@@ -39,5 +39,6 @@ export const ar = {
   'dock.drop.top': 'تقسيم إلى الأعلى',
   'dock.drop.bottom': 'تقسيم إلى الأسفل',
   'tab.guide.title': 'البداية',
+  'tab.guide.more': 'المزيد من الأدوات',
   'tab.unavailable': 'لا شيء هنا يستطيع عرض هذا النوع من المحتوى بعد.',
 } satisfies Record<SidebarRightKey, string>

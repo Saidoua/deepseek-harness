@@ -14,7 +14,8 @@
 import type { Context } from '@deepseek-ai/cordis'
 import { z as zod } from 'zod'
 import type { ToolCallId } from '@deepseek-ai/dsh-llm'
-import type {} from '@deepseek-ai/dsh-session-projection'
+import type { Session } from '@deepseek-ai/dsh-session'
+import type { ProjectionHandle } from '@deepseek-ai/dsh-session-projection'
 // Type-only: folds events this package observes — the `skill` tool's
 // tool/call|result pairing and tool-skill's `skill-invocation` message source
 // (whose MessageSourceMap merge must be in scope to narrow source.kind).
@@ -60,7 +61,7 @@ function recordFor(state: SkillStatsState, skill: string): SkillUsage {
  * @param ctx - registrant context carrying the session-projection registry.
  */
 export function apply(ctx: Context): void {
-  ctx.sessionProjections.register<'skillStats', SkillStatsState>({
+  void ctx.sessionProjections.register<'skillStats', SkillStatsState>({
     key: 'skillStats',
     stateSchema: skillStatsStateSchema,
     init: () => ({ pending: {}, skills: {} }),
@@ -130,5 +131,18 @@ export function apply(ctx: Context): void {
         .sort((a, b) => b.invocations - a.invocations || a.name.localeCompare(b.name)),
     },
     stateVersion: 1,
-  })
+  }).then((handle) => { skillStatsHandle = handle })
+}
+
+/** Reader for the `skillStats` projection, captured when its registration resolves. */
+let skillStatsHandle: ProjectionHandle<SkillStatsState> | undefined
+
+/**
+ * Read one session's current skill-usage state through the registration
+ * handle; the registry-level read is deprecated and untyped.
+ * @param session - Session whose committed events were folded.
+ * @returns the current state, or undefined before the registration resolves.
+ */
+export function statsOf(session: Session): SkillStatsState | undefined {
+  return skillStatsHandle?.stateOf(session)
 }

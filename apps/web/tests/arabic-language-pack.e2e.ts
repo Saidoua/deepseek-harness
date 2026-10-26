@@ -50,15 +50,23 @@ describe('web e2e: Arabic language pack', () => {
     // the product's own Settings row with no wiring of its own.
     // The overlay's own pointer lock survives detaching the notice, so the
     // Settings control is opened through its click handler directly.
+    // Upstream moved Settings behind the sidebar's overflow menu (the
+    // sidebar-foot trigger now follows remote settings access).
+    await page.evaluate(() => {
+      const more = [...document.querySelectorAll('button')]
+        .filter(node => (node.textContent ?? '').trim() === 'More')[1]
+      more?.click()
+    })
+    await page.waitForTimeout(500)
     await page.evaluate(() => {
       const settings = [...document.querySelectorAll('button')]
-        .find(node => (node.textContent ?? '').trim() === 'Settings')
+        .find(node => (node.textContent ?? '').trim().startsWith('Settings'))
       settings?.click()
     })
+    await page.getByRole('dialog').first().waitFor({ timeout: 15_000 })
     // The Language row opens a menu rather than a native select, so the
     // language is chosen the way a reader does: open the row, pick the entry
     // that names itself in its own language.
-    await page.getByRole('dialog').first().waitFor({ timeout: 15_000 })
     await page.evaluate(() => {
       const trigger = [...document.querySelectorAll('button')]
         .find(node => (node.textContent ?? '').includes('English'))

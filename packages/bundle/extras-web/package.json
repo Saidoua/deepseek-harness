@@ -1,7 +1,7 @@
 {
   "name": "@deepseek-ai/dsh-extras-web",
   "description": "Optional Web bundle that adds the Standard + agent preset (pinned rules, typed working state, in-process search), skill usage stats, and the Arabic language",
-  "version": "0.2.1-alpha.2",
+  "version": "0.2.1-rc.3",
   "icon": "./icon.svg",
   "publishConfig": {
     "access": "public"
@@ -45,6 +45,7 @@
     "@deepseek-ai/dsh-persona": "workspace:*",
     "@deepseek-ai/dsh-plan-mode": "workspace:*",
     "@deepseek-ai/dsh-plugin-manager": "workspace:*",
+    "@deepseek-ai/dsh-plugin-market": "workspace:*",
     "@deepseek-ai/dsh-session-rules": "workspace:*",
     "@deepseek-ai/dsh-skill-filesystem": "workspace:*",
     "@deepseek-ai/dsh-skill-stats": "workspace:*",

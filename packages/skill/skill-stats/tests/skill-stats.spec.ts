@@ -15,8 +15,8 @@ async function setup(): Promise<Context> {
   return ctx
 }
 
-function statsOf(ctx: Context, session: Session) {
-  return ctx.sessionProjections.stateOf(session, 'skillStats')
+function statsOf(session: Session) {
+  return skillStats.statsOf(session)
 }
 
 function viewOf(ctx: Context, session: Session) {
@@ -56,25 +56,25 @@ function appendGesture(session: Session, name: string): void {
 
 describe('dsh-skill-stats projection', () => {
   it('pairs a skill tool/call with its result and counts one tool invocation', async () => {
-    const ctx = await setup()
+    await setup()
     const session = Session.create(SessionId('s1'))
     appendSkillToolCall(session, 'c1', 'pdf-report')
 
-    const state = statsOf(ctx, session)
+    const state = statsOf(session)
     expect(state?.pending).toEqual({})
     expect(state?.skills['pdf-report']).toMatchObject({ invocations: 1, errors: 0, lastVia: 'tool' })
   })
 
   it('counts an errored skill load as an error', async () => {
-    const ctx = await setup()
+    await setup()
     const session = Session.create(SessionId('s2'))
     appendSkillToolCall(session, 'c2', 'missing-skill', { error: true })
 
-    expect(statsOf(ctx, session)?.skills['missing-skill']).toMatchObject({ invocations: 1, errors: 1 })
+    expect(statsOf(session)?.skills['missing-skill']).toMatchObject({ invocations: 1, errors: 1 })
   })
 
   it('attributes a malformed-arguments call to the unknown bucket', async () => {
-    const ctx = await setup()
+    await setup()
     const session = Session.create(SessionId('s3'))
     session.append('tool/call', { turn: 1, step: 1, callId: ToolCallId('c3'), name: 'skill', arguments: 'not-json' })
     session.append('tool/result', {
@@ -86,36 +86,36 @@ describe('dsh-skill-stats projection', () => {
       },
     }, APPEND)
 
-    expect(statsOf(ctx, session)?.skills.unknown).toMatchObject({ invocations: 1 })
+    expect(statsOf(session)?.skills.unknown).toMatchObject({ invocations: 1 })
   })
 
   it('ignores non-skill tool calls entirely', async () => {
-    const ctx = await setup()
+    await setup()
     const session = Session.create(SessionId('s4'))
     appendSkillToolCall(session, 'c4', 'whatever', { name: 'bash' })
 
-    const state = statsOf(ctx, session)
+    const state = statsOf(session)
     expect(state?.skills).toEqual({})
     expect(state?.pending).toEqual({})
   })
 
   it('counts a /name gesture invocation without a tool pairing', async () => {
-    const ctx = await setup()
+    await setup()
     const session = Session.create(SessionId('s5'))
     appendGesture(session, 'deploy-docs')
 
-    const state = statsOf(ctx, session)
+    const state = statsOf(session)
     expect(state?.skills['deploy-docs']).toMatchObject({ invocations: 1, errors: 0, lastVia: 'gesture' })
     expect(state?.pending).toEqual({})
   })
 
   it('aggregates repeated invocations with latest-wins lastSeq/lastTime/lastVia', async () => {
-    const ctx = await setup()
+    await setup()
     const session = Session.create(SessionId('s6'))
     appendGesture(session, 'deploy-docs')
     appendSkillToolCall(session, 'c6', 'deploy-docs')
 
-    const state = statsOf(ctx, session)
+    const state = statsOf(session)
     expect(state?.skills['deploy-docs']?.invocations).toBe(2)
     expect(state?.skills['deploy-docs']?.lastVia).toBe('tool')
   })

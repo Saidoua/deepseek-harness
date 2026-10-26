@@ -8,5 +8,7 @@ export const ar = {
   // {toolName} is the tool's registered id and renders verbatim.
   escalation: 'تطلب الأداة {toolName} تنفيذًا بصلاحيات مرتفعة',
   reject: 'رفض',
+  allow: 'السماح',
   allowOnce: 'السماح مرة واحدة',
+  allowAlways: 'السماح دائمًا',
 } satisfies Record<ApprovalKey, string>

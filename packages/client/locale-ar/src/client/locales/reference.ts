@@ -16,4 +16,8 @@ export const ar = {
   'time.months': '{n} ش',
   'time.years': '{n} سنة',
   'section.subagents': 'الوكلاء الفرعيون',
+  'fileOpen.title': 'تعذّر فتح الملف',
+  'fileOpen.failed': 'تعذّر فتح «{path}». أعد المحاولة أو أغلق هذه الرسالة.',
+  'fileOpen.close': 'إغلاق',
+  'fileOpen.retry': 'إعادة المحاولة',
 } satisfies Record<ReferenceKey, string>

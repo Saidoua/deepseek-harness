@@ -4,9 +4,11 @@ import { createUserMessage, ToolCallId, type ContextFormed } from '@deepseek-ai/
 import { Session, SessionId, SessionLogOffset, type SessionEvent, type UserMessage } from '@deepseek-ai/dsh-session'
 import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
 import ToolRuntime from '@deepseek-ai/dsh-tools'
+import * as NativeToolExecutor from '@deepseek-ai/dsh-tool-executor-native'
 import CommandRuntime from '@deepseek-ai/dsh-commands'
 import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
 import AgentRegistry, { agentEvents, type Agent } from '@deepseek-ai/dsh-agent'
+import { AgentModel } from '@deepseek-ai/dsh-agent'
 import { unsupportedInbox } from '@deepseek-ai/dsh-agent-loop-testkit'
 
 import * as sessionRules from '../src/index.ts'
@@ -23,29 +25,35 @@ async function setup(config: sessionRules.Config = {}): Promise<Context> {
   const ctx = new Context()
   await ctx.plugin(SystemPrompt)
   await ctx.plugin(ToolRuntime)
+  await ctx.plugin(NativeToolExecutor)
   await ctx.plugin(CommandRuntime)
   await ctx.plugin(AgentRegistry)
   await ctx.plugin(SessionProjectionRegistry)
-  await ctx.plugin(sessionRules, config)
+  try {
+    await ctx.plugin(sessionRules, config)
+  } catch (e) {
+    throw e
+  }
   return ctx
 }
 
 function sessionAgent(session: Session, id = 'session-rules-agent'): Agent {
-  return {
+  const stub: Partial<Agent> = {
     id: SessionId(id),
     options: {},
     session,
+    model: new AgentModel(() => ({ lastUsed: null, pending: null }), session, {}),
     inbox: unsupportedInbox(),
     status: 'running',
-    ctx: new Context(),
     send: () => {},
     followup: () => {},
     steer: () => {},
     inject: () => {},
     cancel() {},
-    runMaintenance: (task: (signal: AbortSignal) => unknown) => task(new AbortController().signal),
+    runMaintenance: <T>(task: (signal: AbortSignal) => Promise<T>) => task(new AbortController().signal),
     whenIdle: () => Promise.resolve(),
-  } as Agent
+  }
+  return stub as Agent
 }
 
 function openSession(id = 'rules'): { agent: Agent; session: Session } {
@@ -62,7 +70,7 @@ function openSession(id = 'rules'): { agent: Agent; session: Session } {
 async function fireStep(ctx: Context, agent: Agent, turn = 1, step = 1): Promise<UserMessage[]> {
   const decision = await agentEvents(ctx, agent).waterfall(
     'agent/pre-step',
-    { messages: [], turn, step, signal: new AbortController().signal },
+    { modelSelection: { provider: 'mock', model: 'mock' }, messages: [], turn, step, signal: new AbortController().signal },
     () => Promise.resolve({ kind: 'enter' as const, messages: [] as UserMessage[] }),
   )
   if (decision.kind === 'enter') {
@@ -172,9 +180,7 @@ describe('dsh-session-rules rule_pin tool', () => {
   async function callPin(ctx: Context, args: unknown, agent?: Agent) {
     return await ctx.tools.execute({
       signal: testToolSignal,
-      callId: ToolCallId(`call-${++callCounter}`),
-      name: 'rule_pin',
-      arguments: args,
+      calls: [{ type: 'tool-call', id: ToolCallId(`call-${++callCounter}`), name: 'rule_pin', arguments: JSON.stringify(args) }],
       ...agent !== undefined ? { agent } : {},
     })
   }
@@ -182,7 +188,8 @@ describe('dsh-session-rules rule_pin tool', () => {
   it('pins with model origin and returns the current list', async () => {
     const ctx = await setup()
     const { agent, session } = openSession('tool-pin')
-    const result = await callPin(ctx, { text: '  Use conventional commits.  ' }, agent)
+    const batch = await callPin(ctx, { text: '  Use conventional commits.  ' }, agent)
+    const result = batch.results[0]!.result
     expect(result.isError).toBe(false)
     if (result.isError) throw new Error('expected rule_pin success')
     const value = result.value as { pinned: string; rules: string[]; count: number }
@@ -195,8 +202,8 @@ describe('dsh-session-rules rule_pin tool', () => {
 
   it('rejects a non-agent caller (rules have no owning session)', async () => {
     const ctx = await setup()
-    const result = await callPin(ctx, { text: 'x' })
-    expect(result.isError).toBe(true)
+    const batch = await callPin(ctx, { text: 'x' })
+    expect(batch.results[0]!.result.isError).toBe(true)
   })
 })
 

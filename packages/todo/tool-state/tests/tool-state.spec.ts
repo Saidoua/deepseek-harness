@@ -3,8 +3,11 @@ import { Context } from '@deepseek-ai/cordis'
 import { createUserMessage, ToolCallId, type ContextFormed } from '@deepseek-ai/dsh-llm'
 import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
 import ToolRuntime from '@deepseek-ai/dsh-tools'
+import * as NativeToolExecutor from '@deepseek-ai/dsh-tool-executor-native'
+import type { ToolExecutionResult } from '@deepseek-ai/dsh-tools'
 import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
 import AgentRegistry, { agentEvents, type Agent } from '@deepseek-ai/dsh-agent'
+import { AgentModel } from '@deepseek-ai/dsh-agent'
 import { unsupportedInbox } from '@deepseek-ai/dsh-agent-loop-testkit'
 import { Session, SessionId, SessionLogOffset, type SessionEvent, type UserMessage } from '@deepseek-ai/dsh-session'
 
@@ -22,6 +25,7 @@ async function setup(config: toolState.Config = {}): Promise<Context> {
   const ctx = new Context()
   await ctx.plugin(SystemPrompt)
   await ctx.plugin(ToolRuntime)
+  await ctx.plugin(NativeToolExecutor)
   await ctx.plugin(AgentRegistry)
   await ctx.plugin(SessionProjectionRegistry)
   await ctx.plugin(toolState, config)
@@ -35,33 +39,33 @@ function openSession(id = 'state'): { agent: Agent; session: Session } {
     content: [{ type: 'text', text: 'turn 1' }],
     source: { kind: 'user' },
   }), { surfaceOp: 'append' })
-  const agent = {
+  const stub: Partial<Agent> = {
     id: SessionId(id),
     options: {},
     session,
+    model: new AgentModel(() => ({ lastUsed: null, pending: null }), session, {}),
     inbox: unsupportedInbox(),
     status: 'running',
-    ctx: new Context(),
     send: () => {},
     followup: () => {},
     steer: () => {},
     inject: () => {},
     cancel() {},
-    runMaintenance: (task: (signal: AbortSignal) => unknown) => task(new AbortController().signal),
+    runMaintenance: <T>(task: (signal: AbortSignal) => Promise<T>) => task(new AbortController().signal),
     whenIdle: () => Promise.resolve(),
-  } as Agent
+  }
+  const agent = stub as Agent
   return { agent, session }
 }
 
 let callCounter = 0
-function callState(ctx: Context, args: unknown, agent?: Agent) {
-  return ctx.tools.execute({
+async function callState(ctx: Context, args: unknown, agent?: Agent): Promise<ToolExecutionResult> {
+  const batch = await ctx.tools.execute({
     signal: testToolSignal,
-    callId: ToolCallId(`call-${++callCounter}`),
-    name: 'state_write',
-    arguments: args,
+    calls: [{ type: 'tool-call', id: ToolCallId(`call-${++callCounter}`), name: 'state_write', arguments: JSON.stringify(args) }],
     ...agent !== undefined ? { agent } : {},
   })
+  return batch.results[0]!.result
 }
 
 function text(block: { type: string; text?: string } | undefined): string {
@@ -72,7 +76,7 @@ function text(block: { type: string; text?: string } | undefined): string {
 async function fireStep(ctx: Context, agent: Agent, turn = 1, step = 1): Promise<UserMessage[]> {
   const decision = await agentEvents(ctx, agent).waterfall(
     'agent/pre-step',
-    { messages: [], turn, step, signal: new AbortController().signal },
+    { modelSelection: { provider: 'mock', model: 'mock' }, messages: [], turn, step, signal: new AbortController().signal },
     () => Promise.resolve({ kind: 'enter' as const, messages: [] as UserMessage[] }),
   )
   if (decision.kind === 'enter') {

@@ -1,0 +1,14 @@
+# Disable the external Session uploader in this local fixture.
+- id: session-log-deepseek
+  config:
+    enabled: false
+
+- id: compaction-basic
+  config:
+    # The seed user turn carries the image that creates the pressure, so it
+    # must stay condensable here; the fork's default sparing would leave no span.
+    spareSeedUserTurn: false
+
+- insert:
+    - id: minimal-checkpoint-observer
+      name: './checkpoint-observer.mjs'

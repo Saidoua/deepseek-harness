@@ -12,12 +12,14 @@ import Include from '@deepseek-ai/cordis-plugin-include'
 import { ToolCallId } from '@deepseek-ai/dsh-llm'
 import { Session, SessionId } from '@deepseek-ai/dsh-session'
 import AgentRegistry from '@deepseek-ai/dsh-agent'
+import { AgentModel } from '@deepseek-ai/dsh-agent'
 import { unsupportedInbox } from '@deepseek-ai/dsh-agent-loop-testkit'
 import type { Agent } from '@deepseek-ai/dsh-agent'
 import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
 import ToolRuntime from '@deepseek-ai/dsh-tools'
 import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
 import * as ToolState from '@deepseek-ai/dsh-tool-state'
+import * as NativeToolExecutor from '@deepseek-ai/dsh-tool-executor-native'
 
 let root: string | undefined
 let context: Context | undefined
@@ -34,7 +36,7 @@ function agent(ctx: Context): Agent {
   const id = SessionId('state-loader-agent')
   const session = Session.create(id)
   const value: Agent = {
-    id, options: {}, session, inbox: unsupportedInbox(),
+    id, options: {}, session, model: new AgentModel(() => ({ lastUsed: null, pending: null }), session, {}), inbox: unsupportedInbox(),
     status: 'idle', ctx: scope.ctx,
     followup: () => {}, steer: () => {}, inject: () => {}, send: () => {}, cancel() {},
     runMaintenance: task => task(new AbortController().signal),
@@ -56,6 +58,7 @@ async function boot(configLines: readonly string[]): Promise<Context> {
     "- name: '@deepseek-ai/dsh-agent'",
     "- name: '@deepseek-ai/dsh-system-prompt'",
     "- name: '@deepseek-ai/dsh-tools'",
+    "- name: '@deepseek-ai/dsh-tool-executor-native'",
     "- name: '@deepseek-ai/dsh-session-projection'",
     "- name: '@deepseek-ai/dsh-tool-state'",
     ...configLines.length > 0 ? ['  config:', ...configLines] : [],
@@ -71,6 +74,7 @@ async function boot(configLines: readonly string[]): Promise<Context> {
     ['@deepseek-ai/dsh-agent', AgentRegistry],
     ['@deepseek-ai/dsh-system-prompt', SystemPrompt],
     ['@deepseek-ai/dsh-tools', ToolRuntime],
+    ['@deepseek-ai/dsh-tool-executor-native', NativeToolExecutor],
     ['@deepseek-ai/dsh-session-projection', SessionProjectionRegistry],
     ['@deepseek-ai/dsh-tool-state', ToolState],
   ])
@@ -92,14 +96,12 @@ describe('tool-state real Loader composition through cordis.yml', () => {
   it('boots with defaults and state_write lands end to end', async () => {
     const ctx = await boot([])
     const owner = agent(ctx)
-    const result = await ctx.tools.execute({
+    const batch = await ctx.tools.execute({
       signal: new AbortController().signal,
-      callId: ToolCallId('loader-ok'),
-      name: 'state_write',
-      arguments: { patch: { goal: 'ship' } },
+      calls: [{ type: 'tool-call', id: ToolCallId('loader-ok'), name: 'state_write', arguments: JSON.stringify({ patch: { goal: 'ship' } }) }],
       agent: owner,
     })
-    expect(result.isError).toBe(false)
+    expect(batch.results[0]!.result.isError).toBe(false)
     expect(owner.session.snapshotEvents().findLast(event => event.type === 'state/write')?.type === 'state/write'
       && owner.session.snapshotEvents().findLast(event => event.type === 'state/write')!.data.state).toEqual({ goal: 'ship' })
   }, 30_000)
@@ -107,14 +109,12 @@ describe('tool-state real Loader composition through cordis.yml', () => {
   it('maxStateChars from the YAML row is enforced at write time', async () => {
     const ctx = await boot(['    maxStateChars: 16'])
     const owner = agent(ctx)
-    const result = await ctx.tools.execute({
+    const batch = await ctx.tools.execute({
       signal: new AbortController().signal,
-      callId: ToolCallId('loader-budget'),
-      name: 'state_write',
-      arguments: { patch: { goal: 'a goal far too long for a 16 char budget' } },
+      calls: [{ type: 'tool-call', id: ToolCallId('loader-budget'), name: 'state_write', arguments: JSON.stringify({ patch: { goal: 'a goal far too long for a 16 char budget' } }) }],
       agent: owner,
     })
-    expect(result.isError).toBe(true)
+    expect(batch.results[0]!.result.isError).toBe(true)
     expect(owner.session.snapshotEvents().some(event => event.type === 'state/write')).toBe(false)
   }, 30_000)
 

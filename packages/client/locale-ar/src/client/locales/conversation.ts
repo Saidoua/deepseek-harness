@@ -7,6 +7,7 @@ const PLAN_NEXT_ACTION = 'صِف مهمتك لتوليد خطة'
 // Count keys share one count-neutral wording; see the job namespace.
 /** Arabic dictionary, checked complete against the `conversation` key set. */
 export const ar = {
+  'quote.remove': 'إزالة الاقتباس',
   'shortcut.newline': 'سطر جديد',
   'shortcut.complementary': 'استخدام الإجراء المكمّل: الإرسال إلى الطابور أو التوجيه',
   'shortcut.slash': 'فتح قائمة الأوامر',
@@ -80,6 +81,8 @@ export const ar = {
   'hero.preview': 'إصدار تجريبي',
   'hero.chooseWorkspace': 'اختيار مساحة عمل',
   'session.hierarchy': 'التسلسل الهرمي للمحادثات',
+  'session.moreViews': 'مزيد من عروض المحادثة',
+  'session.moreViewsCurrent': 'مزيد من عروض المحادثة · {name}',
   'todo.title': 'المهام',
   'todo.progress.done': '{done} مكتملة',
   'todo.progress.active': '{active} قيد التنفيذ',
@@ -295,6 +298,8 @@ export const ar = {
   'row.output': 'إخراج',
   'row.commandArguments': 'وسائط الأمر',
   'row.inspect': 'فحص',
+  'row.imageSize': '{width}x{height}px، {bytes} بايت',
+  'row.imageSizeDownscaled': '{width}x{height}px (مصغّرة من {originalWidth}x{originalHeight}px)، {bytes} بايت',
   'tool.title.search': 'بحث',
   'tool.title.read': 'قراءة',
   // Tool titles that name a program or a registered tool keep its own name.

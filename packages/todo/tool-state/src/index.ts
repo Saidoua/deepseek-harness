@@ -21,7 +21,7 @@ import { createUserMessage } from '@deepseek-ai/dsh-llm'
 import { SessionSeq, type UserMessage } from '@deepseek-ai/dsh-session'
 import { defineTool } from '@deepseek-ai/dsh-tools'
 // Type-only: resolves the required ctx.sessionProjections service declaration.
-import type {} from '@deepseek-ai/dsh-session-projection'
+import type { ProjectionHandle } from '@deepseek-ai/dsh-session-projection'
 // The `taskState` projection-key declaration lives in src/types.ts (its one
 // home); this re-export projects the type face onto the package root AND
 // keeps the module edge in the emitted index.d.ts, so aggregate programs
@@ -30,7 +30,7 @@ export type * from './types.ts'
 import type { StateValue, TaskState } from './types.ts'
 
 export const name = 'tool-state'
-export const inject = ['agents', 'tools', 'sessionProjections']
+export const inject = ['tools', 'sessionProjections']
 
 const DEFAULT_MAX_STATE_CHARS = 4000
 const DEFAULT_MAX_KEYS = 50
@@ -56,6 +56,9 @@ const taskStateSchema = zod.union([
   zod.null(),
   zod.record(zod.string(), zod.union([zod.string(), zod.array(zod.string())])),
 ])
+
+/** Reader for the `taskState` projection, captured when its registration resolves. */
+let taskStateHandle: ProjectionHandle<TaskState | null> | undefined
 
 /**
  * Pseudo-XML framing escape, mirroring the skill catalog's escapeText. The
@@ -161,9 +164,13 @@ function checkBudget(state: TaskState, config: { maxStateChars: number; maxKeys:
   }
 }
 
-/** Read the session's current working state from the projection. */
-function stateOf(ctx: Context, agent: Agent): TaskState {
-  return ctx.sessionProjections.stateOf(agent.session, 'taskState') ?? {}
+/**
+ * Read the session's current working state through the registration handle.
+ * The registry-level read is deprecated and untyped; the handle resolves within
+ * a microtask of `apply`, before any listener can observe a session.
+ */
+function stateOf(agent: Agent): TaskState {
+  return taskStateHandle?.stateOf(agent.session) ?? {}
 }
 
 /** Snapshot identity over the durable state content, not the rendered prose. */
@@ -278,7 +285,7 @@ export function apply(ctx: Context, config: Config = {}): void {
   // write and after the state is emptied. Unlike the todos projection this
   // deliberately does NOT reset at turn/start — the working state is the
   // session's cross-turn, compaction-surviving record.
-  ctx.sessionProjections.register<'taskState', TaskState | null>({
+  void ctx.sessionProjections.register<'taskState', TaskState | null>({
     key: 'taskState',
     stateSchema: taskStateSchema,
     init: () => null,
@@ -288,7 +295,7 @@ export function apply(ctx: Context, config: Config = {}): void {
     },
     wire: { viewSchema: taskStateSchema, view: state => state },
     stateVersion: 1,
-  })
+  }).then((handle) => { taskStateHandle = handle })
 
   ctx.tools.register(defineTool({
     name: 'state_write',
@@ -330,7 +337,7 @@ export function apply(ctx: Context, config: Config = {}): void {
         // session) has nowhere to write it. Reject rather than silently no-op.
         throw new Error('state_write requires an owning agent session')
       }
-      const current = stateOf(ctx, exec.agent)
+      const current = stateOf(exec.agent)
       const patch = toPatch(args.patch)
       const merged = mergeState(current, patch)
       checkBudget(merged, bounds)
@@ -357,7 +364,7 @@ export function apply(ctx: Context, config: Config = {}): void {
   ): Promise<PreStepDecision> => {
     const decision = await next()
     if (decision.kind === 'reject' || signal.aborted) return decision
-    const state = stateOf(ctx, agent)
+    const state = stateOf(agent)
     const digest = digestState(state)
     const history = stateHistory(agent)
     const existing = proposedStateMessage(decision.messages)

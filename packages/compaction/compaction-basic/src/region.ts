@@ -175,19 +175,22 @@ export function selectCompactableRange(
 
   // A span of only checkpoint summaries can never shrink — the replacement
   // is framed from the same content and the shrink guard would reject it
-  // after a wasted summarizer call. This is the steady state once the spared
-  // seed and the retained tail hold everything else.
-  let spanHasCompactableContent = false
-  for (let index = startIdx; index < keepFromIdx; index += 1) {
-    // oxlint-disable-next-line typescript/no-non-null-assertion, typescript/no-deprecated
-    const event = session.eventAt(surfaceNodes[index]!)
-    if (event === undefined || event.type !== 'user/message'
-      || !isCompactCheckpointSource(event.data.source)) {
-      spanHasCompactableContent = true
-      break
+  // after a wasted summarizer call. This steady state arises from seed
+  // sparing; without it (upstream's span, which every retry may legitimately
+  // re-enter) the ordinary shrink guard owns the outcome instead.
+  if (options.spareSeedUserTurn === true) {
+    let spanHasCompactableContent = false
+    for (let index = startIdx; index < keepFromIdx; index += 1) {
+      // oxlint-disable-next-line typescript/no-non-null-assertion, typescript/no-deprecated
+      const event = session.eventAt(surfaceNodes[index]!)
+      if (event === undefined || event.type !== 'user/message'
+        || !isCompactCheckpointSource(event.data.source)) {
+        spanHasCompactableContent = true
+        break
+      }
     }
+    if (!spanHasCompactableContent) return null
   }
-  if (!spanHasCompactableContent) return null
 
   // oxlint-disable-next-line typescript/no-non-null-assertion
   const start = surfaceNodes[startIdx]!

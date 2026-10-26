@@ -12,7 +12,6 @@ export const ar = {
   emptySearch: 'لا توجد إضافات مطابقة.',
   presetTitle: 'إضافات المحادثة',
   presetSubtitle: 'تُركَّب لكل محادثة عبر الإعدادات المسبقة للوكيل',
-  countUnit: 'إضافة',
   switcherLabel: 'اختر الإعداد المسبق للوكيل المراد فحصه',
   // {name} is the preset's own identifier or display name.
   presetOptionDefault: '{name} (الافتراضي)',
@@ -21,9 +20,7 @@ export const ar = {
   globalSubtitle: 'مشتركة بين النظام وكل المحادثات',
   presetProvidedDetail: 'معطّلة عمومًا؛ توفّرها الإعدادات المسبقة للوكيل لكل محادثة',
   enabledIn: 'مفعّلة في',
-  viewInPreset: 'العرض في مجموعة الإعداد المسبق',
   matchesInOtherPresets: '{count} مطابقة إضافية في إعدادات مسبقة أخرى: ',
-  failedCountLabel: 'فاشلة',
   enabledTag: 'مفعّلة',
   disabledTag: 'معطّلة',
   conditionalTag: 'مشروطة',

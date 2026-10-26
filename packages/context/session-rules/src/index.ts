@@ -21,7 +21,7 @@ import type { CommandInvocation, CommandResult } from '@deepseek-ai/dsh-commands
 import { createUserMessage } from '@deepseek-ai/dsh-llm'
 import { SessionSeq, type UserMessage } from '@deepseek-ai/dsh-session'
 import { defineTool } from '@deepseek-ai/dsh-tools'
-import type {} from '@deepseek-ai/dsh-session-projection'
+import type { ProjectionHandle } from '@deepseek-ai/dsh-session-projection'
 // The `sessionRules` projection-key declaration lives in src/types.ts (its
 // one home); this re-export projects the type face onto the package root AND
 // keeps the module edge in the emitted index.d.ts, so aggregate programs
@@ -29,7 +29,7 @@ import type {} from '@deepseek-ai/dsh-session-projection'
 export type * from './types.ts'
 
 export const name = 'session-rules'
-export const inject = ['agents', 'commands', 'tools', 'sessionProjections']
+export const inject = ['commands', 'tools', 'sessionProjections']
 
 const DEFAULT_MAX_RULES = 20
 const DEFAULT_MAX_RULE_CHARS = 500
@@ -58,18 +58,21 @@ const sessionRulesStateSchema = zod.object({
   rules: zod.array(zod.string()),
 })
 
+/** Reader for the `sessionRules` projection, captured when its registration resolves. */
+let sessionRulesHandle: ProjectionHandle<{ rules: string[] }> | undefined
+
 /** Pseudo-XML framing escape, mirroring the skill catalog's escapeText. */
 function escapeText(value: string): string {
   return value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;')
 }
 
 /**
- * Read the session's current pinned-rule list from the projection. The cast
- * records the zod schema's guarantee (string array); an unreadable cell falls
- * back to empty rather than throwing inside a step listener.
+ * Read the session's current pinned-rule list through the registration handle.
+ * The registry-level read is deprecated and untyped; the handle resolves within
+ * a microtask of {@link apply}, before any listener can observe a session.
  */
-function rulesOf(ctx: Context, agent: Agent): readonly string[] {
-  return ctx.sessionProjections.stateOf(agent.session, 'sessionRules')?.rules ?? []
+function rulesOf(agent: Agent): readonly string[] {
+  return sessionRulesHandle?.stateOf(agent.session).rules ?? []
 }
 
 /** List identity over the durable rule texts, not the rendered prose. */
@@ -205,17 +208,16 @@ function renderList(rules: readonly string[]): string {
 
 /** Execute one `/rule` invocation against the invocating agent's session. */
 function executeRuleCommand(
-  ctx: Context,
   invocation: CommandInvocation,
   config: { maxRules: number; maxRuleChars: number },
 ): CommandResult {
   const agent = invocation.agent
   const rawInput = invocation.rawInput.trim()
   if (rawInput === 'list' || rawInput === '') {
-    const rules = rulesOf(ctx, agent)
+    const rules = rulesOf(agent)
     return { kind: rawInput === 'list' ? 'success' : 'error', text: rawInput === 'list' ? renderList(rules) : USAGE }
   }
-  const current = rulesOf(ctx, agent)
+  const current = rulesOf(agent)
   const removal = REMOVE_RE.exec(rawInput)
   try {
     if (removal !== null) {
@@ -253,7 +255,7 @@ export function apply(ctx: Context, config: Config = {}): void {
   const maxRuleChars = config.maxRuleChars ?? DEFAULT_MAX_RULE_CHARS
   const bounds = { maxRules, maxRuleChars }
 
-  ctx.sessionProjections.register<'sessionRules', { rules: string[] }>({
+  void ctx.sessionProjections.register<'sessionRules', { rules: string[] }>({
     key: 'sessionRules',
     stateSchema: sessionRulesStateSchema,
     init: () => ({ rules: [] }),
@@ -270,14 +272,16 @@ export function apply(ctx: Context, config: Config = {}): void {
     },
     wire: { viewSchema: sessionRulesStateSchema, view: state => state },
     stateVersion: 1,
-  })
+  }).then((handle) => { sessionRulesHandle = handle })
 
-  ctx.commands.register({
-    name: 'rule',
-    description: 'Pin a standing session rule (survives compaction verbatim)',
-    handler: (invocation: CommandInvocation): CommandResult =>
-      executeRuleCommand(ctx, invocation, bounds),
-  })
+  ctx.effect(function* () {
+    yield ctx.commands.register({
+      name: 'rule',
+      description: 'Pin a standing session rule (survives compaction verbatim)',
+      handler: (invocation: CommandInvocation): CommandResult =>
+        executeRuleCommand(invocation, bounds),
+    })
+  }, 'session-rules command lifecycle')
 
   ctx.tools.register(defineTool({
     name: 'rule_pin',
@@ -315,13 +319,13 @@ export function apply(ctx: Context, config: Config = {}): void {
         // nowhere to write them. Reject rather than silently no-op.
         throw new Error('rule_pin requires an owning agent session')
       }
-      const current = rulesOf(ctx, exec.agent)
+      const current = rulesOf(exec.agent)
       const text = validatePin(args.text, current, bounds)
       if (current.includes(text)) {
         return Promise.resolve({ pinned: '', rules: [...current], count: current.length })
       }
       exec.agent.session.append('rule/pin', { text, origin: 'model' })
-      const rules = rulesOf(ctx, exec.agent)
+      const rules = rulesOf(exec.agent)
       return Promise.resolve({ pinned: text, rules: [...rules], count: rules.length })
     },
     presentCall: args => ({ card: 'generic', title: 'Pin session rule', kind: 'other', rawInput: args.text }),
@@ -339,7 +343,7 @@ export function apply(ctx: Context, config: Config = {}): void {
   ): Promise<PreStepDecision> => {
     const decision = await next()
     if (decision.kind === 'reject' || signal.aborted) return decision
-    const rules = rulesOf(ctx, agent)
+    const rules = rulesOf(agent)
     const digest = digestRules(rules)
     const history = rulesHistory(agent)
     const existing = proposedRulesMessage(decision.messages)

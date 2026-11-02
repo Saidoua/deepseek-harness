@@ -17,7 +17,6 @@ export const ar = {
   'preview.loading': 'جارٍ تحميل الخطة…',
   'preview.failed': 'تعذّر تحميل الخطة',
   'preview.invalidAddress': 'عنوان الخطة غير صالح',
-  'preview.historyUnavailable': 'سجل المحادثة غير متاح',
   'preview.notFound': 'لم يُعثر على هذه الخطة',
   'preview.unavailable': 'معاينة الخطة غير متاحة',
   'preview.expired': 'انتهت صلاحية معاينة الخطة المؤقتة هذه. أعد فتحها من بطاقة المراجعة المعلّقة.',

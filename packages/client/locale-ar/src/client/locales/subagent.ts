@@ -44,5 +44,6 @@ export const ar = {
   'readonly.body': 'المحادثة الأم غير متصلة؛ أعد فتحها لمتابعة إرسال الرسائل.',
   'open.sidebar': 'فتح {label} في الشريط الجانبي',
   'open.sidebar.aria': 'فتح {label} في الشريط الجانبي',
+  'open.floatWindow': 'فتح في لوحة عائمة',
   'sidebar.chat': 'المحادثة',
 } satisfies Record<SubagentKey, string>

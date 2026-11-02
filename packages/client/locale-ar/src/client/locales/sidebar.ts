@@ -11,5 +11,6 @@ export const ar = {
   'toggle.collapse': 'طي الشريط الجانبي',
   'panels.label': 'اللوحات العامة',
   'panels.more': 'المزيد',
+  'navigation.label': 'التنقل',
   'version.copied': 'نُسخ رقم الإصدار',
 } satisfies Record<SidebarKey, string>

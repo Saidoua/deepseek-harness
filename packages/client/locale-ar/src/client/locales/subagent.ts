@@ -4,6 +4,12 @@ import type { SubagentKey } from '@deepseek-ai/dsh-client-ui-subagent/src/client
 // Count keys share one count-neutral wording; see the job namespace.
 /** Arabic dictionary, checked complete against the `subagent` key set. */
 export const ar = {
+  'section.title': 'الوكلاء الفرعيون',
+  'section.empty': 'لا توجد وكلاء فرعيون',
+  'progress.completed': '{count} مكتمل',
+  'progress.active': '{count} قيد التشغيل',
+  'progress.inactive': '{count} لا يعمل',
+  'progress.external': '{count} مهمة خارجية',
   'duration.seconds': '{seconds} ث',
   'duration.minutes': '{minutes} د {seconds} ث',
   'duration.hours': '{hours} س {minutes} د {seconds} ث',
@@ -41,8 +47,8 @@ export const ar = {
   'readonly.oneShot.title': 'سجل وكيل فرعي لمرة واحدة',
   'readonly.title': 'هذا الوكيل الفرعي للقراءة فقط حاليًا',
   'readonly.oneShot.body': 'لا تقبل المهام لمرة واحدة رسائل متابعة؛ راجع سجل التنفيذ الكامل هنا.',
-  'readonly.body': 'المحادثة الأم غير متصلة؛ أعد فتحها لمتابعة إرسال الرسائل.',
   'open.sidebar': 'فتح {label} في الشريط الجانبي',
   'open.sidebar.aria': 'فتح {label} في الشريط الجانبي',
+  'open.floatWindow': 'فتح في لوحة عائمة',
   'sidebar.chat': 'المحادثة',
 } satisfies Record<SubagentKey, string>

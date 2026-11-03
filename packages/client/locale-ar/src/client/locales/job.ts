@@ -5,8 +5,6 @@ import type { JobKey } from '@deepseek-ai/dsh-client-ui-jobs/src/client/locales.
 // template, so the two count keys share one count-neutral wording.
 /** Arabic dictionary, checked complete against the `job` key set. */
 export const ar = {
-  'count.live.one': '{count} مهمة خلفية قيد التشغيل',
-  'count.live.other': '{count} مهمة خلفية قيد التشغيل',
   'count.idle.one': '{count} مهمة خلفية',
   'count.idle.other': '{count} مهمة خلفية',
   'list.aria': 'المهام الخلفية',

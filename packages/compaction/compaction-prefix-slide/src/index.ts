@@ -24,7 +24,7 @@
  */
 
 import BasicCompactionEngine from '@deepseek-ai/dsh-compaction-basic'
-import type { SummarizationInput, SummaryResult } from '@deepseek-ai/dsh-compaction-basic/src/summarizer.ts'
+import type { SummarizationInput, SummaryResult } from '@deepseek-ai/dsh-compaction-basic'
 import type { Agent } from '@deepseek-ai/dsh-agent'
 
 export const name = 'compaction-prefix-slide'

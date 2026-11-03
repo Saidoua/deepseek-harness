@@ -33,6 +33,8 @@ export const ar = {
   'more': 'المزيد',
   'collapse': 'طي',
   'expand': 'توسيع',
+  'subtitle.expand': 'توسيع وصف {name}',
+  'subtitle.collapse': 'طي وصف {name}',
   'back': 'رجوع',
   // A build label, not a sentence: the product name stays Latin so it matches
   // the binary, the docs, and what a user types to launch it.

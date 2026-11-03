@@ -10,6 +10,9 @@ export const ar = {
   'toggle.open': 'فتح الشريط الجانبي',
   'toggle.collapse': 'طي الشريط الجانبي',
   'panels.label': 'اللوحات العامة',
+  'panels.unpinTooltip': 'إلغاء التثبيت من الشريط الجانبي الأيسر',
+  'panels.unpin': 'إلغاء تثبيت {name} من الشريط الجانبي',
+  'navigation.label': 'التنقل',
   'panels.more': 'المزيد',
   'version.copied': 'نُسخ رقم الإصدار',
 } satisfies Record<SidebarKey, string>

@@ -34,6 +34,8 @@ export const ar = {
   'message.stepProcess.done.thinking': 'اكتمل التحليل',
   'message.stepProcess.done.read': 'قرأ الملفات',
   'message.stepProcess.done.readImage': 'قرأ الصور',
+  'message.stepProcess.done.context': 'أدمج السياق',
+  'message.continuation.requested': 'طُلب مواصلة التوليد',
   'message.stepProcess.done.write': 'كتب الملفات',
   'image.open': 'عرض الصورة كاملة',
   'image.loading': 'جارٍ تحميل الصورة…',

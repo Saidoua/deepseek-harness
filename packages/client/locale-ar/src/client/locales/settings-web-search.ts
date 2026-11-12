@@ -38,4 +38,12 @@ export const ar = {
   saveFailed: 'لم يقبل النشر هذه القيم، وتُركت لك لتصحيحها.',
   invalidNumber: 'أدخل رقمًا، أو اترك الحقل فارغًا لاستخدام الافتراضي.',
   invalidCount: 'أدخل عددًا صحيحًا من 1 إلى 50، أو اترك الحقل فارغًا لاستخدام الافتراضي.',
+  billing: 'الفوترة',
+  billingAuto: 'تلقائي',
+  billingAutoHint: 'يتبع هذا الخيار حساب DeepSeek أو مفتاح الواجهة البرمجية الخاصين بالمحادثة؛ ومع النماذج الأخرى يُستخدم مفتاح الواجهة البرمجية أولًا ثم الحساب المسجّل للدخول.',
+  billingAccount: 'حساب DeepSeek المسجّل للدخول',
+  billingAccountHint: 'يتطلب تسجيل الدخول إلى DeepSeek.',
+  billingApiKey: 'مفتاح واجهة DeepSeek البرمجية',
+  billingApiKeyHint: 'يستخدم مفتاح الواجهة البرمجية من صفحة «النماذج»؛ عيّن مفتاحًا أولًا.',
+  billingAdvancedOverride: 'مُتجاوَز بواسطة {fields}',
 } satisfies Record<WebSearchSettingsLocaleKey, string>

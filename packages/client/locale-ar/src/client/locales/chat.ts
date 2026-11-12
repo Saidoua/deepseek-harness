@@ -97,6 +97,10 @@ export const ar = {
   // {message} and {code} carry the provider's own diagnostic verbatim.
   'chat.loadError': 'تعذّر تحميل السجل: {message} ({code})',
   'chat.loadOlder': 'تحميل الأقدم',
+  'chat.loadingOlder': 'جارٍ تحميل الأقدم',
+  'chat.processingOlder': 'جارٍ المعالجة',
+  'chat.retryOlder': 'إعادة محاولة التحميل',
+  'chat.historyStart': 'بداية المحادثة',
   'chat.toBottom': 'العودة إلى الأسفل',
   'chat.deepDiving': 'جارٍ التعمّق في التحليل...',
   'chat.deepDivingFor': 'جارٍ التعمّق في التحليل منذ {duration}...',

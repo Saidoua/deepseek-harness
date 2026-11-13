@@ -4,8 +4,7 @@ import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { describe, expect, it } from 'vitest'
-import * as yaml from 'js-yaml'
-import { entryListSchema } from '@deepseek-ai/cordis-plugin-include'
+import { parseEntryYaml } from '@deepseek-ai/cordis-plugin-include'
 import { deriveStandardPlus } from '../src/gen-standard-plus.ts'
 
 const root = fileURLToPath(new URL('..', import.meta.url))
@@ -34,7 +33,7 @@ describe('Web extras bundle', () => {
   })
 
   it('inserts skill-stats and the Arabic pack, and makes Standard + the default preset', () => {
-    const patch = yaml.load(read('cordis.patch.yml'), { schema: entryListSchema })
+    const patch = parseEntryYaml(read('cordis.patch.yml'))
     expect(patch).toEqual([
       { insert: [
         { id: 'skill-stats', name: '@deepseek-ai/dsh-skill-stats' },

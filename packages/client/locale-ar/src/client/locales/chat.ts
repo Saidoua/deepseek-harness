@@ -36,6 +36,7 @@ export const ar = {
   'message.stepProcess.done.readImage': 'قرأ الصور',
   'message.stepProcess.done.context': 'أدمج السياق',
   'message.continuation.requested': 'طُلب مواصلة التوليد',
+  'message.inheritedHistory': 'تاريخ موروث في الأعلى',
   'message.stepProcess.done.write': 'كتب الملفات',
   'image.open': 'عرض الصورة كاملة',
   'image.loading': 'جارٍ تحميل الصورة…',

@@ -4,8 +4,7 @@ import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { describe, expect, it } from 'vitest'
-import * as yaml from 'js-yaml'
-import { entryListSchema } from '@deepseek-ai/cordis-plugin-include'
+import { parseEntryYaml } from '@deepseek-ai/cordis-plugin-include'
 
 const root = fileURLToPath(new URL('..', import.meta.url))
 const WEB_GUARD = "ctx.get('profileContext')?.startedBundles.includes('@deepseek-ai/dsh-web-app') ?? false"
@@ -21,7 +20,7 @@ function expressionOf(value: unknown): string | undefined {
 
 describe('terminal extras bundle', () => {
   const manifest = JSON.parse(readFileSync(resolve(root, 'package.json'), 'utf8')) as Manifest
-  const patch = yaml.load(readFileSync(resolve(root, 'cordis.patch.yml'), 'utf8'), { schema: entryListSchema }) as Array<Row & { insert?: Row[] }>
+  const patch = parseEntryYaml(readFileSync(resolve(root, 'cordis.patch.yml'), 'utf8')) as Array<Row & { insert?: Row[] }>
 
   it('disables the in-box search row by id and inserts the fork rows', () => {
     expect(patch[0]).toEqual({ id: 'tool-fs-search', disabled: true })

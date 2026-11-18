@@ -1,15 +1,19 @@
 /** `subagent` namespace: the subagent tree, durations, and read-only notices. */
 import type { SubagentKey } from '@deepseek-ai/dsh-client-ui-subagent/src/client/locales.ts'
 
-// Count keys share one count-neutral wording; see the job namespace.
 /** Arabic dictionary, checked complete against the `subagent` key set. */
 export const ar = {
   'section.title': 'الوكلاء الفرعيون',
-  'section.empty': 'لا توجد وكلاء فرعيون',
+  'indicator.running': 'الوكلاء الفرعيون قيد التشغيل: {count}',
   'progress.completed': '{count} مكتمل',
   'progress.active': '{count} قيد التشغيل',
   'progress.inactive': '{count} لا يعمل',
   'progress.external': '{count} مهمة خارجية',
+  // Count-neutral: the runtime interpolates a Western digit without plural
+  // categories, so the fold keys read the same at every count.
+  'list.more': 'عرض {count} وكيل فرعي إضافي',
+  'list.less': 'عرض أقل',
+  'list.foldName': '{label} (وكلاء فرعيون)',
   'duration.seconds': '{seconds} ث',
   'duration.minutes': '{minutes} د {seconds} ث',
   'duration.hours': '{hours} س {minutes} د {seconds} ث',
@@ -20,10 +24,10 @@ export const ar = {
   'duration.years': '~{years} سنة',
   'duration.yearsMonths': '~{years} سنة {months} ش',
   'duration.exactDays': '{days} ي {hours} س {minutes} د {seconds} ث',
-  'duration.exactTitle': 'إجمالي المدة النشطة: {duration}',
   'tokens.thousand': '{value} ألف',
   'tokens.million': '{value} مليون',
   'tokens.total': '{value} رمز',
+  'hover.owner': 'المالك: {name}',
   'loading.label': 'جارٍ تحميل الوكلاء الفرعيين…',
   'load.idle': 'لم تُحمَّل الوكلاء الفرعيون',
   'load.error': 'تعذّر تحميل الوكلاء الفرعيين',
@@ -38,10 +42,6 @@ export const ar = {
   'activity.inactive': 'لا يعمل',
   'branch.collapse': 'طي فروع {label}',
   'branch.expand': 'توسيع فروع {label}',
-  'count.total.one': '{count} وكيل فرعي',
-  'count.total.other': '{count} وكيل فرعي',
-  'count.running.one': '{count} وكيل فرعي قيد التشغيل',
-  'count.running.other': '{count} وكيل فرعي قيد التشغيل',
   'switcher.aria': 'تبديل الوكيل الفرعي: {title}',
   'tree.aria': 'محادثات الوكلاء الفرعيين',
   'readonly.oneShot.title': 'سجل وكيل فرعي لمرة واحدة',

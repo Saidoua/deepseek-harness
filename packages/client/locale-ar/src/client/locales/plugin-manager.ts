@@ -4,6 +4,11 @@ import type { PluginManagerLocaleKey } from '@deepseek-ai/dsh-client-ui-plugin-m
 /** Arabic dictionary, checked complete against the `pluginManager` key set. */
 export const ar = {
   panel: 'الإضافات',
+  // The settings navigation entry shares the panel's own name.
+  settingsEntry: 'الإضافات',
+  clientSyncing: 'جارٍ مزامنة إضافات هذه الصفحة…',
+  clientSyncFailed: 'تعذّرت مزامنة بعض الإضافات على هذه الصفحة. حالة التفعيل لدى المضيف لم تتغيّر.',
+  clientSyncRetry: 'إعادة محاولة هذه الصفحة',
   title: 'الإضافات',
   intro: 'أضف الإضافات وأدِرها',
   infoLabel: 'حول الإضافات',

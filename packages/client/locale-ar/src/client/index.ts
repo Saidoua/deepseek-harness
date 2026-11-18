@@ -47,8 +47,6 @@ import { ar as settingsAgentPreset } from './locales/settings-agent-preset.ts'
 import { ar as settingsLocale } from './locales/settings-locale.ts'
 import { ar as settingsModels } from './locales/settings-models.ts'
 import { ar as settingsPermission } from './locales/settings-permission.ts'
-import { ar as settingsPluginInventory } from './locales/settings-plugin-inventory.ts'
-import { ar as settingsPlugins } from './locales/settings-plugins.ts'
 import { ar as settingsSessionLog } from './locales/settings-session-log.ts'
 import { ar as settingsShell } from './locales/settings-shell.ts'
 import { ar as settingsSubagent } from './locales/settings-subagent.ts'
@@ -114,8 +112,6 @@ const DICTIONARIES: Readonly<Record<string, Readonly<Record<string, string>>>> =
   'settings.locale': settingsLocale,
   'settings.models': settingsModels,
   'settings.permission': settingsPermission,
-  'settings.pluginInventory': settingsPluginInventory,
-  'settings.plugins': settingsPlugins,
   'settings.sessionLog': settingsSessionLog,
   'settings.shell': settingsShell,
   'settings.subagent': settingsSubagent,

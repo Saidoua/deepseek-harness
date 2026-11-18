@@ -1,19 +1,23 @@
 /** `job` namespace: the background-job list and its durations. */
 import type { JobKey } from '@deepseek-ai/dsh-client-ui-jobs/src/client/locales.ts'
 
-// Arabic has six plural categories and the runtime interpolates a flat
-// template, so the two count keys share one count-neutral wording.
 /** Arabic dictionary, checked complete against the `job` key set. */
 export const ar = {
-  'count.idle.one': '{count} مهمة خلفية',
-  'count.idle.other': '{count} مهمة خلفية',
   'list.aria': 'المهام الخلفية',
-  'section.live': 'قيد التشغيل',
+  'indicator.running': 'المهام الخلفية قيد التشغيل: {count}',
   'section.settledCount': 'منتهية: {count}',
   'section.clear': 'مسح',
+  // Count-neutral: the runtime interpolates a Western digit without plural
+  // categories, so the more/fold keys read the same at every count.
+  'live.more': 'عرض {count} مهمة إضافية قيد التشغيل',
+  'live.foldName': '{label} (مهام خلفية قيد التشغيل)',
+  'settled.more': 'عرض {count} مهمة إضافية منتهية',
+  'settled.foldName': '{label} (مهام خلفية منتهية)',
+  'fold.less': 'عرض أقل',
   'row.expandAria': 'عرض المخرجات المباشرة للمهمة {label}',
   'row.collapseAria': 'إخفاء المخرجات المباشرة للمهمة {label}',
-  'kill.stop': 'إيقاف المهمة {label}',
+  'kill.stop': 'إيقاف المهمة',
+  'kill.stopAria': 'إيقاف المهمة {label}',
   'kill.confirm': 'انقر مجددًا للتأكيد',
   'kill.confirmAction': 'تأكيد الإيقاف',
   'kill.failed': 'فشل الإيقاف',
@@ -25,8 +29,6 @@ export const ar = {
   'duration.seconds': '{seconds} ث',
   'duration.minutes': '{minutes} د {seconds} ث',
   'duration.hours': '{hours} س {minutes} د',
-  'duration.title.live': 'قيد التشغيل منذ {duration}',
-  'duration.title.done': 'استغرقت {duration}',
   'output.gap': '… أُسقطت مخرجات سابقة …',
   // {error} carries the stream's own diagnostic and renders verbatim.
   'output.error': 'انقطع مجرى المخرجات المباشرة: {error}',

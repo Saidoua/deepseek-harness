@@ -3,6 +3,8 @@ import type { ReferenceKey } from '@deepseek-ai/dsh-client-ui-reference/src/clie
 
 /** Arabic dictionary, checked complete against the `reference` key set. */
 export const ar = {
+  'menu.addToChat': 'إضافة إلى المحادثة',
+  'menu.addToChatFailed': 'تعذّرت إضافة الملف. عُد إلى المحادثة وحاول مجددًا.',
   'section.files': 'الملفات والمجلدات',
   'section.sessions': 'المحادثات',
   'candidate.noCwd': '(بدون مجلد عمل)',

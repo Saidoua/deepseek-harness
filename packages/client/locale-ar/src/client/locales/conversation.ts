@@ -42,6 +42,7 @@ export const ar = {
   'attachment.pathUnavailable': 'تعذّر الحصول على مسار المجلد؛ اسحبه إلى هنا مجددًا',
   'attachment.pathUnsupported': 'يحتوي المسار على أحرف لا يستطيع المرجع حملها؛ أعد تسميته وحاول مجددًا',
   'image.pending': 'صور قيد الانتظار',
+  'attachments.unavailable': 'بعض مرفقات المسودة لم تعد متاحة؛ أعد إضافتها',
   'image.openOriginal': 'عرض الأصل',
   'image.openOriginalLabel': '{label}، انقر لعرض الأصل',
   'image.remove': 'إزالة الصورة {name}',

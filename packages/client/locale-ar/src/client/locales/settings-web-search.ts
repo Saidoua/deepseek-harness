@@ -45,5 +45,6 @@ export const ar = {
   billingAccountHint: 'يتطلب تسجيل الدخول إلى DeepSeek.',
   billingApiKey: 'مفتاح واجهة DeepSeek البرمجية',
   billingApiKeyHint: 'يستخدم مفتاح الواجهة البرمجية من صفحة «النماذج»؛ عيّن مفتاحًا أولًا.',
+  searchAutoHint: 'يتبع نموذج المحادثة: نماذج DeepSeek تستخدم بحث DeepSeek من جانب الخادم وهو بلا تكلفة لكل عملية بحث؛ النماذج الأخرى تستخدم DeepSeek Search API.',
   billingAdvancedOverride: 'مُتجاوَز بواسطة {fields}',
 } satisfies Record<WebSearchSettingsLocaleKey, string>

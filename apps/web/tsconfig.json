@@ -272,7 +272,11 @@
     "tests/pwsh-terminal.e2e.ts",
     "tests/workflow-run.e2e.ts",
     "tests/text-direction-zones.e2e.ts",
-    "tests/arabic-language-pack.e2e.ts"
+    "tests/arabic-language-pack.e2e.ts",
+    "tests/linear-connection.e2e.ts",
+    "tests/linear-oauth-fixture.ts",
+    "tests/notion-connection.e2e.ts",
+    "tests/notion-oauth-fixture.ts"
   ],
   "references": [
     { "path": "../../packages/experimental/auto-review" },

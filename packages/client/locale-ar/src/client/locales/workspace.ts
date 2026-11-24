@@ -39,6 +39,8 @@ export const ar = {
   'search.pending': 'جارٍ البحث في سجل المحادثات…',
   'search.noMatches': 'لا توجد محادثات مطابقة',
   'search.hasMore': 'تُعرض أول {n} نتيجة. ضيّق نطاق البحث.',
+  'picker.search': 'البحث في مساحات العمل',
+  'picker.noResults': 'لا مساحات عمل مطابقة',
   'menu.markRead': 'وضع علامة مقروء',
   'menu.markUnread': 'وضع علامة غير مقروء',
   'menu.addWorkspace': 'إضافة مساحة عمل…',

@@ -274,14 +274,12 @@ export function apply(ctx: Context, config: Config = {}): void {
     stateVersion: 1,
   }).then((handle) => { sessionRulesHandle = handle })
 
-  ctx.effect(function* () {
-    yield ctx.commands.register({
-      name: 'rule',
-      description: 'Pin a standing session rule (survives compaction verbatim)',
-      handler: (invocation: CommandInvocation): CommandResult =>
-        executeRuleCommand(invocation, bounds),
-    })
-  }, 'session-rules command lifecycle')
+  ctx.commands.register({
+    name: 'rule',
+    description: 'Pin a standing session rule (survives compaction verbatim)',
+    handler: (invocation: CommandInvocation): CommandResult =>
+      executeRuleCommand(invocation, bounds),
+  })
 
   ctx.tools.register(defineTool({
     name: 'rule_pin',

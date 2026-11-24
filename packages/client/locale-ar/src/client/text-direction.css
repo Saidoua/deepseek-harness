@@ -50,6 +50,9 @@
 
 /* Source text, command output, diffs, file content and structured data keep
    their column order: the left edge is part of what they mean. */
+/* css-selector-gate: the rightmost compounds name upstream-owned markup we do not
+   control; several carry no stable class or data attribute of their own, and the
+   tree variant must stay :has()-shaped because only its children are keyed. */
 :root[data-dsh-text-direction='rtl'] :is(
   pre,
   .md-code-block,

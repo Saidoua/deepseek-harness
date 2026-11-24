@@ -29,11 +29,7 @@ async function setup(config: sessionRules.Config = {}): Promise<Context> {
   await ctx.plugin(CommandRuntime)
   await ctx.plugin(AgentRegistry)
   await ctx.plugin(SessionProjectionRegistry)
-  try {
-    await ctx.plugin(sessionRules, config)
-  } catch (e) {
-    throw e
-  }
+  await ctx.plugin(sessionRules, config)
   return ctx
 }
 
@@ -53,7 +49,8 @@ function sessionAgent(session: Session, id = 'session-rules-agent'): Agent {
     runMaintenance: <T>(task: (signal: AbortSignal) => Promise<T>) => task(new AbortController().signal),
     whenIdle: () => Promise.resolve(),
   }
-  return stub as Agent
+  const agent = stub as Agent
+  return agent
 }
 
 function openSession(id = 'rules'): { agent: Agent; session: Session } {

@@ -29,6 +29,9 @@ async function setup(config: toolState.Config = {}): Promise<Context> {
   await ctx.plugin(AgentRegistry)
   await ctx.plugin(SessionProjectionRegistry)
   await ctx.plugin(toolState, config)
+  // cordis 4.2 defers ctx.effect generators until a fiber starts; mounting a
+  // no-op plugin that awaits a service starts one and flushes the queue.
+  await ctx.plugin(Object.assign(() => {}, { inject: ['tools'] }))
   return ctx
 }
 

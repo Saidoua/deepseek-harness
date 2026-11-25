@@ -30,6 +30,9 @@ async function setup(config: sessionRules.Config = {}): Promise<Context> {
   await ctx.plugin(AgentRegistry)
   await ctx.plugin(SessionProjectionRegistry)
   await ctx.plugin(sessionRules, config)
+  // cordis 4.2 defers ctx.effect generators until a fiber starts; mounting a
+  // no-op plugin that awaits a service starts one and flushes the queue.
+  await ctx.plugin(Object.assign(() => {}, { inject: ['commands'] }))
   return ctx
 }
 
